@@ -2,18 +2,37 @@ package by.epam.vasilevsky.exchanger.datamodel;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
 
 @Entity
 public class UserProfile extends AbstractModel {
-
+	@Column
 	private String lastName;
+	@Column
 	private String firstName;
+	@Column
 	private String patronymic;
+	@Column
 	private String numberPassport;
+	@Column
 	private Date dateIssue;
+	@Column
 	private String issued;
+	
+	
+	
+	@MapsId
+    @OneToOne(fetch = FetchType.LAZY, optional = false, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinColumn(nullable = false, updatable = false, name = "id")
 	private UserCredentials userCredentials;
+	
+	@Column
 	private Date created;
 
 	public Date getCreated() {
