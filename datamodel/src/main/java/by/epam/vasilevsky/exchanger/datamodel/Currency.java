@@ -14,10 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 @Entity
-public class Currency extends AbstractModel {
-	
-	@OneToMany(mappedBy = "currency", fetch = FetchType.LAZY)
-    private List<ExchangeRate> exchangeRate;
+public class Currency extends AbstractModel {	
 	@Column
 	@Enumerated(value = EnumType.STRING)
 	private CurrencyName name;
@@ -25,6 +22,8 @@ public class Currency extends AbstractModel {
     @OneToOne(fetch = FetchType.LAZY, optional = false, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinColumn(nullable = false, updatable = false, name = "id")
 	private Balance balance;
+	@OneToMany(mappedBy = "currency", fetch = FetchType.LAZY)
+    private List<ExchangeRate> exchangeRate;
 	
 	public List<ExchangeRate> getExchangeRate() {
 		return exchangeRate;

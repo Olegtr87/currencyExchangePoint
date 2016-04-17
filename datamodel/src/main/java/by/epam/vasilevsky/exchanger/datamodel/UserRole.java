@@ -1,7 +1,5 @@
 package by.epam.vasilevsky.exchanger.datamodel;
 
-public enum UserRole {
-	
+public enum UserRole {	
 	Administrator, Client
-
 }

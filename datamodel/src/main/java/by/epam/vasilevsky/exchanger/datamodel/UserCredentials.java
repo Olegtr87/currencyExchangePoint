@@ -1,13 +1,9 @@
 package by.epam.vasilevsky.exchanger.datamodel;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
 
 @Entity
 public class UserCredentials extends AbstractModel {
@@ -17,17 +13,7 @@ public class UserCredentials extends AbstractModel {
 	private String password;
 	@Column
 	@Enumerated(value = EnumType.STRING)
-	private UserRole role;
-	@OneToMany(mappedBy = "user_credentials", fetch = FetchType.LAZY)
-    private List<Transaction> transaction;
-	
-	public List<Transaction> getTransaction() {
-		return transaction;
-	}
-
-	public void setTransaction(List<Transaction> transaction) {
-		this.transaction = transaction;
-	}
+	private UserRole role;	
 
 	public String getLogin() {
 		return login;

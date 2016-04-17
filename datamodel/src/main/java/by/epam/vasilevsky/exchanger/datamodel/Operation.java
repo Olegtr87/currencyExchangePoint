@@ -1,11 +1,7 @@
 package by.epam.vasilevsky.exchanger.datamodel;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
 
 @Entity
 public class Operation extends AbstractModel {
@@ -15,16 +11,6 @@ public class Operation extends AbstractModel {
 	private Boolean statusBlock;
 	@Column
 	private Double tax;
-	@OneToMany(mappedBy = "operation", fetch = FetchType.LAZY)
-    private List<Transaction> transaction;
-
-	public List<Transaction> getTransaction() {
-		return transaction;
-	}
-
-	public void setTransaction(List<Transaction> transaction) {
-		this.transaction = transaction;
-	}
 
 	public String getName() {
 		return name;
