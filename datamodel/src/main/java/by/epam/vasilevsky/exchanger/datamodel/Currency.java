@@ -22,16 +22,16 @@ public class Currency extends AbstractModel {
     @OneToOne(fetch = FetchType.LAZY, optional = false, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinColumn(nullable = false, updatable = false, name = "id")
 	private Balance balance;
-	@OneToMany(mappedBy = "currency", fetch = FetchType.LAZY)
-    private List<ExchangeRate> exchangeRate;
-	
-	public List<ExchangeRate> getExchangeRate() {
-		return exchangeRate;
-	}
-
-	public void setExchangeRate(List<ExchangeRate> exchangeRate) {
-		this.exchangeRate = exchangeRate;
-	}
+//	@OneToMany(mappedBy = "currency", fetch = FetchType.LAZY)
+//    private List<ExchangeRate> exchangeRate;
+//	
+//	public List<ExchangeRate> getExchangeRate() {
+//		return exchangeRate;
+//	}
+//
+//	public void setExchangeRate(List<ExchangeRate> exchangeRate) {
+//		this.exchangeRate = exchangeRate;
+//	}
 
 	public Balance getBalance() {
 		return balance;
