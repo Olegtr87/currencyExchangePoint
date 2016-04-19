@@ -31,16 +31,16 @@ public class UserProfile extends AbstractModel {
 	private UserCredentials userCredentials;	
 	@Column
 	private Date created;
-//	@OneToMany(mappedBy = "user_profile", fetch = FetchType.LAZY)
-//    private List<Transaction> transaction;
-//	
-//	public List<Transaction> getTransaction() {
-//		return transaction;
-//	}
-//
-//	public void setTransaction(List<Transaction> transaction) {
-//		this.transaction = transaction;
-//	}
+	@OneToMany(mappedBy = "userProfile", fetch = FetchType.LAZY)
+    private List<Transaction> transaction;
+	
+	public List<Transaction> getTransaction() {
+		return transaction;
+	}
+
+	public void setTransaction(List<Transaction> transaction) {
+		this.transaction = transaction;
+	}
 
 	public Date getCreated() {
 		return created;

@@ -13,7 +13,7 @@ public class ExchangeRate extends AbstractModel {
 	@Column
 	private Date dateCourse;
 	@ManyToOne(targetEntity = Currency.class, fetch = FetchType.LAZY)
-	private Currency currencyIdFrom;
+	private Currency currency;
 	@ManyToOne(targetEntity = Currency.class, fetch = FetchType.LAZY)
 	private Currency currencyIdTo;
 
@@ -34,11 +34,11 @@ public class ExchangeRate extends AbstractModel {
 	}
 
 	public Currency getCurrencyIdFrom() {
-		return currencyIdFrom;
+		return currency;
 	}
 
 	public void setCurrencyIdFrom(Currency currencyIdFrom) {
-		this.currencyIdFrom = currencyIdFrom;
+		this.currency = currencyIdFrom;
 	}
 
 	public Currency getCurrencyIdTo() {
