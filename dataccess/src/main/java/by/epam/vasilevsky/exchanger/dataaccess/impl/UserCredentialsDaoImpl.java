@@ -6,18 +6,12 @@ import by.epam.vasilevsky.exchanger.dataaccess.UserCredentialsDao;
 import by.epam.vasilevsky.exchanger.datamodel.UserCredentials;
 
 @Repository
-public class UserCredentialsDaoImpl extends AbstractDaoImpl implements UserCredentialsDao {
+public class UserCredentialsDaoImpl extends AbstractDaoImpl<UserCredentials, Long> implements UserCredentialsDao {
 
-	@Override
-	public UserCredentials get(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+	protected UserCredentialsDaoImpl() {
+		super(UserCredentials.class);
 	}
 
-	@Override
-	public UserCredentials save() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
 
 }

@@ -5,18 +5,12 @@ import by.epam.vasilevsky.exchanger.dataaccess.ExchangeRateDao;
 import by.epam.vasilevsky.exchanger.datamodel.ExchangeRate;
 
 @Repository
-public class ExchangeRateDaoImpl extends AbstractDaoImpl implements ExchangeRateDao{
+public class ExchangeRateDaoImpl extends AbstractDaoImpl<ExchangeRate,Long> implements ExchangeRateDao{
 
-	@Override
-	public ExchangeRate get(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+	protected ExchangeRateDaoImpl() {
+		super(ExchangeRate.class);
+		// TODO Auto-generated constructor stub
 	}
 
-	@Override
-	public ExchangeRate save() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 }

@@ -2,10 +2,7 @@ package by.epam.vasilevsky.exchanger.dataaccess;
 
 import by.epam.vasilevsky.exchanger.datamodel.Currency;
 
-public interface CurrencyDao {
+public interface CurrencyDao extends AbstractDao<Currency, Long>{
 	
-	Currency get(Long id);
-	
-	Currency save();
 
 }

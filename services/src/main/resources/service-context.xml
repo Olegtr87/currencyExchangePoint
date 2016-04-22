@@ -22,19 +22,16 @@
 
 	<bean id="dataSource"
 		class="by.epam.vasilevsky.exchanger.datamodel.util.SchemaNameAwareBasicDataSource"
-		destroy-method="close" 
-		p:driverClassName="org.postgresql.Driver"
-		p:url="jdbc:postgresql://localhost:5432/exchanger" 
-		p:username="postgres" 
-		p:password="password"
-		p:schema="public" />
+		destroy-method="close" p:driverClassName="org.postgresql.Driver"
+		p:url="jdbc:postgresql://localhost:5432/exchanger" p:username="postgres"
+		p:password="password" p:schema="public" />
 
 	<bean id="entityManagerFactory"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
 		p:dataSource-ref="dataSource" />
 
-<!-- 	<tx:annotation-driven />
+	<tx:annotation-driven />
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
 		p:entityManagerFactory-ref="entityManagerFactory" />
- -->
+
 </beans>

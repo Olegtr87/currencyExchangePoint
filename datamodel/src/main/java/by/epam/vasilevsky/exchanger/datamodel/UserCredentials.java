@@ -7,7 +7,7 @@ import javax.persistence.Enumerated;
 
 @Entity
 public class UserCredentials extends AbstractModel {
-	@Column
+	@Column(updatable = false)
 	private String login;
 	@Column
 	private String password;
