@@ -2,12 +2,15 @@ package by.epam.vasilevsky.exchanger.service.impl;
 
 import javax.inject.Inject;
 
+import org.springframework.stereotype.Service;
+
 import by.epam.vasilevsky.exchanger.dataaccess.impl.BalanceDaoImpl;
 import by.epam.vasilevsky.exchanger.dataaccess.impl.CurrencyDaoImpl;
 import by.epam.vasilevsky.exchanger.datamodel.Balance;
 import by.epam.vasilevsky.exchanger.datamodel.Currency;
 import by.epam.vasilevsky.exchanger.service.CurrencyService;
 
+@Service
 public class CurrencyServiceImpl implements CurrencyService {
 
 	@Inject

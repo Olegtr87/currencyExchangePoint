@@ -1,10 +1,14 @@
 package by.epam.vasilevsky.exchanger.service.impl;
 
 import javax.inject.Inject;
+
+import org.springframework.stereotype.Service;
+
 import by.epam.vasilevsky.exchanger.dataaccess.impl.OperationDaoImpl;
 import by.epam.vasilevsky.exchanger.datamodel.Operation;
 import by.epam.vasilevsky.exchanger.service.OperationService;
 
+@Service
 public class OperationServiceImpl implements OperationService {
 
 	@Inject
