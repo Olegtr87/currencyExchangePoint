@@ -31,5 +31,16 @@ public class TransactionServiceImpl implements TransactionService {
 	@Override
 	public Transaction get(Long id) {
 		return transactionDaoImpl.get(id);		
+	}
+
+	@Override
+	public void delete(Long id) {
+		transactionDaoImpl.delete(id);
 	} 
+	
+	@Override
+	public void update(Transaction transaction) {
+		transactionDaoImpl.update(transaction);
+	} 
+	
 }

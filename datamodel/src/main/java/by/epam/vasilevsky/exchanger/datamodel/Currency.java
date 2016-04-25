@@ -1,7 +1,6 @@
 package by.epam.vasilevsky.exchanger.datamodel;
 
 //import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -15,7 +14,7 @@ public class Currency extends AbstractModel {
 	@Enumerated(value = EnumType.STRING)
 	private CurrencyName name;
 	
-//	@OneToMany(mappedBy = "currency", fetch = FetchType.LAZY)
+//	@OneToMany(mappedBy = "currencyTo", fetch = FetchType.LAZY)
 //    private List<ExchangeRate> exchangeRate;
 //	
 //	public List<ExchangeRate> getExchangeRate() {

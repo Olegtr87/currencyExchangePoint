@@ -31,7 +31,7 @@ public class UserProfile extends AbstractModel {
 	private UserCredentials userCredentials;	
 	@Column
 	private Date created;
-	@OneToMany(mappedBy = "userProfile", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Transaction> transaction;
 	
 	public List<Transaction> getTransaction() {

@@ -13,4 +13,11 @@ public interface TransactionService {
 	void add(Transaction transaction, UserProfile userProfile, Operation operation, ExchangeRate exchangeRate);
 	
 	Transaction get(Long id);
+	
+	@Transactional
+    void delete(Long id);
+	
+	@Transactional
+    void update(Transaction transaction);
+	
 }

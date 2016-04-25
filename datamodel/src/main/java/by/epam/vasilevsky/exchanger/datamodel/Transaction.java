@@ -10,46 +10,46 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Transaction extends AbstractModel {
 	@ManyToOne(targetEntity = UserProfile.class, fetch = FetchType.LAZY)
-	private UserProfile userProfile;
+	private UserProfile user;
 	@ManyToOne(targetEntity = Operation.class, fetch = FetchType.LAZY)
-	private Operation operationId;
+	private Operation operation;
 	@ManyToOne(targetEntity = ExchangeRate.class, fetch = FetchType.LAZY)
-	private ExchangeRate exchangeRateId;
+	private ExchangeRate exchangeRate;
 	@Column
-	private Integer summIn;
+	private Integer sumIn;
 	@Column
 	private Date dateOperation;
 
 	public UserProfile getUserId() {
-		return userProfile;
+		return user;
 	}
 
 	public void setUserId(UserProfile userId) {
-		this.userProfile = userId;
+		this.user = userId;
 	}
 
 	public Operation getOperationId() {
-		return operationId;
+		return operation;
 	}
 
 	public void setOperationId(Operation operationId) {
-		this.operationId = operationId;
+		this.operation = operationId;
 	}
 
 	public ExchangeRate getExchangeRateId() {
-		return exchangeRateId;
+		return exchangeRate;
 	}
 
 	public void setExchangeRateId(ExchangeRate exchangeRateId) {
-		this.exchangeRateId = exchangeRateId;
+		this.exchangeRate = exchangeRateId;
 	}
 
 	public Integer getSummIn() {
-		return summIn;
+		return sumIn;
 	}
 
 	public void setSummIn(Integer summIn) {
-		this.summIn = summIn;
+		this.sumIn = summIn;
 	}
 
 	public Date getDateOperation() {
