@@ -8,6 +8,7 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class ExchangeRate extends AbstractModel {
+
 	@Column
 	private Double conversion;
 	@Column
@@ -48,5 +49,10 @@ public class ExchangeRate extends AbstractModel {
 	public void setCurrencyIdTo(Currency currencyIdTo) {
 		this.currencyTo = currencyIdTo;
 	}
-
+	
+	@Override
+	public String toString() {
+		return "ExchangeRate [conversion=" + conversion + ", dateCourse=" + dateCourse + ", currencyFrom="
+				+ currencyFrom + ", currencyTo=" + currencyTo + "]";
+	}
 }

@@ -11,6 +11,4 @@ public class CurrencyDaoImpl extends AbstractDaoImpl<Currency,Long> implements C
 		super(Currency.class);
 	}
 
-	
-
 }

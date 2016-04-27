@@ -44,43 +44,46 @@ public class CurrencyServiceTest {
 
 	@Test
 	public void testCurrencyAdd() {
-		// Currency currency=new Currency();
-		// Balance balance=new Balance();
-		// currency.setName(CurrencyName.EUR);
-		// balance.setCurrency(currency);
-		// balance.setSum(1000);
-		// currencyService.add(currency, balance);
-		//
-		// Assert.assertNotNull(currencyService.getCurrency(currency.getId()));
-		// Assert.assertNotNull(currencyService.getBalance(balance.getId()));
+		Currency currency = new Currency();
+		Balance balance = new Balance();
+		currency.setName(CurrencyName.EUR);
+		balance.setCurrency(currency);
+		balance.setSum(1000);
+		currencyService.add(currency, balance);
+		
+		Assert.assertNotNull(currencyService.getCurrency(currency.getId()));
+		Assert.assertNotNull(currencyService.getBalance(balance.getId()));
+		
+		currencyService.delete(balance.getId());
 	}
 
 	@Test
 	public void testCurrencyUpdate() {
-		// Currency currency=new Currency();
-		// Balance balance=new Balance();
-		// currency.setName(CurrencyName.BRB);
-		// balance.setCurrency(currency);
-		// balance.setSum(1000);
-		// currencyService.add(currency, balance);
-		// Integer updateSumm=20000;
-		// balance.setSum(updateSumm);
-		// currencyService.updateBalance(balance);
-		// Assert.assertEquals(updateSumm,
-		// currencyService.getBalance(balance.getId()).getSum());
+		Currency currency = new Currency();
+		Balance balance = new Balance();
+		currency.setName(CurrencyName.BRB);
+		balance.setCurrency(currency);
+		balance.setSum(1000);
+		currencyService.add(currency, balance);
+		Integer updateSumm = 20000;
+		balance.setSum(updateSumm);
+		currencyService.updateBalance(balance);
+		Assert.assertEquals(updateSumm, currencyService.getBalance(balance.getId()).getSum());
+		
+		currencyService.delete(balance.getId());
 	}
 
 	@Test
 	public void testCurrencyDelete() {
-//		Currency currency = new Currency();
-//		Balance balance = new Balance();
-//		currency.setName(CurrencyName.BRB);
-//		balance.setCurrency(currency);
-//		balance.setSum(1000);
-//		currencyService.add(currency, balance);
-//		currencyService.delete(balance.getId());
-//
-//		Assert.assertNull(currencyService.getBalance(balance.getId()));
-//		Assert.assertNull(currencyService.getCurrency(currency.getId()));
+		Currency currency = new Currency();
+		Balance balance = new Balance();
+		currency.setName(CurrencyName.PLZ);
+		balance.setCurrency(currency);
+		balance.setSum(1000);
+		currencyService.add(currency, balance);
+		currencyService.delete(balance.getId());
+
+		Assert.assertNull(currencyService.getBalance(balance.getId()));
+		Assert.assertNull(currencyService.getCurrency(currency.getId()));
 	}
 }

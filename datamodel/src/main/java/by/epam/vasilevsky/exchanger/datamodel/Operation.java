@@ -35,5 +35,9 @@ public class Operation extends AbstractModel {
 	public void setTax(Double tax) {
 		this.tax = tax;
 	}
-
+	
+	@Override
+	public String toString() {
+		return "Operation [name=" + name + ", statusBlock=" + statusBlock + ", tax=" + tax + "]";
+	}
 }

@@ -7,6 +7,7 @@ import javax.persistence.Enumerated;
 
 @Entity
 public class UserCredentials extends AbstractModel {
+	
 	@Column(updatable = false)
 	private String login;
 	@Column
@@ -38,5 +39,9 @@ public class UserCredentials extends AbstractModel {
 	public void setRole(UserRole role) {
 		this.role = role;
 	}
-
+	
+	@Override
+	public String toString() {
+		return "UserCredentials [login=" + login + ", password=" + password + ", role=" + role + "]";
+	}
 }

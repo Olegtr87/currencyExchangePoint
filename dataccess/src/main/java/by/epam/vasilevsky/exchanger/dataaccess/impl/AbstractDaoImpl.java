@@ -1,11 +1,9 @@
 package by.epam.vasilevsky.exchanger.dataaccess.impl;
 
 import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaQuery;
-
 import by.epam.vasilevsky.exchanger.dataaccess.AbstractDao;
 
 public class AbstractDaoImpl<T,ID> implements AbstractDao<T, ID>{
@@ -34,7 +32,7 @@ public class AbstractDaoImpl<T,ID> implements AbstractDao<T, ID>{
 
     @Override
     public T insert(final T entity) {
-        entityManager.persist(entity);
+    	entityManager.persist(entity);
         return entity;
     }
 
@@ -53,5 +51,5 @@ public class AbstractDaoImpl<T,ID> implements AbstractDao<T, ID>{
     public Class<T> getEntityClass() {
         return entityClass;
     }
-	
+    
 }

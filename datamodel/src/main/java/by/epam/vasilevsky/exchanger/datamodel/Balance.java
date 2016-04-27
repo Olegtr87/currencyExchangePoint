@@ -34,4 +34,10 @@ public class Balance extends AbstractModel {
 		this.sum = sum;
 	}
 
+	@Override
+	public String toString() {
+		return "Balance [sum=" + sum + ", currency=" + currency + "]";
+	}
+	
+
 }

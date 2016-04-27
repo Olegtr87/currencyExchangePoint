@@ -18,6 +18,7 @@ import by.epam.vasilevsky.exchanger.datamodel.ExchangeRate;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:service-context-test.xml" })
 public class ExchangeRateServiceTest {
+		
 	@Inject
 	private ExchangeRateService exchangeRateService;
 
@@ -48,7 +49,7 @@ public class ExchangeRateServiceTest {
 		exchangeRate.setDateCourse(new Date());
 		exchangeRate.setConversion(1.5);
 		Currency currencyFrom = currencyDao.get((long) 8);
-		Currency currencyTo = currencyDao.get((long) 7);
+		Currency currencyTo = currencyDao.get((long) 8);
 		exchangeRateService.add(exchangeRate, currencyFrom, currencyTo);
 
 		Assert.assertNotNull(exchangeRateDao.get(exchangeRate.getId()).getId());
@@ -60,7 +61,7 @@ public class ExchangeRateServiceTest {
 		exchangeRate.setDateCourse(new Date());
 		exchangeRate.setConversion(1.5);
 		Currency currency = currencyDao.get((long) 8);
-		Currency currency1 = currencyDao.get((long) 7);
+		Currency currency1 = currencyDao.get((long) 8);
 		exchangeRateService.add(exchangeRate, currency, currency1);
 		Double upd = 1.99999999;
 		exchangeRate.setConversion(upd);
@@ -75,7 +76,7 @@ public class ExchangeRateServiceTest {
 		exchangeRate.setDateCourse(new Date());
 		exchangeRate.setConversion(1.11111111111111);
 		Currency currency = currencyDao.get((long) 8);
-		Currency currency1 = currencyDao.get((long) 7);
+		Currency currency1 = currencyDao.get((long) 8);
 		exchangeRateService.add(exchangeRate, currency, currency1);
 		exchangeRateService.delete(exchangeRateDao.get(exchangeRate.getId()).getId());
 

@@ -60,11 +60,11 @@ public class TransactionServiceTest {
 		Transaction transaction=new Transaction();
 		transaction.setDateOperation(new Date());
 		transaction.setSummIn(10000);
-		ExchangeRate exchangeRate=exchangeRateDao.get((long) 8);
+		ExchangeRate exchangeRate=exchangeRateDao.get((long) 28);
 		Operation operation=operationDao.get((long) 3);
-		UserProfile userProfile=userProfileDao.get((long) 1);
+		UserProfile userProfile=userProfileDao.get((long) 3);
 		transactionService.add(transaction, userProfile, operation, exchangeRate);
-		
+				
 		Assert.assertNotNull(transactionService.get(transaction.getId()));
 	}
 	
@@ -73,9 +73,9 @@ public class TransactionServiceTest {
 		Transaction transaction=new Transaction();
 		transaction.setDateOperation(new Date());
 		transaction.setSummIn(10000);
-		ExchangeRate exchangeRate=exchangeRateDao.get((long) 8);
+		ExchangeRate exchangeRate=exchangeRateDao.get((long) 28);
 		Operation operation=operationDao.get((long) 3);
-		UserProfile userProfile=userProfileDao.get((long) 1);
+		UserProfile userProfile=userProfileDao.get((long) 3);
 		transactionService.add(transaction, userProfile, operation, exchangeRate);
 		Integer updSum=999;
 		transaction.setSummIn(updSum);
@@ -89,9 +89,9 @@ public class TransactionServiceTest {
 		Transaction transaction=new Transaction();
 		transaction.setDateOperation(new Date());
 		transaction.setSummIn(10000);
-		ExchangeRate exchangeRate=exchangeRateDao.get((long) 8);
+		ExchangeRate exchangeRate=exchangeRateDao.get((long) 28);
 		Operation operation=operationDao.get((long) 3);
-		UserProfile userProfile=userProfileDao.get((long) 1);
+		UserProfile userProfile=userProfileDao.get((long) 3);
 		transactionService.add(transaction, userProfile, operation, exchangeRate);
 		transactionService.delete(transaction.getId());
 		

@@ -1,7 +1,6 @@
 package by.epam.vasilevsky.exchanger.datamodel;
 
 import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -9,6 +8,7 @@ import javax.persistence.ManyToOne;
 
 @Entity
 public class Transaction extends AbstractModel {
+	
 	@ManyToOne(targetEntity = UserProfile.class, fetch = FetchType.LAZY)
 	private UserProfile user;
 	@ManyToOne(targetEntity = Operation.class, fetch = FetchType.LAZY)
@@ -58,6 +58,12 @@ public class Transaction extends AbstractModel {
 
 	public void setDateOperation(Date dateOperation) {
 		this.dateOperation = dateOperation;
+	}	 
+	
+	@Override
+	public String toString() {
+		return "Transaction [user=" + user + ", operation=" + operation + ", exchangeRate=" + exchangeRate + ", sumIn="
+				+ sumIn + ", dateOperation=" + dateOperation + "]";
 	}
 
 }

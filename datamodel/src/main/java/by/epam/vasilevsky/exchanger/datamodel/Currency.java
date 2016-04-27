@@ -31,5 +31,11 @@ public class Currency extends AbstractModel {
 
 	public void setName(CurrencyName name) {
 		this.name = name;
+	}
+
+	@Override
+	public String toString() {
+		return "Currency [name=" + name + "]";
 	}	
+
 }
