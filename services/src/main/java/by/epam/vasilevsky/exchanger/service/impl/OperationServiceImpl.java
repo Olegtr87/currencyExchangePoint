@@ -7,9 +7,8 @@ import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-
+import by.epam.vasilevsky.exchanger.dataaccess.OperationDao;
 import by.epam.vasilevsky.exchanger.dataaccess.filters.OperationFilter;
-import by.epam.vasilevsky.exchanger.dataaccess.impl.OperationDaoImpl;
 import by.epam.vasilevsky.exchanger.datamodel.Operation;
 import by.epam.vasilevsky.exchanger.service.OperationService;
 
@@ -18,35 +17,35 @@ public class OperationServiceImpl implements OperationService {
 	private static Logger LOGGER = LoggerFactory.getLogger(OperationServiceImpl.class);
 	
 	@Inject
-	OperationDaoImpl operationDaoImpl;
+	OperationDao operationDao;
 
 	@Override
 	public void add(Operation operation) {
-		operationDaoImpl.insert(operation);
+		operationDao.insert(operation);
 		LOGGER.info("Operation {} added", operation);
 	}
 
 	@Override
 	public Operation get(Long id) {
-		return operationDaoImpl.get(id);
+		return operationDao.get(id);
 	}
 
 	@Override
 	public void update(Operation operation) {
-		operationDaoImpl.update(operation);
+		operationDao.update(operation);
 		LOGGER.info("Operation {} updated", operation);
 	}
 
 	@Override
 	public void delete(Long id) {
-		LOGGER.info("Operation {} deleted", operationDaoImpl.get(id));
-		operationDaoImpl.delete(id);
+		LOGGER.info("Operation {} deleted", operationDao.get(id));
+		operationDao.delete(id);
 	}
 
 	@Override
 	public List<Operation> find(OperationFilter filter) {
 		LOGGER.info("Search for Operation perfomed!");
-		return operationDaoImpl.find(filter);
+		return operationDao.find(filter);
 	}
 
 }
