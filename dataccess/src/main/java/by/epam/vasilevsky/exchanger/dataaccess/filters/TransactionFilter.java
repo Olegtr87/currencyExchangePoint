@@ -1,26 +1,27 @@
 package by.epam.vasilevsky.exchanger.dataaccess.filters;
 
+import java.util.Date;
+
 import javax.persistence.metamodel.SingularAttribute;
 
-public class UserFilter {
+public class TransactionFilter {
 
-	private String userName;
+	private Date dateTransaction;
     private SingularAttribute sortProperty;
     private boolean sortOrder;
     private Integer offset;
     private Integer limit;
-
     private boolean isFetchCredentials;
 
-    public String getUserName() {
-        return userName;
-    }
+	public Date getDateTransaction() {
+		return dateTransaction;
+	}
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
+	public void setDateTransaction(Date dateTransaction) {
+		this.dateTransaction = dateTransaction;
+	}
 
-    public SingularAttribute getSortProperty() {
+	public SingularAttribute getSortProperty() {
         return sortProperty;
     }
 

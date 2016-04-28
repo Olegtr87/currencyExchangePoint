@@ -15,10 +15,14 @@ import by.epam.vasilevsky.exchanger.dataaccess.ExchangeRateDao;
 import by.epam.vasilevsky.exchanger.dataaccess.OperationDao;
 import by.epam.vasilevsky.exchanger.dataaccess.TransactionDao;
 import by.epam.vasilevsky.exchanger.dataaccess.UserProfileDao;
+import by.epam.vasilevsky.exchanger.dataaccess.filters.OperationFilter;
+import by.epam.vasilevsky.exchanger.dataaccess.filters.TransactionFilter;
 import by.epam.vasilevsky.exchanger.dataaccess.impl.AbstractDaoImpl;
 import by.epam.vasilevsky.exchanger.datamodel.ExchangeRate;
 import by.epam.vasilevsky.exchanger.datamodel.Operation;
+import by.epam.vasilevsky.exchanger.datamodel.Operation_;
 import by.epam.vasilevsky.exchanger.datamodel.Transaction;
+import by.epam.vasilevsky.exchanger.datamodel.Transaction_;
 import by.epam.vasilevsky.exchanger.datamodel.UserProfile;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -97,4 +101,34 @@ public class TransactionServiceTest {
 		
 		Assert.assertNull(transactionService.get(transaction.getId()));
 	}
+	
+	@Test
+    public void testSearch() {
+        // start create new data
+		Transaction transaction=new Transaction();
+		transaction.setDateOperation(new Date());
+		transaction.setSummIn(10000);
+		ExchangeRate exchangeRate=exchangeRateDao.get((long) 28);
+		Operation operation=operationDao.get((long) 3);
+		UserProfile userProfile=userProfileDao.get((long) 3);
+		transactionService.add(transaction, userProfile, operation, exchangeRate);
+
+		TransactionFilter filter = new TransactionFilter();
+        //List<Currency> result = currencyService.find(filter);
+        // test paging
+        filter.setFetchCredentials(true);
+        //filter.setDateTransaction(new Date());
+        int limit = 3;
+        filter.setLimit(limit);
+        filter.setOffset(0);
+        //result = currencyService.find(filter);
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
+        // test sort
+        filter.setLimit(null);
+        filter.setOffset(null);
+        filter.setSortOrder(true);
+        filter.setSortProperty(Transaction_.dateOperation);
+        //result = currencyService.find(filter);
+    }
 }

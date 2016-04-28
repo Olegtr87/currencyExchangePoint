@@ -1,10 +1,11 @@
 package by.epam.vasilevsky.exchanger.service.impl;
 
+import java.util.List;
 import javax.inject.Inject;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import by.epam.vasilevsky.exchanger.dataaccess.filters.ExchangeRateFilter;
 import by.epam.vasilevsky.exchanger.dataaccess.impl.CurrencyDaoImpl;
 import by.epam.vasilevsky.exchanger.dataaccess.impl.ExchangeRateDaoImpl;
 import by.epam.vasilevsky.exchanger.datamodel.Currency;
@@ -44,6 +45,12 @@ public class ExchangeRateServiceImpl implements ExchangeRateService{
 	public void delete(Long id) {
 		LOGGER.info("ExchangeRate {} deleted", exchangeRateDaoImpl.get(id));
 		exchangeRateDaoImpl.delete(id);
+	}
+
+	@Override
+	public List<ExchangeRate> find(ExchangeRateFilter filter) {
+		LOGGER.info("Search for ExchangeRate perfomed!");
+		return exchangeRateDaoImpl.find(filter);
 	}	
 
 }

@@ -1,7 +1,6 @@
 package by.epam.vasilevsky.exchanger.service;
 
 import java.lang.reflect.Field;
-
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import org.junit.Assert;
@@ -10,8 +9,10 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import by.epam.vasilevsky.exchanger.dataaccess.OperationDao;
+import by.epam.vasilevsky.exchanger.dataaccess.filters.OperationFilter;
 import by.epam.vasilevsky.exchanger.dataaccess.impl.AbstractDaoImpl;
 import by.epam.vasilevsky.exchanger.datamodel.Operation;
+import by.epam.vasilevsky.exchanger.datamodel.Operation_;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:service-context-test.xml" })
@@ -76,7 +77,31 @@ public class OperationServiceTest {
 		Assert.assertNull(operationService.get(operation.getId()));
 	}
 	
-	
-	
-	
+	@Test
+    public void testSearch() {
+        // start create new data
+		Operation operation=new Operation();
+		operation.setName(System.currentTimeMillis() + "convert");
+		operation.setStatusBlock(false);
+		operation.setTax(1.7);
+		operationService.add(operation);
+
+		OperationFilter filter = new OperationFilter();
+        //List<Currency> result = currencyService.find(filter);
+        // test paging
+        filter.setFetchCredentials(true);
+        filter.setOperationName("operationName");
+        int limit = 3;
+        filter.setLimit(limit);
+        filter.setOffset(0);
+        //result = currencyService.find(filter);
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
+        // test sort
+        filter.setLimit(null);
+        filter.setOffset(null);
+        filter.setSortOrder(true);
+        filter.setSortProperty(Operation_.name);
+        //result = currencyService.find(filter);
+    }
 }

@@ -1,6 +1,7 @@
 package by.epam.vasilevsky.exchanger.service;
-
+import java.util.List;
 import javax.transaction.Transactional;
+import by.epam.vasilevsky.exchanger.dataaccess.filters.OperationFilter;
 import by.epam.vasilevsky.exchanger.datamodel.Operation;
 
 public interface OperationService {
@@ -15,4 +16,6 @@ public interface OperationService {
 
     @Transactional
     void delete(Long id);
+    
+    List<Operation> find(OperationFilter filter);
 }

@@ -1,7 +1,10 @@
 package by.epam.vasilevsky.exchanger.service;
 
+import java.util.List;
+
 import javax.transaction.Transactional;
 
+import by.epam.vasilevsky.exchanger.dataaccess.filters.UserFilter;
 import by.epam.vasilevsky.exchanger.datamodel.UserCredentials;
 import by.epam.vasilevsky.exchanger.datamodel.UserProfile;
 
@@ -13,6 +16,8 @@ public interface UserService {
     UserProfile getProfile(Long id);
 
     UserCredentials getCredentials(Long id);
+    
+    List<UserProfile> getAll();
 
     @Transactional
     void updateProfile(UserProfile userProfile);
@@ -22,4 +27,6 @@ public interface UserService {
 
     @Transactional
     void delete(Long id);
+    
+    List<UserProfile> find(UserFilter filter);
 }

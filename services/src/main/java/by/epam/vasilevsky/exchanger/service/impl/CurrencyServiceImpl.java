@@ -1,11 +1,14 @@
 package by.epam.vasilevsky.exchanger.service.impl;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import by.epam.vasilevsky.exchanger.dataaccess.filters.CurrencyFilter;
 import by.epam.vasilevsky.exchanger.dataaccess.impl.BalanceDaoImpl;
 import by.epam.vasilevsky.exchanger.dataaccess.impl.CurrencyDaoImpl;
 import by.epam.vasilevsky.exchanger.datamodel.Balance;
@@ -57,6 +60,12 @@ public class CurrencyServiceImpl implements CurrencyService {
 		LOGGER.info("Currency {} and Balance {} deleted", currencyDaoImpl.get(id), balanceDaoImpl.get(id));
 		balanceDaoImpl.delete(id);
 		currencyDaoImpl.delete(id);
+	}
+
+	@Override
+	public List<Currency> find(CurrencyFilter filter) {
+		LOGGER.info("Search for Currency perfomed!");
+		return currencyDaoImpl.find(filter);
 	}
 	
 }

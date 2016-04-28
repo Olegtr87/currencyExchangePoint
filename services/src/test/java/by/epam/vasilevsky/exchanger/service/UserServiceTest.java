@@ -2,6 +2,8 @@ package by.epam.vasilevsky.exchanger.service;
 
 import java.lang.reflect.Field;
 import java.util.Date;
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import org.junit.Assert;
@@ -10,9 +12,11 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import by.epam.vasilevsky.exchanger.dataaccess.UserProfileDao;
+import by.epam.vasilevsky.exchanger.dataaccess.filters.UserFilter;
 import by.epam.vasilevsky.exchanger.dataaccess.impl.AbstractDaoImpl;
 import by.epam.vasilevsky.exchanger.datamodel.UserCredentials;
 import by.epam.vasilevsky.exchanger.datamodel.UserProfile;
+import by.epam.vasilevsky.exchanger.datamodel.UserProfile_;
 import by.epam.vasilevsky.exchanger.datamodel.UserRole;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -116,4 +120,56 @@ public class UserServiceTest {
 		Assert.assertNull(userService.getProfile(profile.getId()));
 		Assert.assertNull(userService.getCredentials(userCredentials.getId()));
 	}
+	
+	@Test
+    public void testSearch() {
+        // clean all data from users
+        List<UserProfile> all = userService.getAll();
+        for (UserProfile userProfile : all) {
+            if (userProfile.getId()==3||userProfile.getId()==1) continue;
+        	userService.delete(userProfile.getId());
+        }
+		
+
+        // start create new data
+        int testObjectsCount = 5;
+        for (int i = 0; i < testObjectsCount; i++) {
+            UserProfile profile = new UserProfile();
+            UserCredentials userCredentials = new UserCredentials();
+
+            profile.setFirstName("testFName111"+i);
+    		profile.setLastName("testLName111"+i);
+    		profile.setPatronymic("otch"+i);
+    		profile.setNumberPassport(System.currentTimeMillis() + "n"+i);
+    		profile.setDateIssue(new Date());
+    		profile.setIssued("issued"+i);
+
+            userCredentials.setLogin(i + "mail@test.by");
+            userCredentials.setPassword(i + "pswd");
+            userCredentials.setRole(UserRole.Administrator);
+            userService.register(profile, userCredentials);
+        }
+
+        UserFilter filter = new UserFilter();
+        List<UserProfile> result = userService.find(filter);
+        Assert.assertEquals(testObjectsCount+2, result.size());
+        // test paging
+        filter.setFetchCredentials(true);
+        //filter.setUserName("2mail@test.by");
+        int limit = 3;
+        filter.setLimit(limit);
+        filter.setOffset(0);
+        result = userService.find(filter);
+        //System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        Assert.assertEquals(limit, result.size());
+
+        // test sort
+        filter.setLimit(null);
+        filter.setOffset(null);
+        filter.setSortOrder(true);
+        filter.setSortProperty(UserProfile_.firstName);
+        result = userService.find(filter);
+        Assert.assertEquals(testObjectsCount+2, result.size());
+
+    }
 }

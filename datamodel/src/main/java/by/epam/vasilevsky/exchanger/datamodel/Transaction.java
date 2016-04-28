@@ -58,12 +58,13 @@ public class Transaction extends AbstractModel {
 
 	public void setDateOperation(Date dateOperation) {
 		this.dateOperation = dateOperation;
-	}	 
-	
+	}
+
 	@Override
 	public String toString() {
-		return "Transaction [user=" + user + ", operation=" + operation + ", exchangeRate=" + exchangeRate + ", sumIn="
-				+ sumIn + ", dateOperation=" + dateOperation + "]";
-	}
+		return "Transaction [ id"+getId()+" sumIn=" + sumIn + ", dateOperation=" + dateOperation + "]";
+	}	 
+	
+	
 
 }

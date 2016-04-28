@@ -1,14 +1,14 @@
 package by.epam.vasilevsky.exchanger.service.impl;
 
 import java.util.Date;
-
+import java.util.List;
 import javax.inject.Inject;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import by.epam.vasilevsky.exchanger.dataaccess.UserCredentialsDao;
 import by.epam.vasilevsky.exchanger.dataaccess.UserProfileDao;
+import by.epam.vasilevsky.exchanger.dataaccess.filters.UserFilter;
 import by.epam.vasilevsky.exchanger.datamodel.UserCredentials;
 import by.epam.vasilevsky.exchanger.datamodel.UserProfile;
 import by.epam.vasilevsky.exchanger.service.UserService;
@@ -60,5 +60,16 @@ public class UserServiceImpl implements UserService {
 	public void updateCredentials(UserCredentials userCredentials) {
 		userCredentialsDao.update(userCredentials);
 		LOGGER.info("UserCredentials {} updated",userCredentials);		
+	}
+
+	@Override
+	public List<UserProfile> find(UserFilter filter) {
+		LOGGER.info("Search for User perfomed!");
+		return userProfileDao.find(filter);
+	}
+
+	@Override
+	public List<UserProfile> getAll() {
+		return userProfileDao.getAll();
 	}
 }

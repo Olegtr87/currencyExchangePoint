@@ -2,9 +2,9 @@ package by.epam.vasilevsky.exchanger.dataaccess.filters;
 
 import javax.persistence.metamodel.SingularAttribute;
 
-public class UserFilter {
+public class OperationFilter {
 
-	private String userName;
+	private String operationName;
     private SingularAttribute sortProperty;
     private boolean sortOrder;
     private Integer offset;
@@ -12,15 +12,15 @@ public class UserFilter {
 
     private boolean isFetchCredentials;
 
-    public String getUserName() {
-        return userName;
-    }
+    public String getOperationName() {
+		return operationName;
+	}
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
+	public void setOperationName(String operationName) {
+		this.operationName = operationName;
+	}
 
-    public SingularAttribute getSortProperty() {
+	public SingularAttribute getSortProperty() {
         return sortProperty;
     }
 

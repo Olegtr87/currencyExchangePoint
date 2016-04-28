@@ -1,11 +1,14 @@
 package by.epam.vasilevsky.exchanger.service.impl;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import by.epam.vasilevsky.exchanger.dataaccess.filters.OperationFilter;
 import by.epam.vasilevsky.exchanger.dataaccess.impl.OperationDaoImpl;
 import by.epam.vasilevsky.exchanger.datamodel.Operation;
 import by.epam.vasilevsky.exchanger.service.OperationService;
@@ -38,6 +41,12 @@ public class OperationServiceImpl implements OperationService {
 	public void delete(Long id) {
 		LOGGER.info("Operation {} deleted", operationDaoImpl.get(id));
 		operationDaoImpl.delete(id);
+	}
+
+	@Override
+	public List<Operation> find(OperationFilter filter) {
+		LOGGER.info("Search for Operation perfomed!");
+		return operationDaoImpl.find(filter);
 	}
 
 }

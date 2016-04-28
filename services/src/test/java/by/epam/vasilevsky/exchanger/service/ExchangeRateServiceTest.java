@@ -11,9 +11,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import by.epam.vasilevsky.exchanger.dataaccess.CurrencyDao;
 import by.epam.vasilevsky.exchanger.dataaccess.ExchangeRateDao;
+import by.epam.vasilevsky.exchanger.dataaccess.filters.ExchangeRateFilter;
 import by.epam.vasilevsky.exchanger.dataaccess.impl.AbstractDaoImpl;
 import by.epam.vasilevsky.exchanger.datamodel.Currency;
 import by.epam.vasilevsky.exchanger.datamodel.ExchangeRate;
+import by.epam.vasilevsky.exchanger.datamodel.ExchangeRate_;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:service-context-test.xml" })
@@ -82,5 +84,34 @@ public class ExchangeRateServiceTest {
 
 		Assert.assertNull(exchangeRateService.get(exchangeRate.getId()));
 	}
+	
+	@Test
+    public void testSearch() {
+        // start create new data
+		ExchangeRate exchangeRate = new ExchangeRate();
+		exchangeRate.setDateCourse(new Date());
+		exchangeRate.setConversion(1.11111111111111);
+		Currency currency = currencyDao.get((long) 8);
+		Currency currency1 = currencyDao.get((long) 8);
+		exchangeRateService.add(exchangeRate, currency, currency1);
+
+		ExchangeRateFilter filter = new ExchangeRateFilter();
+        //List<Currency> result = currencyService.find(filter);
+        // test paging
+        filter.setFetchCredentials(true);
+        //filter.setDateCurrency(new Date());
+        int limit = 3;
+        filter.setLimit(limit);
+        filter.setOffset(0);
+        //result = currencyService.find(filter);
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
+        // test sort
+        filter.setLimit(null);
+        filter.setOffset(null);
+        filter.setSortOrder(true);
+        filter.setSortProperty(ExchangeRate_.dateCourse);
+        //result = currencyService.find(filter);
+    }
 
 }

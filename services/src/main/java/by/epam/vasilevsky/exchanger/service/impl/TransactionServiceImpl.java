@@ -1,10 +1,14 @@
 package by.epam.vasilevsky.exchanger.service.impl;
 
 import java.util.Date;
+import java.util.List;
+
 import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+
+import by.epam.vasilevsky.exchanger.dataaccess.filters.TransactionFilter;
 import by.epam.vasilevsky.exchanger.dataaccess.impl.TransactionDaoImpl;
 import by.epam.vasilevsky.exchanger.datamodel.ExchangeRate;
 import by.epam.vasilevsky.exchanger.datamodel.Operation;
@@ -43,6 +47,12 @@ public class TransactionServiceImpl implements TransactionService {
 	public void update(Transaction transaction) {
 		transactionDaoImpl.update(transaction);
 		LOGGER.info("Transaction {} updated", transaction);
+	}
+
+	@Override
+	public List<Transaction> find(TransactionFilter filter) {
+		LOGGER.info("Search for Transaction perfomed!");
+		return transactionDaoImpl.find(filter);
 	} 
 	
 }

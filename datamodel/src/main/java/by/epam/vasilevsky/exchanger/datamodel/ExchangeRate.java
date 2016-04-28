@@ -52,7 +52,6 @@ public class ExchangeRate extends AbstractModel {
 	
 	@Override
 	public String toString() {
-		return "ExchangeRate [conversion=" + conversion + ", dateCourse=" + dateCourse + ", currencyFrom="
-				+ currencyFrom + ", currencyTo=" + currencyTo + "]";
+		return "ExchangeRate [id= "+getId()+" conversion=" + conversion + ", dateCourse=" + dateCourse;
 	}
 }
