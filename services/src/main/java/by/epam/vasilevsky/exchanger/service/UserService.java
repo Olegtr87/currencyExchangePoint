@@ -28,5 +28,6 @@ public interface UserService {
     @Transactional
     void delete(Long id);
     
+    @Transactional
     List<UserProfile> find(UserFilter filter);
 }

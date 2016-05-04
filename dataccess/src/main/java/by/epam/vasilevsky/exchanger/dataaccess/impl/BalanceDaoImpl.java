@@ -11,7 +11,4 @@ public class BalanceDaoImpl extends AbstractDaoImpl<Balance,Long> implements Bal
 	protected BalanceDaoImpl() {
 		super(Balance.class);
 	}
-
-	
-
 }

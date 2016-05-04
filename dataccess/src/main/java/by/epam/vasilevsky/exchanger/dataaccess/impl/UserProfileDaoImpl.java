@@ -12,12 +12,13 @@ import org.hibernate.jpa.criteria.OrderImpl;
 import org.springframework.stereotype.Repository;
 import by.epam.vasilevsky.exchanger.dataaccess.UserProfileDao;
 import by.epam.vasilevsky.exchanger.dataaccess.filters.UserFilter;
+import by.epam.vasilevsky.exchanger.datamodel.UserCredentials_;
 import by.epam.vasilevsky.exchanger.datamodel.UserProfile;
 import by.epam.vasilevsky.exchanger.datamodel.UserProfile_;
 
 @Repository
 public class UserProfileDaoImpl extends AbstractDaoImpl<UserProfile, Long> implements UserProfileDao {
-    protected UserProfileDaoImpl() {
+	protected UserProfileDaoImpl() {
 		super(UserProfile.class);
 	}
 
@@ -25,42 +26,50 @@ public class UserProfileDaoImpl extends AbstractDaoImpl<UserProfile, Long> imple
 	public List<UserProfile> find(UserFilter filter) {
 		EntityManager em = getEntityManager();
 
-        CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaBuilder cb = em.getCriteriaBuilder();
 
-        CriteriaQuery<UserProfile> cq = cb.createQuery(UserProfile.class);
+		CriteriaQuery<UserProfile> cq = cb.createQuery(UserProfile.class);
 
-        Root<UserProfile> from = cq.from(UserProfile.class);
+		Root<UserProfile> from = cq.from(UserProfile.class);
 
-        // set selection
-        cq.select(from);
+		// set selection
+		cq.select(from);
 
-        if (filter.getUserName() != null) {
-            Predicate fNameEqualCondition = cb.equal(from.get(UserProfile_.firstName), filter.getUserName());
-            Predicate lNameEqualCondition = cb.equal(from.get(UserProfile_.lastName), filter.getUserName());
-            cq.where(cb.or(fNameEqualCondition, lNameEqualCondition));
-        }
-        // set fetching
-        if (filter.isFetchCredentials()) {
-            from.fetch(UserProfile_.userCredentials, JoinType.LEFT);
-        }
+		if (filter.getUserName() != null) {
+			Predicate fNameEqualCondition = cb.equal(from.get(UserProfile_.firstName), filter.getUserName());
+			Predicate lNameEqualCondition = cb.equal(from.get(UserProfile_.lastName), filter.getUserName());
+			cq.where(cb.or(fNameEqualCondition, lNameEqualCondition));
+		}
 
-        // set sort params
-        if (filter.getSortProperty() != null) {
-            cq.orderBy(new OrderImpl(from.get(filter.getSortProperty()), filter.isSortOrder()));
-        }
+		// if (filter.getLogin() != null) { 
+		// Predicate loginEqualCondition =              //получаемое значение
+		// cb.equal(from.get(UserProfile_.userCredentials).get(UserCredentials_.login),
+		// // передаваемое значение
+		// filter.getLogin());
+		// cq.where(cb.and(loginEqualCondition));
+		// }
 
-        TypedQuery<UserProfile> q = em.createQuery(cq);
+		// set fetching
+		if (filter.isFetchCredentials()) {
+			from.fetch(UserProfile_.userCredentials, JoinType.LEFT);
+		}
 
-        // set paging
-        if (filter.getOffset() != null && filter.getLimit() != null) {
-            q.setFirstResult(filter.getOffset());
-            q.setMaxResults(filter.getLimit());
-        }
+		// set sort params
+		if (filter.getSortProperty() != null) {
+			cq.orderBy(new OrderImpl(from.get(filter.getSortProperty()), filter.isSortOrder()));
+		}
 
-        // set execute query
-        List<UserProfile> allitems = q.getResultList();
-        return allitems;
-    }
-	
-    
+		TypedQuery<UserProfile> q = em.createQuery(cq);
+
+		// set paging
+		if (filter.getOffset() != null && filter.getLimit() != null) {
+			q.setFirstResult(filter.getOffset());
+			q.setMaxResults(filter.getLimit());
+		}
+
+		// set execute query
+		List<UserProfile> allitems = q.getResultList();
+		return allitems;
+	}
+
 }

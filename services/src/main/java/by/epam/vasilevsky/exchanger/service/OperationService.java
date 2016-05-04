@@ -17,5 +17,6 @@ public interface OperationService {
     @Transactional
     void delete(Long id);
     
+    @Transactional
     List<Operation> find(OperationFilter filter);
 }

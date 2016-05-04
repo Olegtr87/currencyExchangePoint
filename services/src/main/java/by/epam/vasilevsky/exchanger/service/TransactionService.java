@@ -21,5 +21,6 @@ public interface TransactionService {
 	@Transactional
     void update(Transaction transaction);
 	
+	@Transactional
 	List<Transaction> find(TransactionFilter filter);
 }

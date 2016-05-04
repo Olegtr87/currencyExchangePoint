@@ -1,9 +1,7 @@
 package by.epam.vasilevsky.exchanger.service.impl;
 
 import java.util.List;
-
 import javax.inject.Inject;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -17,19 +15,19 @@ import by.epam.vasilevsky.exchanger.service.CurrencyService;
 @Service
 public class CurrencyServiceImpl implements CurrencyService {
 	private static Logger LOGGER = LoggerFactory.getLogger(CurrencyServiceImpl.class);
-	
+
 	@Inject
 	CurrencyDao currencyDao;
-	
+
 	@Inject
 	BalanceDao balanceDao;
 
 	@Override
 	public void add(Currency currency, Balance balance) {
-		currencyDao.insert(currency);
-		balance.setCurrency(currency);
-		balanceDao.insert(balance);
-		LOGGER.info("Currency: {} and Balance: {} added", currency,balance);
+			currencyDao.insert(currency);
+			balance.setCurrency(currency);
+			balanceDao.insert(balance);
+			LOGGER.info("Currency: {} and Balance: {} added", currency, balance);
 	}
 
 	@Override
@@ -45,7 +43,7 @@ public class CurrencyServiceImpl implements CurrencyService {
 	@Override
 	public void updateCurrency(Currency currency) {
 		currencyDao.update(currency);
-		LOGGER.info("Currency {} updated", currency);		
+		LOGGER.info("Currency {} updated", currency);
 	}
 
 	@Override
@@ -66,5 +64,5 @@ public class CurrencyServiceImpl implements CurrencyService {
 		LOGGER.info("Search for Currency perfomed!");
 		return currencyDao.find(filter);
 	}
-	
+
 }

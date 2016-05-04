@@ -30,8 +30,8 @@ public class AbstractDaoImpl<T,ID> implements AbstractDao<T, ID>{
     }
 
     @Override
-    public T get(final ID id) {
-        return entityManager.find(getEntityClass(), id);
+    public T get(final ID id){
+    	return entityManager.find(getEntityClass(), id);
     }
 
     @Override

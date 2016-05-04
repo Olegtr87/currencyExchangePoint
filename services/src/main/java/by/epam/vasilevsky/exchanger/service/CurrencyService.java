@@ -23,5 +23,6 @@ public interface CurrencyService {
     @Transactional
     void delete(Long id);
     
+    @Transactional
     List<Currency> find(CurrencyFilter filter);
 }

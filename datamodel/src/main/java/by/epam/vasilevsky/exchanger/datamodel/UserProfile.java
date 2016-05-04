@@ -31,16 +31,16 @@ public class UserProfile extends AbstractModel {
 	private UserCredentials userCredentials;	
 	@Column
 	private Date created;
-//	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-//    private List<Transaction> transaction;
-//	
-//	public List<Transaction> getTransaction() {
-//		return transaction;
-//	}
-//
-//	public void setTransaction(List<Transaction> transaction) {
-//		this.transaction = transaction;
-//	}
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<Transaction> transaction;
+	
+	public List<Transaction> getTransaction() {
+		return transaction;
+	}
+
+	public void setTransaction(List<Transaction> transaction) {
+		this.transaction = transaction;
+	}
 
 	public Date getCreated() {
 		return created;
@@ -108,7 +108,7 @@ public class UserProfile extends AbstractModel {
 
 	@Override
 	public String toString() {
-		return "UserProfile [lastName=" + lastName + ", firstName=" + firstName + ", patronymic=" + patronymic
+		return "UserProfile [id="+getId()+" lastName=" + lastName + ", firstName=" + firstName + ", patronymic=" + patronymic
 				+ ", numberPassport=" + numberPassport + ", dateIssue=" + dateIssue + ", issued=" + issued
 				+ ", userCredentials=" + userCredentials + ", created=" + created + "]";
 	}
