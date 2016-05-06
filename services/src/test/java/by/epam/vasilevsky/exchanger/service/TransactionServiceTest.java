@@ -2,6 +2,7 @@ package by.epam.vasilevsky.exchanger.service;
 
 import java.lang.reflect.Field;
 import java.util.Date;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -114,10 +115,10 @@ public class TransactionServiceTest {
 		transactionService.add(transaction, userProfile, operation, exchangeRate);
 
 		TransactionFilter filter = new TransactionFilter();
-        //List<Currency> result = currencyService.find(filter);
+        List<Transaction> result = transactionService.find(filter);
         // test paging
         filter.setFetchCredentials(true);
-        //filter.setDateTransaction(new Date());
+        filter.setDateTransaction(new Date());
         int limit = 3;
         filter.setLimit(limit);
         filter.setOffset(0);
@@ -129,6 +130,6 @@ public class TransactionServiceTest {
         filter.setOffset(null);
         filter.setSortOrder(true);
         filter.setSortProperty(Transaction_.dateOperation);
-        //result = currencyService.find(filter);
+        result = transactionService.find(filter);
     }
 }

@@ -2,6 +2,8 @@ package by.epam.vasilevsky.exchanger.service;
 
 import java.lang.reflect.Field;
 import java.util.Date;
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import org.junit.Assert;
@@ -96,14 +98,14 @@ public class ExchangeRateServiceTest {
 		exchangeRateService.add(exchangeRate, currency, currency1);
 
 		ExchangeRateFilter filter = new ExchangeRateFilter();
-        //List<Currency> result = currencyService.find(filter);
+        List<ExchangeRate> result = exchangeRateService.find(filter);
         // test paging
         filter.setFetchCredentials(true);
-        //filter.setDateCurrency(new Date());
+        filter.setDateCurrency(new Date());
         int limit = 3;
         filter.setLimit(limit);
         filter.setOffset(0);
-        //result = currencyService.find(filter);
+        result = exchangeRateService.find(filter);
         System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
         // test sort
@@ -111,7 +113,7 @@ public class ExchangeRateServiceTest {
         filter.setOffset(null);
         filter.setSortOrder(true);
         filter.setSortProperty(ExchangeRate_.dateCourse);
-        //result = currencyService.find(filter);
+        result = exchangeRateService.find(filter);
     }
 
 }

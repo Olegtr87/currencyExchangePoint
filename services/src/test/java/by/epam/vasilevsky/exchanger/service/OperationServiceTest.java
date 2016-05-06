@@ -1,6 +1,8 @@
 package by.epam.vasilevsky.exchanger.service;
 
 import java.lang.reflect.Field;
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import org.junit.Assert;
@@ -87,21 +89,24 @@ public class OperationServiceTest {
 		operationService.add(operation);
 
 		OperationFilter filter = new OperationFilter();
-        //List<Currency> result = currencyService.find(filter);
+        List<Operation> result = operationService.find(filter);
         // test paging
         filter.setFetchCredentials(true);
-        filter.setOperationName("operationName");
+        filter.setOperationName("sell");
         int limit = 3;
         filter.setLimit(limit);
         filter.setOffset(0);
-        //result = currencyService.find(filter);
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        result = operationService.find(filter);
+        //System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
         // test sort
         filter.setLimit(null);
         filter.setOffset(null);
         filter.setSortOrder(true);
         filter.setSortProperty(Operation_.name);
-        //result = currencyService.find(filter);
+        result = operationService.find(filter);
+        for (Operation oper: result){
+        	System.out.println(oper);
+        }
     }
 }

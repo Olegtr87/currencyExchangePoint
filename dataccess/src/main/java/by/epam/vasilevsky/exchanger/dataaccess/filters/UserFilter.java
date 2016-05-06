@@ -7,8 +7,8 @@ public class UserFilter extends AbstractFilter{
 	private String numberPassport;
 	private String patronymic;
 	private String login;
-
-    public String getLogin() {
+	
+	public String getLogin() {
 		return login;
 	}
 

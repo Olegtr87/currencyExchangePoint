@@ -12,6 +12,8 @@ import org.hibernate.jpa.criteria.OrderImpl;
 import org.springframework.stereotype.Repository;
 import by.epam.vasilevsky.exchanger.dataaccess.UserProfileDao;
 import by.epam.vasilevsky.exchanger.dataaccess.filters.UserFilter;
+import by.epam.vasilevsky.exchanger.datamodel.Operation_;
+import by.epam.vasilevsky.exchanger.datamodel.Transaction_;
 import by.epam.vasilevsky.exchanger.datamodel.UserCredentials_;
 import by.epam.vasilevsky.exchanger.datamodel.UserProfile;
 import by.epam.vasilevsky.exchanger.datamodel.UserProfile_;
@@ -35,20 +37,21 @@ public class UserProfileDaoImpl extends AbstractDaoImpl<UserProfile, Long> imple
 		// set selection
 		cq.select(from);
 
-		if (filter.getUserName() != null) {
-			Predicate fNameEqualCondition = cb.equal(from.get(UserProfile_.firstName), filter.getUserName());
-			Predicate lNameEqualCondition = cb.equal(from.get(UserProfile_.lastName), filter.getUserName());
-			cq.where(cb.or(fNameEqualCondition, lNameEqualCondition));
-		}
+//		if (filter.getUserName() != null) {
+//			Predicate fNameEqualCondition = cb.equal(from.get(UserProfile_.firstName), filter.getUserName());
+//			Predicate lNameEqualCondition = cb.equal(from.get(UserProfile_.lastName), filter.getUserName());
+//			cq.where(cb.or(fNameEqualCondition, lNameEqualCondition));
+//		}
 
-		// if (filter.getLogin() != null) { 
-		// Predicate loginEqualCondition =              //получаемое значение
-		// cb.equal(from.get(UserProfile_.userCredentials).get(UserCredentials_.login),
-		// // передаваемое значение
-		// filter.getLogin());
-		// cq.where(cb.and(loginEqualCondition));
-		// }
-
+		 if (filter.getLogin() != null) { 
+		 Predicate loginEqualCondition =              //получаемое значение
+		 cb.equal(from.get(UserProfile_.userCredentials).get(UserCredentials_.login),
+		 // передаваемое значение
+		 filter.getLogin());
+		 cq.where(cb.and(loginEqualCondition));
+		 }
+				
+				
 		// set fetching
 		if (filter.isFetchCredentials()) {
 			from.fetch(UserProfile_.userCredentials, JoinType.LEFT);

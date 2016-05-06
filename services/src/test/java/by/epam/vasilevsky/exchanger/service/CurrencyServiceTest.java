@@ -1,6 +1,8 @@
 package by.epam.vasilevsky.exchanger.service;
 
 import java.lang.reflect.Field;
+import java.util.List;
+
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import org.junit.Assert;
@@ -98,14 +100,14 @@ public class CurrencyServiceTest {
 		currencyService.add(currency, balance);
 
         CurrencyFilter filter = new CurrencyFilter();
-        //List<Currency> result = currencyService.find(filter);
+        List<Currency> result = currencyService.find(filter);
         // test paging
         filter.setFetchCredentials(true);
         filter.setNameCurrency(CurrencyName.USD);
         int limit = 3;
         filter.setLimit(limit);
         filter.setOffset(0);
-        //result = currencyService.find(filter);
+        result = currencyService.find(filter);
         System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 
         // test sort
@@ -113,7 +115,7 @@ public class CurrencyServiceTest {
         filter.setOffset(null);
         filter.setSortOrder(true);
         filter.setSortProperty(Currency_.name);
-        //result = currencyService.find(filter);
+        result = currencyService.find(filter);
         
         currencyService.delete(balance.getId());
     }
