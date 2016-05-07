@@ -16,12 +16,12 @@
 
 	<context:annotation-config />
 
-	<context:component-scan base-package="by.epam.vasilevsky.exchanger.service.impl" />
-	<context:component-scan base-package="by.epam.vasilevsky.exchanger.dataaccess.impl" />
+	<context:component-scan base-package="com.epam.vasilevsky.exchanger.service.impl" />
+	<context:component-scan base-package="com.epam.vasilevsky.exchanger.dataaccess.impl" />
 
 
 	<bean id="dataSource"
-		class="by.epam.vasilevsky.exchanger.datamodel.util.SchemaNameAwareBasicDataSource"
+		class="com.epam.vasilevsky.exchanger.datamodel.util.SchemaNameAwareBasicDataSource"
 		destroy-method="close" p:driverClassName="org.postgresql.Driver"
 		p:url="jdbc:postgresql://localhost:5432/exchanger" p:username="postgres"
 		p:password="password" p:schema="public" />

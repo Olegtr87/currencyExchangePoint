@@ -18,14 +18,14 @@
 	</Appenders>
 	<Loggers>
 
-		<Logger name="by.epam.vasilevsky.exchanger.dataaccess"
+		<Logger name="com.epam.vasilevsky.exchanger.dataaccess"
 			level="INFO" additivity="false">
 			<AppenderRef ref="CONSOLE" />
 			<AppenderRef ref="SERVER_LOGFILE" />
 		</Logger>
 
 
-		<Logger name="by.epam.vasilevsky.exchanger.service"
+		<Logger name="com.epam.vasilevsky.exchanger.service"
 			level="INFO" additivity="false">
 			<AppenderRef ref="CONSOLE" />
 			<AppenderRef ref="SERVER_LOGFILE" />

@@ -10,7 +10,7 @@
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQL9Dialect" />
 			<property name="hibernate.ejb.naming_strategy"
-				value="by.epam.vasilevsky.exchanger.datamodel.util.CustomImprovedNamingStrategy" />
+				value="com.epam.vasilevsky.exchanger.datamodel.util.CustomImprovedNamingStrategy" />
 			<property name="hibernate.show_sql" value="false" />
 			<property name="hibernate.format_sql" value="true" />
 		</properties>
