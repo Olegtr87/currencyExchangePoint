@@ -21,11 +21,8 @@ public class CourseNBRB {
 	private String course;
 	private String code;
 
-	public CourseNBRB(String code) {
-		this.code = code;
-	}
-
-	public String getCourse() {
+	public String getCourse(String code) {
+		this.code=code;
 		try {
 			InputStream in = getInputStringFromUrl();
 			int i = -1;
@@ -49,7 +46,7 @@ public class CourseNBRB {
 		}
 	}
 
-	private String getDate() {
+	public String getDate() {
 		Date date = new Date();
 		SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
 		String dateStr = String.valueOf(dateFormat.format(date));

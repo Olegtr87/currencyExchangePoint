@@ -15,8 +15,8 @@ public class CourseNBRBTest {
 
 	@Test
 	public void test() {
-		CourseNBRB course = new CourseNBRB(CodeCurrency.getCurrencyFromName(CurrencyName.EUR));
-		String a = course.getCourse();
+		CourseNBRB course = new CourseNBRB();
+		String a = course.getCourse(CodeCurrency.getCurrencyFromName(CurrencyName.EUR));
 		System.out.println(a);
 	}
 }
