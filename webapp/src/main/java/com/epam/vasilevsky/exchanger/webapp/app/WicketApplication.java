@@ -4,7 +4,7 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.springframework.stereotype.Component;
 
-import com.epam.vasilevsky.exchanger.webapp.page.home.HomePage;
+import com.epam.vasilevsky.exchanger.webapp.page.home.LoginPage;
 
 @Component("wicketWebApplicationBean")
 public class WicketApplication extends WebApplication {
@@ -14,7 +14,7 @@ public class WicketApplication extends WebApplication {
      */
     @Override
     public Class<? extends WebPage> getHomePage() {
-        return HomePage.class;
+        return LoginPage.class;
     }
 
     /**

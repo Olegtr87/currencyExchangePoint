@@ -19,10 +19,6 @@ public class SendEmail {
 		this.password = password;
 	}
 	
-	public static void main(String[] args){
-		SendEmail sendEmail=new SendEmail("olegtr87@gmail.com","Bulochkin2003");
-		sendEmail.send("Tema", "text", "olegtr87@gmail.com");
-	}
 	public void send(String subject, String text, String toEmail) {
 		Properties props = new Properties();// properties for gmail
 		props.put("mail.smtp.auth", "true");

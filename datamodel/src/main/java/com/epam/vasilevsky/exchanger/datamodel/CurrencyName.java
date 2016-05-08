@@ -1,5 +1,5 @@
 package com.epam.vasilevsky.exchanger.datamodel;
 
 public enum CurrencyName {	
-	BRB, USD, EUR, PLZ
+	BRB, USD, EUR, PLZ, RUB
 }
