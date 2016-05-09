@@ -10,11 +10,18 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-public class SendEmail {
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.epam.vasilevsky.exchanger.service.SendEmail;
+
+public class SendEmailImpl implements SendEmail{
+	private static Logger LOGGER = LoggerFactory.getLogger(SendEmailImpl.class);
+
 	private String email;
 	private String password;
 
-	public SendEmail(String email, String password) {
+	public SendEmailImpl(String email, String password) {
 		this.email = email;
 		this.password = password;
 	}
@@ -41,9 +48,9 @@ public class SendEmail {
 			message.setText(text); // Now set the actual message
 
 			Transport.send(message); // Send message
-			System.out.println("Sent message successfully!");
+			LOGGER.info("Sent message successfully!");
 		} catch (MessagingException e) {
-			System.out.println("Message not sent!!!");
+			LOGGER.error("Message not sent!!!");
 		}
 	}
 }

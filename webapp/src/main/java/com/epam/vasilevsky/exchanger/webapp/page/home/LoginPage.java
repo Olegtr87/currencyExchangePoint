@@ -6,7 +6,7 @@ import org.apache.wicket.markup.html.link.Link;
 
 import com.epam.vasilevsky.exchanger.datamodel.CurrencyName;
 import com.epam.vasilevsky.exchanger.service.coursenbrb.CodeCurrency;
-import com.epam.vasilevsky.exchanger.service.coursenbrb.CourseNBRB;
+import com.epam.vasilevsky.exchanger.service.coursenbrb.CourseNBRBImpl;
 import com.epam.vasilevsky.exchanger.webapp.app.registerpage.RegisterPage;
 import com.epam.vasilevsky.exchanger.webapp.page.AbstractPage;
 import com.epam.vasilevsky.exchanger.webapp.page.homepage.HomePage;
@@ -34,7 +34,7 @@ public class LoginPage extends AbstractPage {
 		add(new TextField("name"));
 		add(new TextField("email"));
 
-		CourseNBRB course = new CourseNBRB();
+		CourseNBRBImpl course = new CourseNBRBImpl();
 		add(new Label("course",
 				String.format("Курсы валют НБРБ на %s:  EURO - %s   USD - %s   RUB - %s   PLZ - %s", course.getDate(),
 						course.getCourse(CodeCurrency.getCurrencyFromName(CurrencyName.EUR)),

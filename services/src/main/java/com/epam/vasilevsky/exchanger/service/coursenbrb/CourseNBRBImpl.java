@@ -9,9 +9,14 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import com.epam.vasilevsky.exchanger.datamodel.CurrencyName;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class CourseNBRB {
+import com.epam.vasilevsky.exchanger.service.CourseNBRB;
+
+public class CourseNBRBImpl implements CourseNBRB{
+	private static Logger LOGGER = LoggerFactory.getLogger(CourseNBRBImpl.class);
+	
 	private final String DATE_FORMAT = "MM/dd/yyyy";
 	private final String TEXT_START = "<Rate>";
 	private final String TEXT_END = "</Rate>";
@@ -37,11 +42,11 @@ public class CourseNBRB {
 			int indexStart = buffer.indexOf(TEXT_START) + 1 + NUMBER_DIGITS_COURSE;
 			int indexEnd = buffer.indexOf(TEXT_END);
 			course = buffer.substring(indexStart, indexEnd);
-
+			LOGGER.info("Currency get ok!");
 			return course;
 			
 		} catch (StringIndexOutOfBoundsException e) {
-			System.out.println("No correct code currency");
+			LOGGER.warn("No correct code currency!");
 			return null;
 		}
 	}
@@ -50,6 +55,7 @@ public class CourseNBRB {
 		Date date = new Date();
 		SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
 		String dateStr = String.valueOf(dateFormat.format(date));
+		LOGGER.info("Date get ok!");
 		return dateStr;
 	}
 
@@ -58,14 +64,14 @@ public class CourseNBRB {
 			URL url = new URL(String.format(URL, code, getDate(), getDate()));
 			HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 			InputStream in = new BufferedInputStream(urlConnection.getInputStream());
+			LOGGER.info("Get InputStream ok!");
 			return in;
 		} catch (MalformedURLException e) {
-			System.out.println("No connection");
+			LOGGER.warn("No connection");
 			return null;
 		} catch (IOException e) {
-			System.out.println("No connection!");
+			LOGGER.warn("No connection!");
 			return null;
 		}
-
 	}
 }
