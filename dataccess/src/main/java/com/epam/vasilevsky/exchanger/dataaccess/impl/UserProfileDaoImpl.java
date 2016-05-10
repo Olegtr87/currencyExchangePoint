@@ -44,7 +44,8 @@ public class UserProfileDaoImpl extends AbstractDaoImpl<UserProfile, Long> imple
 //			Predicate lNameEqualCondition = cb.equal(from.get(UserProfile_.lastName), filter.getUserName());
 //			cq.where(cb.or(fNameEqualCondition, lNameEqualCondition));
 //		}
-
+		
+		
 		 if (filter.getLogin() != null) { 
 		 Predicate loginEqualCondition =              //получаемое значение
 		 cb.equal(from.get(UserProfile_.userCredentials).get(UserCredentials_.login),

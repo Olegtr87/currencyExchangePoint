@@ -2,17 +2,37 @@ package com.epam.vasilevsky.exchanger.dataaccess.filters;
 
 import java.util.Date;
 
+import com.epam.vasilevsky.exchanger.datamodel.CurrencyName;
+
 public class ExchangeRateFilter extends AbstractFilter {
 
 	private Date dateCurrency;
-	private Integer sumIn;
+	private CurrencyName currencyFrom;
+	private CurrencyName currencyTo;
+	private Double conversion;
 
-	public Integer getSumIn() {
-		return sumIn;
+	public CurrencyName getCurrencyFrom() {
+		return currencyFrom;
 	}
 
-	public void setSumIn(Integer sumIn) {
-		this.sumIn = sumIn;
+	public void setCurrencyFrom(CurrencyName currencyFrom) {
+		this.currencyFrom = currencyFrom;
+	}
+
+	public CurrencyName getCurrencyTo() {
+		return currencyTo;
+	}
+
+	public void setCurrencyTo(CurrencyName currencyTo) {
+		this.currencyTo = currencyTo;
+	}
+
+	public Double getConversion() {
+		return conversion;
+	}
+
+	public void setConversion(Double conversion) {
+		this.conversion = conversion;
 	}
 
 	public Date getDateCurrency() {

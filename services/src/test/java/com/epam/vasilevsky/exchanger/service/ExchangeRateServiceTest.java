@@ -11,14 +11,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
 import com.epam.vasilevsky.exchanger.dataaccess.CurrencyDao;
 import com.epam.vasilevsky.exchanger.dataaccess.ExchangeRateDao;
 import com.epam.vasilevsky.exchanger.dataaccess.filters.ExchangeRateFilter;
 import com.epam.vasilevsky.exchanger.dataaccess.impl.AbstractDaoImpl;
 import com.epam.vasilevsky.exchanger.service.ExchangeRateService;
-
 import com.epam.vasilevsky.exchanger.datamodel.Currency;
+import com.epam.vasilevsky.exchanger.datamodel.CurrencyName;
 import com.epam.vasilevsky.exchanger.datamodel.ExchangeRate;
 import com.epam.vasilevsky.exchanger.datamodel.ExchangeRate_;
 
@@ -89,10 +88,10 @@ public class ExchangeRateServiceTest {
 
 		Assert.assertNull(exchangeRateService.get(exchangeRate.getId()));
 	}
-	
+
 	@Test
-    public void testSearch() {
-        // start create new data
+	public void testSearch() {
+		// start create new data
 		ExchangeRate exchangeRate = new ExchangeRate();
 		exchangeRate.setDateCourse(new Date());
 		exchangeRate.setConversion(1.11111111111111);
@@ -101,22 +100,33 @@ public class ExchangeRateServiceTest {
 		exchangeRateService.add(exchangeRate, currency, currency1);
 
 		ExchangeRateFilter filter = new ExchangeRateFilter();
-        List<ExchangeRate> result = exchangeRateService.find(filter);
-        // test paging
-        filter.setFetchCredentials(true);
-        filter.setDateCurrency(new Date());
-        int limit = 3;
-        filter.setLimit(limit);
-        filter.setOffset(0);
-        result = exchangeRateService.find(filter);
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+		List<ExchangeRate> result = exchangeRateService.find(filter);
+		// test paging
+		filter.setFetchCredentials(true);
+		filter.setDateCurrency(new Date());
+		int limit = 3;
+		filter.setLimit(limit);
+		filter.setOffset(0);
+		result = exchangeRateService.find(filter);
 
-        // test sort
-        filter.setLimit(null);
-        filter.setOffset(null);
-        filter.setSortOrder(true);
-        filter.setSortProperty(ExchangeRate_.dateCourse);
-        result = exchangeRateService.find(filter);
+		// test sort
+		filter.setLimit(null);
+		filter.setOffset(null);
+		filter.setSortOrder(true);
+		filter.setSortProperty(ExchangeRate_.dateCourse);
+		result = exchangeRateService.find(filter);
+	}
+	
+	@Test
+    public void testSearchFromCurrency() {
+		ExchangeRateFilter filter = new ExchangeRateFilter();
+		filter.setCurrencyFrom(CurrencyName.EUR);
+		filter.setCurrencyTo(CurrencyName.USD);
+        List<ExchangeRate> result = exchangeRateDao.find(filter);
+        
+        for (ExchangeRate ex:result){
+        	System.out.println(ex.toString());
+        }
     }
-
+	
 }

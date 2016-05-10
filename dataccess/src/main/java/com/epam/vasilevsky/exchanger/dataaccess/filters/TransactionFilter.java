@@ -5,6 +5,8 @@ import java.util.Date;
 public class TransactionFilter extends AbstractFilter{
 
 	private Date dateTransaction;
+	private Integer sumIn;
+	
 
 	public Date getDateTransaction() {
 		return dateTransaction;

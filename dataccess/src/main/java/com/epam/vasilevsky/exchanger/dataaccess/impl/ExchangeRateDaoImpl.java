@@ -13,12 +13,12 @@ import org.springframework.stereotype.Repository;
 
 import com.epam.vasilevsky.exchanger.dataaccess.ExchangeRateDao;
 import com.epam.vasilevsky.exchanger.dataaccess.filters.ExchangeRateFilter;
-
+import com.epam.vasilevsky.exchanger.datamodel.Currency_;
 import com.epam.vasilevsky.exchanger.datamodel.ExchangeRate;
 import com.epam.vasilevsky.exchanger.datamodel.ExchangeRate_;
 
 @Repository
-public class ExchangeRateDaoImpl extends AbstractDaoImpl<ExchangeRate,Long> implements ExchangeRateDao{
+public class ExchangeRateDaoImpl extends AbstractDaoImpl<ExchangeRate, Long> implements ExchangeRateDao {
 
 	protected ExchangeRateDaoImpl() {
 		super(ExchangeRate.class);
@@ -29,42 +29,49 @@ public class ExchangeRateDaoImpl extends AbstractDaoImpl<ExchangeRate,Long> impl
 	public List<ExchangeRate> find(ExchangeRateFilter filter) {
 		EntityManager em = getEntityManager();
 
-        CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaBuilder cb = em.getCriteriaBuilder();
 
-        CriteriaQuery<ExchangeRate> cq = cb.createQuery(ExchangeRate.class);
+		CriteriaQuery<ExchangeRate> cq = cb.createQuery(ExchangeRate.class);
 
-        Root<ExchangeRate> from = cq.from(ExchangeRate.class);
+		Root<ExchangeRate> from = cq.from(ExchangeRate.class);
 
-        // set selection
-        cq.select(from);
+		// set selection
+		cq.select(from);
 
-        if (filter.getDateCurrency() != null) {
-            Predicate dateExchRateEqualCondition = cb.equal(from.get(ExchangeRate_.dateCourse), filter.getDateCurrency());
-            //Predicate lNameEqualCondition = cb.equal(from.get(UserProfile_.lastName), filter.getUserName());
-            cq.where((dateExchRateEqualCondition));
-        }
-        // set fetching
-        if (filter.isFetchCredentials()) {
-            from.fetch(ExchangeRate_.currencyFrom, JoinType.LEFT);
-        }
+		if (filter.getDateCurrency() != null) {
+			Predicate dateExchRateEqualCondition = cb.equal(from.get(ExchangeRate_.dateCourse),
+					filter.getDateCurrency());
+			cq.where((dateExchRateEqualCondition));
+		}
+		
+		if (((filter.getCurrencyFrom()) != null)&&((filter.getCurrencyTo()) != null)) {
+			Predicate curFromExchRateEqualCondition = cb.equal(from.get(ExchangeRate_.currencyFrom).get(Currency_.name),
+					filter.getCurrencyFrom());
+			Predicate curToExchRateEqualCondition = cb.equal(from.get(ExchangeRate_.currencyTo).get(Currency_.name),
+					filter.getCurrencyTo());
+			cq.where(cb.and(curFromExchRateEqualCondition, curToExchRateEqualCondition));
+		}
+		
+		// set fetching
+		if (filter.isFetchCredentials()) {
+			from.fetch(ExchangeRate_.currencyFrom, JoinType.LEFT);
+		}
 
-        // set sort params
-        if (filter.getSortProperty() != null) {
-            cq.orderBy(new OrderImpl(from.get(filter.getSortProperty()), filter.isSortOrder()));
-        }
+		// set sort params
+		if (filter.getSortProperty() != null) {
+			cq.orderBy(new OrderImpl(from.get(filter.getSortProperty()), filter.isSortOrder()));
+		}
 
-        TypedQuery<ExchangeRate> q = em.createQuery(cq);
+		TypedQuery<ExchangeRate> q = em.createQuery(cq);
 
-        // set paging
-        if (filter.getOffset() != null && filter.getLimit() != null) {
-            q.setFirstResult(filter.getOffset());
-            q.setMaxResults(filter.getLimit());
-        }
+		// set paging
+		if (filter.getOffset() != null && filter.getLimit() != null) {
+			q.setFirstResult(filter.getOffset());
+			q.setMaxResults(filter.getLimit());
+		}
 
-        // set execute query
-        List<ExchangeRate> allitems = q.getResultList();
-        return allitems;
+		// set execute query
+		List<ExchangeRate> allitems = q.getResultList();
+		return allitems;
 	}
-
-	
 }

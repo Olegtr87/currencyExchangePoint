@@ -9,4 +9,5 @@ import com.epam.vasilevsky.exchanger.datamodel.ExchangeRate;
 public interface ExchangeRateDao extends AbstractDao<ExchangeRate, Long>{
 	
 	List<ExchangeRate> find(ExchangeRateFilter filter);
+	
 }
