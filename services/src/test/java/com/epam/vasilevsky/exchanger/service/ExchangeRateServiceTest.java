@@ -1,6 +1,7 @@
 package com.epam.vasilevsky.exchanger.service;
 
 import java.lang.reflect.Field;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -24,13 +25,13 @@ import com.epam.vasilevsky.exchanger.datamodel.ExchangeRate_;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = { "classpath:service-context-test.xml" })
 public class ExchangeRateServiceTest {
-		
+
 	@Inject
 	private ExchangeRateService exchangeRateService;
 
 	@Inject
 	private ExchangeRateDao exchangeRateDao;
-	
+
 	@Inject
 	CurrencyDao currencyDao;
 
@@ -54,7 +55,7 @@ public class ExchangeRateServiceTest {
 		ExchangeRate exchangeRate = new ExchangeRate();
 		exchangeRate.setDateCourse(new Date());
 		exchangeRate.setConversion(1.5);
-		Currency currencyFrom = currencyDao.get((long) 8);
+		Currency currencyFrom = currencyDao.get((long) 63);
 		Currency currencyTo = currencyDao.get((long) 8);
 		exchangeRateService.add(exchangeRate, currencyFrom, currencyTo);
 
@@ -116,17 +117,25 @@ public class ExchangeRateServiceTest {
 		filter.setSortProperty(ExchangeRate_.dateCourse);
 		result = exchangeRateService.find(filter);
 	}
-	
+
 	@Test
-    public void testSearchFromCurrency() {
+	public void testSearchFromCurrency() {
 		ExchangeRateFilter filter = new ExchangeRateFilter();
 		filter.setCurrencyFrom(CurrencyName.EUR);
 		filter.setCurrencyTo(CurrencyName.USD);
-        List<ExchangeRate> result = exchangeRateDao.find(filter);
-        
-        for (ExchangeRate ex:result){
-        	System.out.println(ex.toString());
-        }
-    }
-	
+		filter.setDateCurrency(getDateWithFormat());
+		List<ExchangeRate> result = exchangeRateDao.find(filter);
+
+		for (ExchangeRate ex : result) {
+			System.out.println(ex.toString());
+		}
+	}
+
+	protected Date getDateWithFormat() {
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(2016, 04, 12);
+		Date date = calendar.getTime();
+		return date;
+	}
+
 }

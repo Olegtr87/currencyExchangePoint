@@ -1,5 +1,6 @@
 package com.epam.vasilevsky.exchanger.datamodel;
 
+import java.util.Calendar;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,6 +32,13 @@ public class ExchangeRate extends AbstractModel {
 	}
 
 	public void setDateCourse(Date dateCourse) {
+		// add date without time
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(Calendar.HOUR_OF_DAY,0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.MILLISECOND, 0);
+		dateCourse = calendar.getTime();
 		this.dateCourse = dateCourse;
 	}
 
@@ -49,9 +57,9 @@ public class ExchangeRate extends AbstractModel {
 	public void setCurrencyIdTo(Currency currencyIdTo) {
 		this.currencyTo = currencyIdTo;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "ExchangeRate [id= "+getId()+" conversion=" + conversion + ", dateCourse=" + dateCourse;
+		return "ExchangeRate [id= " + getId() + " conversion=" + getConversion() + ", dateCourse=" + getDateCourse();
 	}
 }

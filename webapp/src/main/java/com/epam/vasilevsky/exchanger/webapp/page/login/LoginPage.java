@@ -1,21 +1,36 @@
-package com.epam.vasilevsky.exchanger.webapp.page.home;
+package com.epam.vasilevsky.exchanger.webapp.page.login;
+
+import javax.inject.Inject;
 
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.link.Link;
 
 import com.epam.vasilevsky.exchanger.datamodel.CurrencyName;
+import com.epam.vasilevsky.exchanger.service.UserCredentialsService;
 import com.epam.vasilevsky.exchanger.service.coursenbrb.CodeCurrency;
 import com.epam.vasilevsky.exchanger.service.coursenbrb.CourseNBRBImpl;
-import com.epam.vasilevsky.exchanger.webapp.app.registerpage.RegisterPage;
+import com.epam.vasilevsky.exchanger.webapp.component.menu.MenuPanel;
+import com.epam.vasilevsky.exchanger.webapp.component.menu.MenuPanelLogInAdmin;
+import com.epam.vasilevsky.exchanger.webapp.component.menu.MenuPanelLogInUser;
 import com.epam.vasilevsky.exchanger.webapp.page.AbstractPage;
 import com.epam.vasilevsky.exchanger.webapp.page.homepage.HomePage;
+import com.epam.vasilevsky.exchanger.webapp.page.register.RegisterPage;
 
 public class LoginPage extends AbstractPage {
 
+	@Inject
+	UserCredentialsService userCredentialsService;
 	public LoginPage() {
 		super();
+		System.out.println(userCredentialsService);
 
+	}
+
+	@Override
+	protected void onInitialize() {
+		super.onInitialize();
+		
 		add(new Link("linkhome") {
 			@Override
 			public void onClick() {
@@ -42,5 +57,4 @@ public class LoginPage extends AbstractPage {
 						course.getCourse(CodeCurrency.getCurrencyFromName(CurrencyName.RUB)),
 						course.getCourse(CodeCurrency.getCurrencyFromName(CurrencyName.PLZ)))));
 	}
-
 }

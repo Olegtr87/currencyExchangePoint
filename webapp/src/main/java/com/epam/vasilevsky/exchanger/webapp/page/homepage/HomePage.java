@@ -1,18 +1,16 @@
 package com.epam.vasilevsky.exchanger.webapp.page.homepage;
 
-import org.apache.wicket.markup.html.link.Link;
-
-import com.epam.vasilevsky.exchanger.webapp.app.check.CheckPage;
+import com.epam.vasilevsky.exchanger.webapp.component.menu.MenuPanel;
+import com.epam.vasilevsky.exchanger.webapp.component.menu.MenuPanelLogInAdmin;
+import com.epam.vasilevsky.exchanger.webapp.component.menu.MenuPanelLogInUser;
 import com.epam.vasilevsky.exchanger.webapp.page.AbstractPage;
 
 public class HomePage extends AbstractPage {
-	public HomePage() {
-        super();
-        add(new Link("linkcheck") {
-            @Override
-            public void onClick() {
-                setResponsePage(new CheckPage());
-            }
-        });
-    }
+	 @Override
+	    protected void onInitialize() {
+	        super.onInitialize();
+	        
+	        //add(new MenuPanelLogInUser("menu-panel"));
+	        add(new MenuPanelLogInAdmin("menu-panel"));
+	    }
 }

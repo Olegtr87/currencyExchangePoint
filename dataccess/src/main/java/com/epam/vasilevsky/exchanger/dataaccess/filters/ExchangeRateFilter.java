@@ -1,5 +1,6 @@
 package com.epam.vasilevsky.exchanger.dataaccess.filters;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import com.epam.vasilevsky.exchanger.datamodel.CurrencyName;
@@ -40,6 +41,13 @@ public class ExchangeRateFilter extends AbstractFilter {
 	}
 
 	public void setDateCurrency(Date dateCurrency) {
+		// filter without time
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(Calendar.HOUR_OF_DAY, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.MILLISECOND, 0);
+		dateCurrency = calendar.getTime();
 		this.dateCurrency = dateCurrency;
 	}
 }
