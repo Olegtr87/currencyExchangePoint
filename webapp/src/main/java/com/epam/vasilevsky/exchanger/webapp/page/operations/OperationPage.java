@@ -1,10 +1,13 @@
 package com.epam.vasilevsky.exchanger.webapp.page.operations;
 
-import org.apache.wicket.markup.html.link.Link;
-import com.epam.vasilevsky.exchanger.webapp.page.AbstractPage;
+import com.epam.vasilevsky.exchanger.webapp.page.AbstractHomePage;
 
-public class OperationPage extends AbstractPage {
+public class OperationPage extends AbstractHomePage {
 
-    
+	@Override
+    protected void onInitialize() {
+        super.onInitialize();
+        
+    }
 
 }
