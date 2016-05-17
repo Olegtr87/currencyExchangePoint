@@ -54,6 +54,12 @@ public class TransactionServiceImpl implements TransactionService {
 	public List<Transaction> find(TransactionFilter filter) {
 		LOGGER.info("Search for Transaction perfomed!");
 		return transactionDao.find(filter);
+	}
+
+	@Override
+	public Long count(TransactionFilter filter) {
+		LOGGER.info("Count for Transaction perfomed!");
+		return transactionDao.count(filter);
 	} 
 	
 }

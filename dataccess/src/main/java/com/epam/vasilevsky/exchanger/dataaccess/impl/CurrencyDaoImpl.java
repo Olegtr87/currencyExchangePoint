@@ -39,7 +39,6 @@ public class CurrencyDaoImpl extends AbstractDaoImpl<Currency,Long> implements C
 
         if (filter.getNameCurrency() != null) {
             Predicate currencyNameEqualCondition = cb.equal(from.get(Currency_.name), filter.getNameCurrency());
-            //Predicate lNameEqualCondition = cb.equal(from.get(UserProfile_.lastName), filter.getUserName());
             cq.where((currencyNameEqualCondition));
         }
         // set fetching
@@ -55,10 +54,7 @@ public class CurrencyDaoImpl extends AbstractDaoImpl<Currency,Long> implements C
         TypedQuery<Currency> q = em.createQuery(cq);
 
         // set paging
-        if (filter.getOffset() != null && filter.getLimit() != null) {
-            q.setFirstResult(filter.getOffset());
-            q.setMaxResults(filter.getLimit());
-        }
+        setPaging(filter, q);
 
         // set execute query
         List<Currency> allitems = q.getResultList();

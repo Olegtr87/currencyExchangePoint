@@ -2,6 +2,7 @@ package com.epam.vasilevsky.exchanger.datamodel;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.transaction.Transactional;
 
 @Entity
 public class Operation extends AbstractModel {

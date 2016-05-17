@@ -3,9 +3,12 @@ package com.epam.vasilevsky.exchanger.dataaccess.impl;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaQuery;
 
 import com.epam.vasilevsky.exchanger.dataaccess.AbstractDao;
+import com.epam.vasilevsky.exchanger.dataaccess.filters.AbstractFilter;
+import com.epam.vasilevsky.exchanger.datamodel.AbstractModel;
 
 public class AbstractDaoImpl<T,ID> implements AbstractDao<T, ID>{
 
@@ -57,4 +60,10 @@ public class AbstractDaoImpl<T,ID> implements AbstractDao<T, ID>{
         return entityClass;
     }
     
+    protected void setPaging(AbstractFilter filter, TypedQuery<? extends AbstractModel> q) {
+        if (filter.getOffset() != null && filter.getLimit() != null) {
+            q.setFirstResult(filter.getOffset());
+            q.setMaxResults(filter.getLimit());
+        }
+    }
 }

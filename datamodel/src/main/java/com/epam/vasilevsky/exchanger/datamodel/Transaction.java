@@ -11,7 +11,7 @@ public class Transaction extends AbstractModel {
 	
 	@ManyToOne(targetEntity = UserProfile.class, fetch = FetchType.LAZY)
 	private UserProfile user;
-	@ManyToOne(targetEntity = Operation.class, fetch = FetchType.LAZY)
+	@ManyToOne(targetEntity = Operation.class, fetch = FetchType.EAGER)
 	private Operation operation;
 	@ManyToOne(targetEntity = ExchangeRate.class, fetch = FetchType.LAZY)
 	private ExchangeRate exchangeRate;

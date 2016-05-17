@@ -3,7 +3,8 @@ package com.epam.vasilevsky.exchanger.webapp.component.menu;
 import org.apache.wicket.markup.html.link.Link;
 
 import com.epam.vasilevsky.exchanger.webapp.page.converter.ConverterPage;
-import com.epam.vasilevsky.exchanger.webapp.page.transaction.TransactionsPage;
+import com.epam.vasilevsky.exchanger.webapp.page.transaction.TransactionsListPanel;
+import com.epam.vasilevsky.exchanger.webapp.page.transaction.panel.TransactionsPage;
 
 public class MenuPanelLogInUser extends MenuPanel{
 

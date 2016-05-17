@@ -24,6 +24,17 @@ public class TransactionDaoImpl extends AbstractDaoImpl<Transaction,Long> implem
 	protected TransactionDaoImpl() {
 		super(Transaction.class);
 	}
+	
+	@Override
+    public Long count(TransactionFilter filter) {
+        EntityManager em = getEntityManager();
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Long> cq = cb.createQuery(Long.class);
+        Root<Transaction> from = cq.from(Transaction.class);
+        cq.select(cb.count(from));
+        TypedQuery<Long> q = em.createQuery(cq);
+        return q.getSingleResult();
+    }
 
 	@Override
 	public List<Transaction> find(TransactionFilter filter) {
@@ -56,10 +67,7 @@ public class TransactionDaoImpl extends AbstractDaoImpl<Transaction,Long> implem
         TypedQuery<Transaction> q = em.createQuery(cq);
 
         // set paging
-        if (filter.getOffset() != null && filter.getLimit() != null) {
-            q.setFirstResult(filter.getOffset());
-            q.setMaxResults(filter.getLimit());
-        }
+        setPaging(filter, q);
 
         // set execute query
         List<Transaction> allitems = q.getResultList();

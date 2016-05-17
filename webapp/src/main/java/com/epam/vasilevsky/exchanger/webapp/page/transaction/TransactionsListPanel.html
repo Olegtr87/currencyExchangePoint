@@ -1,3 +1,23 @@
-<wicket:extend>
-	<h2>TransactionPage</h2>
-</wicket:extend>
+<wicket:panel>
+	<table>
+		<thead>
+			<tr>
+				<th><a wicket:id="sort-id">Id</a></th>
+				<th><a wicket:id="sort-date">Date</a></th>
+				<th><a wicket:id="sort-sum-in">Sum in</a></th>
+				<th>Operation</th>
+			</tr>
+		
+		</thead>
+		<tbody>
+			<tr wicket:id="rows">
+				<td><span wicket:id="id"/></td>
+				<td><span wicket:id="date"/></td>
+				<td><span wicket:id="sumin"/></td>
+				<td><span wicket:id="operation"/></td>
+			</tr>
+		</tbody>
+	</table>
+	<div wicket:id="paging"></div>
+
+</wicket:panel>

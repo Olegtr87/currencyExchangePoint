@@ -39,9 +39,10 @@ public class OperationDaoImpl extends AbstractDaoImpl<Operation,Long> implements
 
         if (filter.getOperationName() != null) {
             Predicate oNameEqualCondition = cb.equal(from.get(Operation_.name), filter.getOperationName());
-            //Predicate lNameEqualCondition = cb.equal(from.get(UserProfile_.lastName), filter.getUserName());
             cq.where((oNameEqualCondition));
         }
+        
+        
         // set fetching
 //        if (filter.isFetchCredentials()) {
 //            from.fetch(Operation_., JoinType.LEFT);
@@ -55,10 +56,7 @@ public class OperationDaoImpl extends AbstractDaoImpl<Operation,Long> implements
         TypedQuery<Operation> q = em.createQuery(cq);
 
         // set paging
-        if (filter.getOffset() != null && filter.getLimit() != null) {
-            q.setFirstResult(filter.getOffset());
-            q.setMaxResults(filter.getLimit());
-        }
+        setPaging(filter, q);
 
         // set execute query
         List<Operation> allitems = q.getResultList();

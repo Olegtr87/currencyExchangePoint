@@ -66,10 +66,7 @@ public class ExchangeRateDaoImpl extends AbstractDaoImpl<ExchangeRate, Long> imp
 		TypedQuery<ExchangeRate> q = em.createQuery(cq);
 
 		// set paging
-		if (filter.getOffset() != null && filter.getLimit() != null) {
-			q.setFirstResult(filter.getOffset());
-			q.setMaxResults(filter.getLimit());
-		}
+		setPaging(filter, q);
 
 		// set execute query
 		List<ExchangeRate> allitems = q.getResultList();
