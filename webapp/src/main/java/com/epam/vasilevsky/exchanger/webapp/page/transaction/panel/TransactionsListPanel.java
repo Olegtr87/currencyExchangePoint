@@ -1,4 +1,4 @@
-package com.epam.vasilevsky.exchanger.webapp.page.transaction;
+package com.epam.vasilevsky.exchanger.webapp.page.transaction.panel;
 
 import java.io.Serializable;
 import java.util.Iterator;

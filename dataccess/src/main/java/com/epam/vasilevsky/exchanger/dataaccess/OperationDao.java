@@ -9,4 +9,6 @@ import com.epam.vasilevsky.exchanger.datamodel.Operation;
 public interface OperationDao extends AbstractDao<Operation, Long>{
 
 	List<Operation> find(OperationFilter filter);
+	
+	Long count(OperationFilter filter);
 }

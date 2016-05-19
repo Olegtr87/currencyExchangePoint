@@ -21,4 +21,6 @@ public interface OperationService {
     
     @Transactional
     List<Operation> find(OperationFilter filter);
+    
+    Long count(OperationFilter filter);
 }

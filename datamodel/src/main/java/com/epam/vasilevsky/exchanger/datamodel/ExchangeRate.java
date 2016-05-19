@@ -14,9 +14,9 @@ public class ExchangeRate extends AbstractModel {
 	private Double conversion;
 	@Column
 	private Date dateCourse;
-	@ManyToOne(targetEntity = Currency.class, fetch = FetchType.LAZY)
+	@ManyToOne(targetEntity = Currency.class, fetch = FetchType.EAGER)
 	private Currency currencyFrom;
-	@ManyToOne(targetEntity = Currency.class, fetch = FetchType.LAZY)
+	@ManyToOne(targetEntity = Currency.class, fetch = FetchType.EAGER)
 	private Currency currencyTo;
 
 	public Double getConversion() {

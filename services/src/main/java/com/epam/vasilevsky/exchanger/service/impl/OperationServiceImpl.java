@@ -50,4 +50,10 @@ public class OperationServiceImpl implements OperationService {
 		return operationDao.find(filter);
 	}
 
+	@Override
+	public Long count(OperationFilter filter) {
+		LOGGER.info("Count for Operation perfomed!");
+		return operationDao.count(filter);
+	}
+
 }

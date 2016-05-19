@@ -53,6 +53,11 @@ public class ExchangeRateServiceImpl implements ExchangeRateService{
 	public List<ExchangeRate> find(ExchangeRateFilter filter) {
 		LOGGER.info("Search for ExchangeRate perfomed!");
 		return exchangeRateDao.find(filter);
-	}	
+	}
 
+	@Override
+	public Long count(ExchangeRateFilter exchangeRateFilter) {
+		LOGGER.info("Count for ExchangeRate perfomed!");
+		return exchangeRateDao.count(exchangeRateFilter);
+	}
 }

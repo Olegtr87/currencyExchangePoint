@@ -72,4 +72,15 @@ public class ExchangeRateDaoImpl extends AbstractDaoImpl<ExchangeRate, Long> imp
 		List<ExchangeRate> allitems = q.getResultList();
 		return allitems;
 	}
+
+	@Override
+	public Long count(ExchangeRateFilter exchangeRateFilter) {
+		EntityManager em = getEntityManager();
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Long> cq = cb.createQuery(Long.class);
+        Root<ExchangeRate> from = cq.from(ExchangeRate.class);
+        cq.select(cb.count(from));
+        TypedQuery<Long> q = em.createQuery(cq);
+        return q.getSingleResult();
+	}
 }

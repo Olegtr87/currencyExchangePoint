@@ -1,0 +1,25 @@
+<wicket:panel>
+	<table>
+		<thead>
+			<tr>
+				<th><a wicket:id="sort-id">Id</a></th>
+				<th><a wicket:id="sort-date">Date</a></th>
+				<th><a wicket:id="sort-currency-from">Currency from</a></th>
+				<th><a wicket:id="sort-currency-to">Currency to</a></th>
+				<th></th>
+			</tr>
+		
+		</thead>
+		<tbody>
+			<tr wicket:id="rows">
+				<td><span wicket:id="id"/></td>
+				<td><span wicket:id="date"/></td>
+				<td><span wicket:id="currency-from"/></td>
+				<td><span wicket:id="currency-to"/></td>
+				<td><a>delete</a>/<a>edit</a></td>
+			</tr>
+		</tbody>
+	</table>
+	<div wicket:id="paging"></div>
+
+</wicket:panel>

@@ -21,6 +21,7 @@ public interface ExchangeRateService {
     @Transactional
     void delete(Long id);
     
-    @Transactional
     List<ExchangeRate> find(ExchangeRateFilter filter);
+    
+    Long count(ExchangeRateFilter filter);
 }

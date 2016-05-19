@@ -10,4 +10,6 @@ public interface ExchangeRateDao extends AbstractDao<ExchangeRate, Long>{
 	
 	List<ExchangeRate> find(ExchangeRateFilter filter);
 	
+	Long count(ExchangeRateFilter filter);
+	
 }

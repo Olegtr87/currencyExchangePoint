@@ -9,8 +9,8 @@ public abstract class AbstractHomePage extends AbstractPage {
     protected void onInitialize() {
         super.onInitialize();
         
-        //add(new MenuPanelLogInAdmin("menu-panel"));
-        add(new MenuPanelLogInUser("menu-panel"));
+        add(new MenuPanelLogInAdmin("menu-panel"));
+        //add(new MenuPanelLogInUser("menu-panel"));
         
     }
 }

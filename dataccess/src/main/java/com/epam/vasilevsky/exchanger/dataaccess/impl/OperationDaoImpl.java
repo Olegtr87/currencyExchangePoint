@@ -63,6 +63,15 @@ public class OperationDaoImpl extends AbstractDaoImpl<Operation,Long> implements
         return allitems;
 	}
 
-	
+	@Override
+    public Long count(OperationFilter filter) {
+        EntityManager em = getEntityManager();
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Long> cq = cb.createQuery(Long.class);
+        Root<Operation> from = cq.from(Operation.class);
+        cq.select(cb.count(from));
+        TypedQuery<Long> q = em.createQuery(cq);
+        return q.getSingleResult();
+    }
 
 }
