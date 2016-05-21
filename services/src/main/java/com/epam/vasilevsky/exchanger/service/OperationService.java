@@ -23,4 +23,7 @@ public interface OperationService {
     List<Operation> find(OperationFilter filter);
     
     Long count(OperationFilter filter);
+
+    @Transactional
+	void saveOrUpdate(Operation operation);
 }

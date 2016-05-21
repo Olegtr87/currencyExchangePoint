@@ -1,5 +1,5 @@
-table tr td,
-table tr th {
+table.list-table tr td,
+table.list-table tr th {
 	border: 1px solid black;
 }
-table {border-collapse: collapse;}
+table.list-table {border-collapse: collapse;}

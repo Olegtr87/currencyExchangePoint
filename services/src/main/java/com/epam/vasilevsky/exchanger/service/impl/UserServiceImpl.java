@@ -14,6 +14,7 @@ import com.epam.vasilevsky.exchanger.service.UserService;
 
 import com.epam.vasilevsky.exchanger.datamodel.UserCredentials;
 import com.epam.vasilevsky.exchanger.datamodel.UserProfile;
+import com.epam.vasilevsky.exchanger.datamodel.UserRole;
 
 @Service
 public class UserServiceImpl implements UserService {

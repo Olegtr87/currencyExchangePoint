@@ -56,6 +56,7 @@ public class ExchangeRateDaoImpl extends AbstractDaoImpl<ExchangeRate, Long> imp
 		// set fetching
 		if (filter.isFetchCredentials()) {
 			from.fetch(ExchangeRate_.currencyFrom, JoinType.LEFT);
+			from.fetch(ExchangeRate_.currencyTo, JoinType.LEFT);
 		}
 
 		// set sort params

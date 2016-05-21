@@ -1,20 +1,24 @@
 <wicket:extend>
 	<h2>LoginPage</h2>
 	<div>
-	<h5 wicket:id="message">LoginPage</h5>
+		<h5 wicket:id="message">LoginPage</h5>
 	</div>
-	<div>
-		Login:<input wicket:id="name" type="text" />
-	</div>
-	<div>
-		Password:<input wicket:id="email" type="text" />
-	</div>
-	<div>
-	<a wicket:id="linkhome">Sign in</a>
-	</div>
-	<div>
-	<a wicket:id="registration">Registration</a>
-	</div>
+		<table>
+			<tr>
+				<td><b>Login:</b></td>
+				<td><input wicket:id="name" type="text" /></td>
+			</tr>
+			<tr>
+				<td><b>Password:</b></td>
+				<td><input wicket:id="email" type="text" /></td>
+			</tr>
+			<tr>
+				<td><a wicket:id="linkhome">Sign in</a></td>
+			</tr>
+			<tr>
+				<td><a wicket:id="registration">Registration</a></td>
+			</tr>
+		</table>
 	<marquee>
 		<h5 wicket:id="course"></h5>
 	</marquee>

@@ -56,4 +56,13 @@ public class OperationServiceImpl implements OperationService {
 		return operationDao.count(filter);
 	}
 
+	@Override
+	public void saveOrUpdate(Operation operation) {
+		if (operation.getId() == null) {
+            operationDao.insert(operation);
+        } else {
+            operationDao.update(operation);
+        }
+	}
+
 }

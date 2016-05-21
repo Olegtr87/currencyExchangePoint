@@ -1,3 +1,47 @@
 <wicket:extend>
 	<h2>RegisterPage</h2>
+
+	<form wicket:id="form">
+
+		<table>
+			<tr>
+				<td><b>Login:</b></td>
+				<td><input type="text" wicket:id="login" /></td>
+			</tr>
+			<tr>
+				<td><b>Password:</b></td>
+				<td><input type="text" wicket:id="password" /></td>
+			</tr>
+			<tr>
+				<td><b>First name:</b></td>
+				<td><input type="text" wicket:id="firstName" /></td>
+			</tr>
+			<tr>
+				<td><b>LastName:</b></td>
+				<td><input type="text" wicket:id="lastName" /></td>
+			</tr>
+			<tr>
+				<td><b>Patronymic:</b></td>
+				<td><input type="text" wicket:id="patronymic" /></td>
+			</tr>
+			<tr>
+				<td><b>Number passport:</b></td>
+				<td><input type="text" wicket:id="numberPassport" /></td>
+			</tr>
+			<tr>
+				<td><b>Date issue:</b></td>
+				<td><input type="text" wicket:id="dateIssue" /></td>
+			</tr>
+			<tr>
+				<td><b>Issued:</b></td>
+				<td><input type="text" wicket:id="issued" /></td>
+			</tr>
+			<tr>
+				<td><button type="submit" wicket:id="save">SAVE</button></td>
+				<td></td>
+			</tr>
+		</table>
+	</form>
+	<div wicket:id="feedback"></div>
+
 </wicket:extend>

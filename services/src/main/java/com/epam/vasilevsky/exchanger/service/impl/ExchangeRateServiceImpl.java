@@ -15,12 +15,12 @@ import com.epam.vasilevsky.exchanger.datamodel.Currency;
 import com.epam.vasilevsky.exchanger.datamodel.ExchangeRate;
 
 @Service
-public class ExchangeRateServiceImpl implements ExchangeRateService{
+public class ExchangeRateServiceImpl implements ExchangeRateService {
 	private static Logger LOGGER = LoggerFactory.getLogger(ExchangeRateServiceImpl.class);
-	
+
 	@Inject
 	ExchangeRateDao exchangeRateDao;
-	
+
 	@Inject
 	CurrencyDao currencyDao;
 
@@ -59,5 +59,15 @@ public class ExchangeRateServiceImpl implements ExchangeRateService{
 	public Long count(ExchangeRateFilter exchangeRateFilter) {
 		LOGGER.info("Count for ExchangeRate perfomed!");
 		return exchangeRateDao.count(exchangeRateFilter);
+	}
+
+	@Override
+	public void saveOrUpdate(ExchangeRate exchangeRate) {
+		if (exchangeRate.getId() == null) {
+			exchangeRateDao.insert(exchangeRate);
+		} else {
+			exchangeRateDao.update(exchangeRate);
+		}
+
 	}
 }

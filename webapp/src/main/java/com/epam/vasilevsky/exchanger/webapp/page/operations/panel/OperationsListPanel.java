@@ -3,6 +3,7 @@ package com.epam.vasilevsky.exchanger.webapp.page.operations.panel;
 import java.io.Serializable;
 import java.util.Iterator;
 import javax.inject.Inject;
+import javax.persistence.PersistenceException;
 import javax.persistence.metamodel.SingularAttribute;
 import org.apache.wicket.datetime.markup.html.basic.DateLabel;
 import org.apache.wicket.extensions.markup.html.repeater.data.sort.OrderByBorder;
@@ -10,6 +11,7 @@ import org.apache.wicket.extensions.markup.html.repeater.data.sort.SortOrder;
 import org.apache.wicket.extensions.markup.html.repeater.util.SortableDataProvider;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.CheckBox;
+import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.navigation.paging.PagingNavigator;
 import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.markup.repeater.Item;
@@ -21,6 +23,8 @@ import com.epam.vasilevsky.exchanger.dataaccess.filters.OperationFilter;
 import com.epam.vasilevsky.exchanger.datamodel.Operation;
 import com.epam.vasilevsky.exchanger.datamodel.Operation_;
 import com.epam.vasilevsky.exchanger.service.OperationService;
+import com.epam.vasilevsky.exchanger.webapp.page.operations.OperationEditPage;
+import com.epam.vasilevsky.exchanger.webapp.page.operations.OperationPage;
 
 public class OperationsListPanel extends Panel {
 
@@ -41,8 +45,28 @@ public class OperationsListPanel extends Panel {
 				item.add(new Label("tax", operation.getTax()));
 				
 				CheckBox checkbox = new CheckBox("status-block", Model.of(operation.getStatusBlock()));
-                checkbox.setEnabled(true);
+                checkbox.setEnabled(false);
                 item.add(checkbox);
+                
+                item.add(new Link<Void>("edit-link") {
+                    @Override
+                    public void onClick() {
+                        setResponsePage(new OperationEditPage(operation));
+                    }
+                });
+                
+                item.add(new Link<Void>("delete-link") {
+                    @Override
+                    public void onClick() {
+                        try {
+                            operationService.delete(operation.getId());
+                        } catch (PersistenceException e) {
+                            System.out.println("caughth persistance exception");
+                        }
+
+                        setResponsePage(new OperationPage());
+                    }
+                });
 			}
 		};
 		add(dataView);

@@ -3,10 +3,15 @@ package com.epam.vasilevsky.exchanger.webapp.page.login;
 import javax.inject.Inject;
 
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.link.Link;
+import org.apache.wicket.model.CompoundPropertyModel;
 
 import com.epam.vasilevsky.exchanger.datamodel.CurrencyName;
+import com.epam.vasilevsky.exchanger.datamodel.Operation;
+import com.epam.vasilevsky.exchanger.datamodel.UserCredentials;
+import com.epam.vasilevsky.exchanger.datamodel.UserProfile;
 import com.epam.vasilevsky.exchanger.service.UserCredentialsService;
 import com.epam.vasilevsky.exchanger.service.coursenbrb.CodeCurrency;
 import com.epam.vasilevsky.exchanger.service.coursenbrb.CourseNBRBImpl;
@@ -38,7 +43,7 @@ public class LoginPage extends AbstractPage {
 		add(new Link("registration") {
 			@Override
 			public void onClick() {
-				setResponsePage(new RegisterPage());
+				setResponsePage(new RegisterPage(new UserCredentials(),new UserProfile()));
 			}
 		});
 

@@ -1,0 +1,31 @@
+<wicket:extend xmlns:wicket="http://wicket.apache.org">
+	<h2>Course edit</h2>
+
+	<form wicket:id="form">
+
+		<table>
+			<tr>
+				<td><b>Date:</b></td>
+				<td><input type="text" wicket:id="dateCourse" /></td>
+			</tr>
+			<tr>
+				<td><b>Currency from:</b></td>
+				<td><input type="text" wicket:id="currencyFrom" /></td>
+			</tr>
+			<tr>
+				<td><b>Currency to:</b></td>
+				<td><input type="text" wicket:id="currencyTo" /></td>
+			</tr>
+			<tr>
+				<td><b>Conversion:</b></td>
+				<td><input type="text" wicket:id="conversion" /></td>
+			</tr>
+			<tr>
+				<td><button type="submit" wicket:id="save">SAVE</button></td>
+				<td></td>
+			</tr>
+		</table>
+	</form>
+	<div wicket:id="feedback"></div>
+
+</wicket:extend>

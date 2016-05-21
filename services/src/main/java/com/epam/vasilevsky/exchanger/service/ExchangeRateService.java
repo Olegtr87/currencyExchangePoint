@@ -24,4 +24,7 @@ public interface ExchangeRateService {
     List<ExchangeRate> find(ExchangeRateFilter filter);
     
     Long count(ExchangeRateFilter filter);
+
+    @Transactional
+	void saveOrUpdate(ExchangeRate exchangeRate);
 }

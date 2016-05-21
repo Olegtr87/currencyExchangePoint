@@ -56,6 +56,7 @@ public class TransactionsListPanel extends Panel {
 		public TransactionsDataProvider() {
 			super();
 			transactionFilter = new TransactionFilter();
+			transactionFilter.setFetchCredentials(true);
 			setSort((Serializable) Transaction_.id, SortOrder.ASCENDING);
 		}
 
