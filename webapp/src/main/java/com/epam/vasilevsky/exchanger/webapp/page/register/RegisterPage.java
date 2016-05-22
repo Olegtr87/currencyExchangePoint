@@ -12,6 +12,7 @@ import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.validation.validator.RangeValidator;
 
@@ -54,17 +55,15 @@ public class RegisterPage extends AbstractPage {
 		Form form = new Form("form", new CompoundPropertyModel<UserProfile>(userProfile));
 		add(form);
 		
-//		TextField<String> loginField = new TextField<>("login");
-//		loginField.setRequired(true);
-//		form.add(loginField);
-//		
-//		TextField<String> passwordField = new TextField<>("password");
-//		passwordField.setRequired(true);
-//		form.add(passwordField);
+		TextField<String> loginField = new TextField<>("login", new PropertyModel(userCredentials, "login"));
+		loginField.setRequired(true);
+		form.add(loginField);
+		
+		TextField<String> passwordField = new TextField<>("password", new PropertyModel(userCredentials, "password"));
+		passwordField.setRequired(true);
+		form.add(passwordField);
 		
 		userCredentials.setRole(UserRole.Client);
-		userCredentials.setLogin("login2");
-		userCredentials.setPassword("password2");
 		
 		TextField<String> firstNameField = new TextField<>("firstName");
 		firstNameField.setRequired(true);
