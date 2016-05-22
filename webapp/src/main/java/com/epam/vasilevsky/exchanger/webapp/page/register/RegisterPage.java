@@ -10,6 +10,8 @@ import org.apache.wicket.markup.html.form.SubmitLink;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.validation.validator.RangeValidator;
 
@@ -20,6 +22,7 @@ import com.epam.vasilevsky.exchanger.datamodel.UserRole;
 import com.epam.vasilevsky.exchanger.service.UserService;
 import com.epam.vasilevsky.exchanger.webapp.page.AbstractPage;
 import com.epam.vasilevsky.exchanger.webapp.page.homepage.HomePage;
+import com.epam.vasilevsky.exchanger.webapp.page.login.LoginPage;
 
 
 public class RegisterPage extends AbstractPage {
@@ -48,18 +51,20 @@ public class RegisterPage extends AbstractPage {
 	protected void onInitialize() {
 		super.onInitialize();
 		
-		Form form = new Form("form", new CompoundPropertyModel<UserCredentials>(userCredentials));
+		Form form = new Form("form", new CompoundPropertyModel<UserProfile>(userProfile));
 		add(form);
-
-		TextField<String> loginField = new TextField<>("login");
-		loginField.setRequired(true);
-		form.add(loginField);
+		
+//		TextField<String> loginField = new TextField<>("login");
+//		loginField.setRequired(true);
+//		form.add(loginField);
+//		
+//		TextField<String> passwordField = new TextField<>("password");
+//		passwordField.setRequired(true);
+//		form.add(passwordField);
 		
 		userCredentials.setRole(UserRole.Client);
-		
-		TextField<String> passwordField = new TextField<>("password");
-		passwordField.setRequired(true);
-		form.add(passwordField);
+		userCredentials.setLogin("login2");
+		userCredentials.setPassword("password2");
 		
 		TextField<String> firstNameField = new TextField<>("firstName");
 		firstNameField.setRequired(true);
@@ -92,7 +97,7 @@ public class RegisterPage extends AbstractPage {
 			public void onSubmit() {
 				super.onSubmit();
 				userService.register(userProfile,userCredentials);
-				setResponsePage(new HomePage());
+				setResponsePage(new LoginPage());
 			}
 		});
 
