@@ -1,27 +1,38 @@
 package com.epam.vasilevsky.exchanger.webapp.page.course;
 
+import java.util.Arrays;
+
 import javax.inject.Inject;
 
 import org.apache.wicket.extensions.markup.html.form.DateTextField;
 import org.apache.wicket.extensions.yui.calendar.DatePicker;
 import org.apache.wicket.markup.html.form.CheckBox;
+import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.SubmitLink;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.validation.validator.RangeValidator;
 
+import com.epam.vasilevsky.exchanger.dataaccess.CurrencyDao;
+import com.epam.vasilevsky.exchanger.datamodel.Currency;
+import com.epam.vasilevsky.exchanger.datamodel.CurrencyName;
 import com.epam.vasilevsky.exchanger.datamodel.ExchangeRate;
+import com.epam.vasilevsky.exchanger.datamodel.UserRole;
 import com.epam.vasilevsky.exchanger.service.ExchangeRateService;
+import com.epam.vasilevsky.exchanger.webapp.app.common.CurrencyChoiceRenderer;
 import com.epam.vasilevsky.exchanger.webapp.page.AbstractHomePage;
-
 
 public class CourseEditPage extends AbstractHomePage {
 
 	@Inject
 	private ExchangeRateService exchangeRateService;
+
+	@Inject
+	private CurrencyDao currencyDao;
 
 	private ExchangeRate exchangeRate;
 
@@ -40,23 +51,27 @@ public class CourseEditPage extends AbstractHomePage {
 		Form form = new Form("form", new CompoundPropertyModel<ExchangeRate>(exchangeRate));
 		add(form);
 
-		TextField<String> currencyFrom = new TextField<>("currencyFrom");
-		currencyFrom.setRequired(true);
-		form.add(currencyFrom);
-		
-		TextField<String> currencyTo = new TextField<>("currencyTo");
-		currencyTo.setRequired(true);
-		form.add(currencyTo);
+		DropDownChoice<CurrencyName> currencyFromField = new DropDownChoice<>("currencyFrom",
+				new PropertyModel<CurrencyName>(exchangeRate.getCurrencyIdFrom(), "name"),
+				Arrays.asList(CurrencyName.values()), CurrencyChoiceRenderer.INSTANCE);
+		currencyFromField.setRequired(true);
+		form.add(currencyFromField);
+
+		DropDownChoice<CurrencyName> currencyToField = new DropDownChoice<>("currencyTo",
+				new PropertyModel<CurrencyName>(exchangeRate.getCurrencyIdTo(), "name"),
+				Arrays.asList(CurrencyName.values()), CurrencyChoiceRenderer.INSTANCE);
+		currencyToField.setRequired(true);
+		form.add(currencyToField);
 
 		TextField<Double> conversion = new TextField<>("conversion");
 		conversion.add(RangeValidator.<Double> minimum(0.1d));
 		conversion.setRequired(true);
 		form.add(conversion);
-		
+
 		DateTextField dateCourseField = new DateTextField("dateCourse");
 		dateCourseField.add(new DatePicker());
 		dateCourseField.setRequired(true);
-        form.add(dateCourseField);
+		form.add(dateCourseField);
 
 		form.add(new SubmitLink("save") {
 			@Override

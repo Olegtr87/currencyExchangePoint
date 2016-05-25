@@ -63,6 +63,7 @@ public class ExchangeRateServiceImpl implements ExchangeRateService {
 
 	@Override
 	public void saveOrUpdate(ExchangeRate exchangeRate) {
+		
 		if (exchangeRate.getId() == null) {
 			exchangeRateDao.insert(exchangeRate);
 		} else {
