@@ -2,54 +2,84 @@ package com.epam.vasilevsky.exchanger.webapp.page.login;
 
 import javax.inject.Inject;
 
+import org.apache.wicket.Application;
+import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.form.TextField;
-import org.apache.wicket.markup.html.link.Link;
+import org.apache.wicket.markup.html.form.PasswordTextField;
+import org.apache.wicket.markup.html.form.RequiredTextField;
+import org.apache.wicket.markup.html.form.SubmitLink;
+import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.util.string.Strings;
 
 import com.epam.vasilevsky.exchanger.datamodel.CurrencyName;
-import com.epam.vasilevsky.exchanger.datamodel.Operation;
 import com.epam.vasilevsky.exchanger.datamodel.UserCredentials;
 import com.epam.vasilevsky.exchanger.datamodel.UserProfile;
 import com.epam.vasilevsky.exchanger.service.UserCredentialsService;
 import com.epam.vasilevsky.exchanger.service.coursenbrb.CodeCurrency;
 import com.epam.vasilevsky.exchanger.service.coursenbrb.CourseNBRBImpl;
 import com.epam.vasilevsky.exchanger.webapp.page.AbstractPage;
-import com.epam.vasilevsky.exchanger.webapp.page.homepage.HomePage;
 import com.epam.vasilevsky.exchanger.webapp.page.register.RegisterPage;
 
 public class LoginPage extends AbstractPage {
 
+	private String login;
+	private String password;
+
 	@Inject
 	UserCredentialsService userCredentialsService;
+
 	public LoginPage() {
 		super();
-		System.out.println(userCredentialsService);
-
 	}
 
 	@Override
 	protected void onInitialize() {
 		super.onInitialize();
-		
-		add(new Link("linkhome") {
+
+		// if already logged then should not see login page at all
+		if (AuthenticatedWebSession.get().isSignedIn()) {
+			setResponsePage(Application.get().getHomePage());
+		}
+
+		final Form<Void> form = new Form<Void>("form");
+		final Form<Void> form1 = new Form<Void>("form1");
+		form.setDefaultModel(new CompoundPropertyModel<LoginPage>(this));
+		form.add(new RequiredTextField<String>("login"));
+		form.add(new PasswordTextField("password"));
+
+		form1.add(new SubmitLink("reg-btn") {
 			@Override
-			public void onClick() {
-				setResponsePage(new HomePage());
+			public void onSubmit() {
+				super.onSubmit();
+				setResponsePage(new RegisterPage(new UserCredentials(), new UserProfile()));
 			}
 		});
 
-		add(new Link("registration") {
+		form.add(new SubmitLink("login-btn") {
 			@Override
-			public void onClick() {
-				setResponsePage(new RegisterPage(new UserCredentials(),new UserProfile()));
+			public void onSubmit() {
+				super.onSubmit();
+				if (Strings.isEmpty(login) || Strings.isEmpty(password)) {
+					return;
+				}
+				final boolean authResult = AuthenticatedWebSession.get().signIn(login, password);
+				if (authResult) {
+					// continueToOriginalDestination();
+					setResponsePage(Application.get().getHomePage());
+				} else {
+					error("authorization error");
+				}
 			}
 		});
 
 		add(new Label("message", "Ввод логина и пароля:"));
-		add(new TextField("name"));
-		add(new TextField("email"));
+
+		add(form);
+		add(form1);
+
+		add(new FeedbackPanel("feedbackpanel"));
 
 		CourseNBRBImpl course = new CourseNBRBImpl();
 		add(new Label("course",

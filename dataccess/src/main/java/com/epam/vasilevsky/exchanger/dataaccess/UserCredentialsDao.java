@@ -7,5 +7,5 @@ import com.epam.vasilevsky.exchanger.datamodel.UserCredentials;
 
 public interface UserCredentialsDao extends AbstractDao<UserCredentials, Long>{
 	
-	List<UserCredentials> find(UserCredentialsFilter filter);
+	UserCredentials find(UserCredentialsFilter filter);
 }

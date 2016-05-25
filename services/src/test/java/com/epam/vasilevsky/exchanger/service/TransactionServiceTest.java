@@ -15,6 +15,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.epam.vasilevsky.exchanger.dataaccess.ExchangeRateDao;
 import com.epam.vasilevsky.exchanger.dataaccess.OperationDao;
 import com.epam.vasilevsky.exchanger.dataaccess.TransactionDao;
+import com.epam.vasilevsky.exchanger.dataaccess.UserCredentialsDao;
 import com.epam.vasilevsky.exchanger.dataaccess.UserProfileDao;
 import com.epam.vasilevsky.exchanger.dataaccess.filters.OperationFilter;
 import com.epam.vasilevsky.exchanger.dataaccess.filters.TransactionFilter;
@@ -26,6 +27,7 @@ import com.epam.vasilevsky.exchanger.datamodel.Operation;
 import com.epam.vasilevsky.exchanger.datamodel.Operation_;
 import com.epam.vasilevsky.exchanger.datamodel.Transaction;
 import com.epam.vasilevsky.exchanger.datamodel.Transaction_;
+import com.epam.vasilevsky.exchanger.datamodel.UserCredentials;
 import com.epam.vasilevsky.exchanger.datamodel.UserProfile;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -45,7 +47,7 @@ public class TransactionServiceTest {
 	OperationDao operationDao;
 	
 	@Inject
-	UserProfileDao userProfileDao;
+	UserCredentialsDao userCredentialsDao;
 	
 	@Test
 	public void test() {
@@ -69,8 +71,8 @@ public class TransactionServiceTest {
 		transaction.setSummIn(10000);
 		ExchangeRate exchangeRate=exchangeRateDao.get((long) 28);
 		Operation operation=operationDao.get((long) 3);
-		UserProfile userProfile=userProfileDao.get((long) 3);
-		transactionService.add(transaction, userProfile, operation, exchangeRate);
+		UserCredentials userCredentials=userCredentialsDao.get((long) 3);
+		transactionService.add(transaction, userCredentials, operation, exchangeRate);
 				
 		Assert.assertNotNull(transactionService.get(transaction.getId()));
 	}
@@ -82,8 +84,8 @@ public class TransactionServiceTest {
 		transaction.setSummIn(10000);
 		ExchangeRate exchangeRate=exchangeRateDao.get((long) 28);
 		Operation operation=operationDao.get((long) 3);
-		UserProfile userProfile=userProfileDao.get((long) 3);
-		transactionService.add(transaction, userProfile, operation, exchangeRate);
+		UserCredentials userCredentials=userCredentialsDao.get((long) 3);
+		transactionService.add(transaction, userCredentials, operation, exchangeRate);
 		Integer updSum=999;
 		transaction.setSummIn(updSum);
 		transactionService.update(transaction);
@@ -98,8 +100,8 @@ public class TransactionServiceTest {
 		transaction.setSummIn(10000);
 		ExchangeRate exchangeRate=exchangeRateDao.get((long) 28);
 		Operation operation=operationDao.get((long) 3);
-		UserProfile userProfile=userProfileDao.get((long) 3);
-		transactionService.add(transaction, userProfile, operation, exchangeRate);
+		UserCredentials userCredentials=userCredentialsDao.get((long) 3);
+		transactionService.add(transaction, userCredentials, operation, exchangeRate);
 		transactionService.delete(transaction.getId());
 		
 		Assert.assertNull(transactionService.get(transaction.getId()));
@@ -113,8 +115,8 @@ public class TransactionServiceTest {
 		transaction.setSummIn(10000);
 		ExchangeRate exchangeRate=exchangeRateDao.get((long) 28);
 		Operation operation=operationDao.get((long) 3);
-		UserProfile userProfile=userProfileDao.get((long) 3);
-		transactionService.add(transaction, userProfile, operation, exchangeRate);
+		UserCredentials userCredentials=userCredentialsDao.get((long) 3);
+		transactionService.add(transaction, userCredentials, operation, exchangeRate);
 
 		TransactionFilter filter = new TransactionFilter();
         List<Transaction> result = transactionService.find(filter);

@@ -1,5 +1,7 @@
 package com.epam.vasilevsky.exchanger.service.impl;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -20,10 +22,19 @@ public class UserCredentialsServiceImpl implements UserCredentialsService {
 	@Inject
 	private UserCredentialsDao userCredentialsDao;
 
+
 	@Override
-	public List<UserCredentials> find(UserCredentialsFilter filter) {
-		LOGGER.info("Search for UserCredentials perfomed!");
+	public UserCredentials findByLoginAndPassword(String login, String password) {
+		UserCredentialsFilter filter=new UserCredentialsFilter();
+		filter.setLogin(login);
+		filter.setPassword(password);
 		return userCredentialsDao.find(filter);
+	}
+
+	@Override
+	public Collection<? extends String> resolveRoles(Long id) {
+		UserCredentials userCredentials = userCredentialsDao.get(id);
+        return Collections.singletonList(userCredentials.getRole().name());
 	}
 
 }

@@ -17,6 +17,8 @@ import com.epam.vasilevsky.exchanger.dataaccess.filters.TransactionFilter;
 
 import com.epam.vasilevsky.exchanger.datamodel.Transaction;
 import com.epam.vasilevsky.exchanger.datamodel.Transaction_;
+import com.epam.vasilevsky.exchanger.datamodel.UserCredentials_;
+import com.epam.vasilevsky.exchanger.datamodel.UserProfile_;
 
 @Repository
 public class TransactionDaoImpl extends AbstractDaoImpl<Transaction,Long> implements TransactionDao{
@@ -49,14 +51,15 @@ public class TransactionDaoImpl extends AbstractDaoImpl<Transaction,Long> implem
         // set selection
         cq.select(from);
 
-        if (filter.getDateTransaction() != null) {
-            Predicate dateTransactionEqualCondition = cb.equal(from.get(Transaction_.dateOperation), filter.getDateTransaction());
-            //Predicate lNameEqualCondition = cb.equal(from.get(UserProfile_.lastName), filter.getUserName());
-            cq.where((dateTransactionEqualCondition));
+        if (filter.getUserCredentials() != null) {
+            Predicate userEqualCondition = cb.equal(from.get(Transaction_.user).get(UserCredentials_.id), filter.getUserCredentials().getId());
+            System.out.println(filter.getUserCredentials());
+            cq.where((userEqualCondition));
         }
         // set fetching
         if (filter.isFetchCredentials()) {
             from.fetch(Transaction_.operation, JoinType.LEFT);
+            from.fetch(Transaction_.user, JoinType.LEFT);
         }
 
         // set sort params

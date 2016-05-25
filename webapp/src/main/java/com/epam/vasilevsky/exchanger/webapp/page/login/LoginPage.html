@@ -3,22 +3,34 @@
 	<div>
 		<h5 wicket:id="message">LoginPage</h5>
 	</div>
+	<form wicket:id="form">
 		<table>
 			<tr>
 				<td><b>Login:</b></td>
-				<td><input wicket:id="name" type="text" /></td>
+				<td><input wicket:id="login" type="text" /></td>
 			</tr>
 			<tr>
 				<td><b>Password:</b></td>
-				<td><input wicket:id="email" type="text" /></td>
+				<td><input wicket:id="password" type="password" /></td>
 			</tr>
 			<tr>
-				<td><a wicket:id="linkhome">Sign in</a></td>
+				<td><button type="submit" class="btn waves-effect"
+						wicket:id="login-btn">
+						<b>Log in</b>
+					</button></td>
 			</tr>
-			<tr>
-				<td><a wicket:id="registration">Registration</a></td>
-			</tr>
+
+
 		</table>
+	</form>
+	<form wicket:id="form1">
+		<button type="submit" class="btn waves-effect" wicket:id="reg-btn">
+			<b>Registration</b>
+		</button>
+	</form>
+
+
+	<div wicket:id="feedbackpanel"></div>
 	<marquee>
 		<h5 wicket:id="course"></h5>
 	</marquee>

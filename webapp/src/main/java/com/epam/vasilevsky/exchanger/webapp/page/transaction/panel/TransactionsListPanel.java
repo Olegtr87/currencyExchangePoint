@@ -15,15 +15,23 @@ import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
+
+import com.epam.vasilevsky.exchanger.dataaccess.UserCredentialsDao;
 import com.epam.vasilevsky.exchanger.dataaccess.filters.TransactionFilter;
 import com.epam.vasilevsky.exchanger.datamodel.Transaction;
 import com.epam.vasilevsky.exchanger.datamodel.Transaction_;
+import com.epam.vasilevsky.exchanger.datamodel.UserCredentials;
+import com.epam.vasilevsky.exchanger.datamodel.UserProfile;
 import com.epam.vasilevsky.exchanger.service.TransactionService;
+import com.epam.vasilevsky.exchanger.webapp.app.AuthorizedSession;
 
 public class TransactionsListPanel extends Panel {
 
 	@Inject
 	private TransactionService transactionService;
+
+	@Inject
+	private UserCredentialsDao userCredentialsDao;
 
 	public TransactionsListPanel(String id) {
 		super(id);
@@ -35,9 +43,12 @@ public class TransactionsListPanel extends Panel {
 				Transaction transaction = item.getModelObject();
 
 				item.add(new Label("id", transaction.getId()));
-				item.add(DateLabel.forDatePattern("date", Model.of(transaction.getDateOperation()), "dd-MM-yyyy hh:mm"));
+				item.add(
+						DateLabel.forDatePattern("date", Model.of(transaction.getDateOperation()), "dd-MM-yyyy hh:mm"));
 				item.add(new Label("sumin", transaction.getSummIn()));
 				item.add(new Label("operation", transaction.getOperationId().getName()));
+
+				item.add(new Label("user", transaction.getUserId().getId()));
 			}
 		};
 		add(dataView);
@@ -55,8 +66,13 @@ public class TransactionsListPanel extends Panel {
 
 		public TransactionsDataProvider() {
 			super();
+
 			transactionFilter = new TransactionFilter();
 			transactionFilter.setFetchCredentials(true);
+
+			UserCredentials user = AuthorizedSession.get().getLoggedUser();
+			transactionFilter.setUserCredentials(userCredentialsDao.get(user.getId()));
+
 			setSort((Serializable) Transaction_.id, SortOrder.ASCENDING);
 		}
 

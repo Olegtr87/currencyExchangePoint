@@ -23,10 +23,8 @@ public class UserCredentialsServiceTest {
 		UserCredentialsFilter filter = new UserCredentialsFilter();
 		filter.setLogin("login");
 		filter.setPassword("password");
-		List<UserCredentials> result = userService.find(filter);
+		UserCredentials result = userService.findByLoginAndPassword("login", "password");
 
-		for (UserCredentials u : result) {
-			System.out.println(u.toString());
-		}
+		
 	}
 }

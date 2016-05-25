@@ -9,8 +9,8 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Transaction extends AbstractModel {
 	
-	@ManyToOne(targetEntity = UserProfile.class, fetch = FetchType.LAZY)
-	private UserProfile user;
+	@ManyToOne(targetEntity = UserCredentials.class, fetch = FetchType.LAZY)
+	private UserCredentials user;
 	@ManyToOne(targetEntity = Operation.class, fetch = FetchType.LAZY)
 	private Operation operation;
 	@ManyToOne(targetEntity = ExchangeRate.class, fetch = FetchType.LAZY)
@@ -20,11 +20,11 @@ public class Transaction extends AbstractModel {
 	@Column
 	private Date dateOperation;
 
-	public UserProfile getUserId() {
+	public UserCredentials getUserId() {
 		return user;
 	}
 
-	public void setUserId(UserProfile userId) {
+	public void setUserId(UserCredentials userId) {
 		this.user = userId;
 	}
 

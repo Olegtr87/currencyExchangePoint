@@ -15,6 +15,7 @@ import com.epam.vasilevsky.exchanger.service.TransactionService;
 import com.epam.vasilevsky.exchanger.datamodel.ExchangeRate;
 import com.epam.vasilevsky.exchanger.datamodel.Operation;
 import com.epam.vasilevsky.exchanger.datamodel.Transaction;
+import com.epam.vasilevsky.exchanger.datamodel.UserCredentials;
 import com.epam.vasilevsky.exchanger.datamodel.UserProfile;
 
 @Service
@@ -24,8 +25,8 @@ public class TransactionServiceImpl implements TransactionService {
 	TransactionDao transactionDao;
 		
 	@Override
-	public void add(Transaction transaction, UserProfile userProfile, Operation operation, ExchangeRate exchangeRate) {
-		transaction.setUserId(userProfile);
+	public void add(Transaction transaction, UserCredentials userCredentials, Operation operation, ExchangeRate exchangeRate) {
+		transaction.setUserId(userCredentials);
 		transaction.setOperationId(operation);
 		transaction.setExchangeRateId(exchangeRate);
 		transaction.setDateOperation(new Date());

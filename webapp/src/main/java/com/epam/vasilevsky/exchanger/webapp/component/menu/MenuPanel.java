@@ -17,7 +17,8 @@ public class MenuPanel extends Panel {
 		add(new Link("link-logout") {
 			@Override
 			public void onClick() {
-				setResponsePage(new LoginPage());
+				getSession().invalidate();
+                setResponsePage(LoginPage.class);
 			}
 		});
 	}

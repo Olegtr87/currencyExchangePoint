@@ -21,7 +21,7 @@ public class UserCredentialsDaoImpl extends AbstractDaoImpl<UserCredentials, Lon
 	}
 
 	@Override
-	public List<UserCredentials> find(UserCredentialsFilter filter) {
+	public UserCredentials find(UserCredentialsFilter filter) {
 
 		EntityManager em = getEntityManager();
 		CriteriaBuilder cb = em.getCriteriaBuilder();
@@ -37,6 +37,13 @@ public class UserCredentialsDaoImpl extends AbstractDaoImpl<UserCredentials, Lon
 		TypedQuery<UserCredentials> q = em.createQuery(cq);
 
 		List<UserCredentials> allitems = q.getResultList();
-		return allitems;
+		
+		if (allitems.isEmpty()) {
+            return null;
+        } else if (allitems.size() == 1) {
+            return allitems.get(0);
+        } else {
+            throw new IllegalArgumentException("more than 1 user found ");
+        }
 	}
 }
