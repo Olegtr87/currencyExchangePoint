@@ -6,7 +6,6 @@ import javax.inject.Inject;
 
 import org.apache.wicket.extensions.markup.html.form.DateTextField;
 import org.apache.wicket.extensions.yui.calendar.DatePicker;
-import org.apache.wicket.markup.html.form.CheckBox;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.SubmitLink;
@@ -21,7 +20,6 @@ import com.epam.vasilevsky.exchanger.dataaccess.CurrencyDao;
 import com.epam.vasilevsky.exchanger.datamodel.Currency;
 import com.epam.vasilevsky.exchanger.datamodel.CurrencyName;
 import com.epam.vasilevsky.exchanger.datamodel.ExchangeRate;
-import com.epam.vasilevsky.exchanger.datamodel.UserRole;
 import com.epam.vasilevsky.exchanger.service.ExchangeRateService;
 import com.epam.vasilevsky.exchanger.webapp.app.common.CurrencyChoiceRenderer;
 import com.epam.vasilevsky.exchanger.webapp.page.AbstractHomePage;
@@ -30,7 +28,7 @@ public class CourseEditPage extends AbstractHomePage {
 
 	@Inject
 	private ExchangeRateService exchangeRateService;
-
+	
 	@Inject
 	private CurrencyDao currencyDao;
 
@@ -44,24 +42,21 @@ public class CourseEditPage extends AbstractHomePage {
 		super();
 		this.exchangeRate = exchangeRate;
 	}
-
+	
 	@Override
 	protected void onInitialize() {
 		super.onInitialize();
 		Form form = new Form("form", new CompoundPropertyModel<ExchangeRate>(exchangeRate));
 		add(form);
 
-		DropDownChoice<CurrencyName> currencyFromField = new DropDownChoice<>("currencyFrom",
-				new PropertyModel<CurrencyName>(exchangeRate.getCurrencyIdFrom(), "name"),
-				Arrays.asList(CurrencyName.values()), CurrencyChoiceRenderer.INSTANCE);
-		currencyFromField.setRequired(true);
-		form.add(currencyFromField);
+		DropDownChoice<Currency> currencyFromField = new DropDownChoice<Currency>("currencyFrom", currencyDao.getAll(),CurrencyChoiceRenderer.INSTANCE);
+        currencyFromField.setRequired(true);
+        form.add(currencyFromField);
 
-		DropDownChoice<CurrencyName> currencyToField = new DropDownChoice<>("currencyTo",
-				new PropertyModel<CurrencyName>(exchangeRate.getCurrencyIdTo(), "name"),
-				Arrays.asList(CurrencyName.values()), CurrencyChoiceRenderer.INSTANCE);
-		currencyToField.setRequired(true);
-		form.add(currencyToField);
+        DropDownChoice<Currency> currencyToField = new DropDownChoice<Currency>("currencyTo",currencyDao.getAll(),CurrencyChoiceRenderer.INSTANCE);
+        currencyToField.setRequired(true);
+        form.add(currencyToField);
+		
 
 		TextField<Double> conversion = new TextField<>("conversion");
 		conversion.add(RangeValidator.<Double> minimum(0.1d));

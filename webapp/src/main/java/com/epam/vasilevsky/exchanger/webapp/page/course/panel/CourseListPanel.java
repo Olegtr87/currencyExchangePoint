@@ -25,8 +25,6 @@ import com.epam.vasilevsky.exchanger.datamodel.ExchangeRate_;
 import com.epam.vasilevsky.exchanger.service.ExchangeRateService;
 import com.epam.vasilevsky.exchanger.webapp.page.course.CourseEditPage;
 import com.epam.vasilevsky.exchanger.webapp.page.course.CoursePage;
-import com.epam.vasilevsky.exchanger.webapp.page.operations.OperationEditPage;
-import com.epam.vasilevsky.exchanger.webapp.page.operations.OperationPage;
 
 
 public class CourseListPanel extends Panel {
@@ -45,8 +43,8 @@ public class CourseListPanel extends Panel {
 
 				item.add(new Label("id", exchangeRate.getId()));
 				item.add(new Label("conversion", exchangeRate.getConversion()));
-				item.add(new Label("currency-from", exchangeRate.getCurrencyIdFrom().getName()));
-				item.add(new Label("currency-to", exchangeRate.getCurrencyIdTo().getName()));
+				item.add(new Label("currency-from", exchangeRate.getCurrencyFrom().getName()));
+				item.add(new Label("currency-to", exchangeRate.getCurrencyTo().getName()));
 				item.add(DateLabel.forDatePattern("date", Model.of(exchangeRate.getDateCourse()), "dd-MM-yyyy"));
 				
 				item.add(new Link<Void>("edit-link") {
@@ -55,7 +53,7 @@ public class CourseListPanel extends Panel {
                         setResponsePage(new CourseEditPage(exchangeRate));
                     }
                 });
-                
+				
                 item.add(new Link<Void>("delete-link") {
                     @Override
                     public void onClick() {

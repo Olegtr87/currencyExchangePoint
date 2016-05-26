@@ -26,8 +26,8 @@ public class ExchangeRateServiceImpl implements ExchangeRateService {
 
 	@Override
 	public void add(ExchangeRate exchangeRate, Currency currencyIdFrom, Currency currencyIdTo) {
-		exchangeRate.setCurrencyIdFrom(currencyIdFrom);
-		exchangeRate.setCurrencyIdTo(currencyIdTo);
+		exchangeRate.setCurrencyFrom(currencyIdFrom);
+		exchangeRate.setCurrencyTo(currencyIdTo);
 		exchangeRateDao.insert(exchangeRate);
 		LOGGER.info("ExchangeRate {} added", exchangeRate);
 	}

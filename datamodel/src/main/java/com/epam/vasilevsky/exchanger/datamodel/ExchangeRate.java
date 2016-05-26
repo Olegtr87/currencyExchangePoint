@@ -33,29 +33,26 @@ public class ExchangeRate extends AbstractModel {
 
 	public void setDateCourse(Date dateCourse) {
 		// add date without time
-		Calendar calendar = Calendar.getInstance();
-		calendar.set(Calendar.HOUR_OF_DAY,0);
-		calendar.set(Calendar.MINUTE, 0);
-		calendar.set(Calendar.SECOND, 0);
-		calendar.set(Calendar.MILLISECOND, 0);
-		dateCourse = calendar.getTime();
+		dateCourse.setHours(0);
+		dateCourse.setMinutes(0);
+		dateCourse.setSeconds(0);
 		this.dateCourse = dateCourse;
 	}
 
-	public Currency getCurrencyIdFrom() {
+	public Currency getCurrencyFrom() {
 		return currencyFrom;
 	}
 
-	public void setCurrencyIdFrom(Currency currencyIdFrom) {
-		this.currencyFrom = currencyIdFrom;
+	public void setCurrencyFrom(Currency currencyFrom) {
+		this.currencyFrom = currencyFrom;
 	}
 
-	public Currency getCurrencyIdTo() {
+	public Currency getCurrencyTo() {
 		return currencyTo;
 	}
 
-	public void setCurrencyIdTo(Currency currencyIdTo) {
-		this.currencyTo = currencyIdTo;
+	public void setCurrencyTo(Currency currencyTo) {
+		this.currencyTo = currencyTo;
 	}
 
 	@Override
