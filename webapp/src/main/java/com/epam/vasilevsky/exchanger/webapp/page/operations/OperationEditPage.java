@@ -41,7 +41,7 @@ public class OperationEditPage extends AbstractHomePage {
 		TextField<String> nameField = new TextField<>("name");
 		nameField.setRequired(true);
 		form.add(nameField);
-
+		
 		TextField<Double> basePriceField = new TextField<>("tax");
 		basePriceField.add(RangeValidator.<Double> range(0d, 100d));
 		basePriceField.setRequired(true);

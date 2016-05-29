@@ -15,14 +15,12 @@ import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
-
-import com.epam.vasilevsky.exchanger.dataaccess.UserCredentialsDao;
 import com.epam.vasilevsky.exchanger.dataaccess.filters.TransactionFilter;
 import com.epam.vasilevsky.exchanger.datamodel.Transaction;
 import com.epam.vasilevsky.exchanger.datamodel.Transaction_;
 import com.epam.vasilevsky.exchanger.datamodel.UserCredentials;
-import com.epam.vasilevsky.exchanger.datamodel.UserProfile;
 import com.epam.vasilevsky.exchanger.service.TransactionService;
+import com.epam.vasilevsky.exchanger.service.UserService;
 import com.epam.vasilevsky.exchanger.webapp.app.AuthorizedSession;
 
 public class TransactionsListPanel extends Panel {
@@ -31,7 +29,7 @@ public class TransactionsListPanel extends Panel {
 	private TransactionService transactionService;
 
 	@Inject
-	private UserCredentialsDao userCredentialsDao;
+	private UserService userService;
 
 	public TransactionsListPanel(String id) {
 		super(id);
@@ -45,10 +43,10 @@ public class TransactionsListPanel extends Panel {
 				item.add(new Label("id", transaction.getId()));
 				item.add(
 						DateLabel.forDatePattern("date", Model.of(transaction.getDateOperation()), "dd-MM-yyyy hh:mm"));
-				item.add(new Label("sumin", transaction.getSummIn()));
-				item.add(new Label("operation", transaction.getOperationId().getName()));
+				item.add(new Label("sumin", transaction.getSumIn()));
+				item.add(new Label("operation", transaction.getOperation().getName()));
 
-				item.add(new Label("user", transaction.getUserId().getId()));
+				item.add(new Label("user", transaction.getUser().getId()));
 			}
 		};
 		add(dataView);
@@ -71,7 +69,7 @@ public class TransactionsListPanel extends Panel {
 			transactionFilter.setFetchCredentials(true);
 
 			UserCredentials user = AuthorizedSession.get().getLoggedUser();
-			transactionFilter.setUserCredentials(userCredentialsDao.get(user.getId()));
+			transactionFilter.setUserCredentials(userService.getCredentials(user.getId()));
 
 			setSort((Serializable) Transaction_.id, SortOrder.ASCENDING);
 		}

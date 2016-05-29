@@ -67,4 +67,10 @@ public class CurrencyServiceImpl implements CurrencyService {
 		return currencyDao.find(filter);
 	}
 
+	@Override
+	public List<Currency> getAll() {
+		LOGGER.info("Currency get all perfomed!");
+		return currencyDao.getAll();
+	}
+
 }

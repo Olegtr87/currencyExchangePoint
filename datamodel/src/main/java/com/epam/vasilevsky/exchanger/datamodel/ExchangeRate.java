@@ -32,11 +32,21 @@ public class ExchangeRate extends AbstractModel {
 	}
 
 	public void setDateCourse(Date dateCourse) {
-		// add date without time
-		dateCourse.setHours(0);
-		dateCourse.setMinutes(0);
-		dateCourse.setSeconds(0);
-		this.dateCourse = dateCourse;
+		this.dateCourse = dateFormat(dateCourse);
+	}
+
+	private Date dateFormat(Date dateCurrency) {
+		// filter without time
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(Calendar.HOUR_OF_DAY, 0);
+		calendar.set(Calendar.MINUTE, 0);
+		calendar.set(Calendar.SECOND, 0);
+		calendar.set(Calendar.MILLISECOND, 0);
+		Date date = calendar.getTime();
+		date.setDate(dateCurrency.getDate());
+		date.setYear(dateCurrency.getYear());
+		date.setMonth(dateCurrency.getMonth());
+		return date;
 	}
 
 	public Currency getCurrencyFrom() {

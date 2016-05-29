@@ -20,35 +20,35 @@ public class Transaction extends AbstractModel {
 	@Column
 	private Date dateOperation;
 
-	public UserCredentials getUserId() {
+	public UserCredentials getUser() {
 		return user;
 	}
 
-	public void setUserId(UserCredentials userId) {
-		this.user = userId;
+	public void setUser(UserCredentials user) {
+		this.user = user;
 	}
 
-	public Operation getOperationId() {
+	public Operation getOperation() {
 		return operation;
 	}
 
-	public void setOperationId(Operation operationId) {
-		this.operation = operationId;
+	public void setOperation(Operation operation) {
+		this.operation = operation;
 	}
 
-	public ExchangeRate getExchangeRateId() {
+	public ExchangeRate getExchangeRate() {
 		return exchangeRate;
 	}
 
-	public void setExchangeRateId(ExchangeRate exchangeRateId) {
-		this.exchangeRate = exchangeRateId;
+	public void setExchangeRate(ExchangeRate exchangeRate) {
+		this.exchangeRate = exchangeRate;
 	}
 
-	public Integer getSummIn() {
+	public Integer getSumIn() {
 		return sumIn;
 	}
 
-	public void setSummIn(Integer summIn) {
+	public void setSumIn(Integer summIn) {
 		this.sumIn = summIn;
 	}
 

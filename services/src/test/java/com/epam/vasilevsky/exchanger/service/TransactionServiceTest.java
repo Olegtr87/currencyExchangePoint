@@ -68,7 +68,7 @@ public class TransactionServiceTest {
 	public void testAddTransaction(){
 		Transaction transaction=new Transaction();
 		transaction.setDateOperation(new Date());
-		transaction.setSummIn(10000);
+		transaction.setSumIn(10000);
 		ExchangeRate exchangeRate=exchangeRateDao.get((long) 28);
 		Operation operation=operationDao.get((long) 3);
 		UserCredentials userCredentials=userCredentialsDao.get((long) 3);
@@ -81,23 +81,23 @@ public class TransactionServiceTest {
 	public void testUpdateTransaction(){
 		Transaction transaction=new Transaction();
 		transaction.setDateOperation(new Date());
-		transaction.setSummIn(10000);
+		transaction.setSumIn(10000);
 		ExchangeRate exchangeRate=exchangeRateDao.get((long) 28);
 		Operation operation=operationDao.get((long) 3);
 		UserCredentials userCredentials=userCredentialsDao.get((long) 3);
 		transactionService.add(transaction, userCredentials, operation, exchangeRate);
 		Integer updSum=999;
-		transaction.setSummIn(updSum);
+		transaction.setSumIn(updSum);
 		transactionService.update(transaction);
 		
-		Assert.assertEquals(updSum, transactionDao.get(transaction.getId()).getSummIn());
+		Assert.assertEquals(updSum, transactionDao.get(transaction.getId()).getSumIn());
 	}
 	
 	@Test
 	public void testDeleteTransaction(){
 		Transaction transaction=new Transaction();
 		transaction.setDateOperation(new Date());
-		transaction.setSummIn(10000);
+		transaction.setSumIn(10000);
 		ExchangeRate exchangeRate=exchangeRateDao.get((long) 28);
 		Operation operation=operationDao.get((long) 3);
 		UserCredentials userCredentials=userCredentialsDao.get((long) 3);
@@ -112,7 +112,7 @@ public class TransactionServiceTest {
         // start create new data
 		Transaction transaction=new Transaction();
 		transaction.setDateOperation(new Date());
-		transaction.setSummIn(10000);
+		transaction.setSumIn(10000);
 		ExchangeRate exchangeRate=exchangeRateDao.get((long) 28);
 		Operation operation=operationDao.get((long) 3);
 		UserCredentials userCredentials=userCredentialsDao.get((long) 3);

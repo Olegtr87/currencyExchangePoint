@@ -104,7 +104,7 @@ public class ExchangeRateServiceTest {
 		List<ExchangeRate> result = exchangeRateService.find(filter);
 		// test paging
 		filter.setFetchCredentials(true);
-		filter.setDateCurrency(new Date());
+		filter.setDateCourse(new Date());
 		int limit = 3;
 		filter.setLimit(limit);
 		filter.setOffset(0);
@@ -121,11 +121,11 @@ public class ExchangeRateServiceTest {
 	@Test
 	public void testSearchFromCurrency() {
 		ExchangeRateFilter filter = new ExchangeRateFilter();
-		filter.setCurrencyFrom(CurrencyName.EUR);
+		filter.setCurrencyFrom(CurrencyName.USD);
 		filter.setCurrencyTo(CurrencyName.USD);
-		filter.setDateCurrency(getDateWithFormat());
+		filter.setDateCourse(getDateWithFormat());
+		filter.setFetchCredentials(true);
 		List<ExchangeRate> result = exchangeRateDao.find(filter);
-
 		for (ExchangeRate ex : result) {
 			System.out.println(ex.toString());
 		}
@@ -133,9 +133,8 @@ public class ExchangeRateServiceTest {
 
 	protected Date getDateWithFormat() {
 		Calendar calendar = Calendar.getInstance();
-		calendar.set(2016, 04, 12);
+		calendar.set(2016, 03, 04);
 		Date date = calendar.getTime();
 		return date;
 	}
-
 }

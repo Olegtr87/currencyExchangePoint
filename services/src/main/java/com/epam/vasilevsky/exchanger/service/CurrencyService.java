@@ -15,6 +15,8 @@ public interface CurrencyService {
 	Currency getCurrency(Long id);
 
     Balance getBalance(Long id);
+    
+    List<Currency> getAll();
 
     @Transactional
     void updateCurrency(Currency currency);

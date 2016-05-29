@@ -43,15 +43,16 @@ public class ExchangeRateDaoImpl extends AbstractDaoImpl<ExchangeRate, Long> imp
 			cq.where(conFromExchRateEqualCondition);
 		}
 		
-		if (((filter.getCurrencyFrom()) != null)&&((filter.getCurrencyTo()) != null)&&(filter.getDateCurrency() != null)) {
+		if (((filter.getCurrencyFrom()) != null)&&((filter.getCurrencyTo()) != null)&&(filter.getDateCourse() != null)) {
 			Predicate curFromExchRateEqualCondition = cb.equal(from.get(ExchangeRate_.currencyFrom).get(Currency_.name),
 					filter.getCurrencyFrom());
 			Predicate curToExchRateEqualCondition = cb.equal(from.get(ExchangeRate_.currencyTo).get(Currency_.name),
 					filter.getCurrencyTo());
 			Predicate dateExchRateEqualCondition = cb.equal(from.get(ExchangeRate_.dateCourse),
-					filter.getDateCurrency());
+					filter.getDateCourse());
 			cq.where(cb.and(curFromExchRateEqualCondition, curToExchRateEqualCondition,dateExchRateEqualCondition));
 		}
+		
 		
 		// set fetching
 		if (filter.isFetchCredentials()) {

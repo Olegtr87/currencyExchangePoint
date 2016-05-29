@@ -26,9 +26,9 @@ public class TransactionServiceImpl implements TransactionService {
 		
 	@Override
 	public void add(Transaction transaction, UserCredentials userCredentials, Operation operation, ExchangeRate exchangeRate) {
-		transaction.setUserId(userCredentials);
-		transaction.setOperationId(operation);
-		transaction.setExchangeRateId(exchangeRate);
+		transaction.setUser(userCredentials);
+		transaction.setOperation(operation);
+		transaction.setExchangeRate(exchangeRate);
 		transaction.setDateOperation(new Date());
 		transactionDao.insert(transaction);	
 		LOGGER.info("Transaction {} added", transaction);

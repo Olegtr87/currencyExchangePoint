@@ -20,6 +20,7 @@ import com.epam.vasilevsky.exchanger.dataaccess.CurrencyDao;
 import com.epam.vasilevsky.exchanger.datamodel.Currency;
 import com.epam.vasilevsky.exchanger.datamodel.CurrencyName;
 import com.epam.vasilevsky.exchanger.datamodel.ExchangeRate;
+import com.epam.vasilevsky.exchanger.service.CurrencyService;
 import com.epam.vasilevsky.exchanger.service.ExchangeRateService;
 import com.epam.vasilevsky.exchanger.webapp.app.common.CurrencyChoiceRenderer;
 import com.epam.vasilevsky.exchanger.webapp.page.AbstractHomePage;
@@ -30,7 +31,7 @@ public class CourseEditPage extends AbstractHomePage {
 	private ExchangeRateService exchangeRateService;
 	
 	@Inject
-	private CurrencyDao currencyDao;
+	private CurrencyService currencyService;
 
 	private ExchangeRate exchangeRate;
 
@@ -49,11 +50,11 @@ public class CourseEditPage extends AbstractHomePage {
 		Form form = new Form("form", new CompoundPropertyModel<ExchangeRate>(exchangeRate));
 		add(form);
 
-		DropDownChoice<Currency> currencyFromField = new DropDownChoice<Currency>("currencyFrom", currencyDao.getAll(),CurrencyChoiceRenderer.INSTANCE);
+		DropDownChoice<Currency> currencyFromField = new DropDownChoice<Currency>("currencyFrom", currencyService.getAll(),CurrencyChoiceRenderer.INSTANCE);
         currencyFromField.setRequired(true);
         form.add(currencyFromField);
 
-        DropDownChoice<Currency> currencyToField = new DropDownChoice<Currency>("currencyTo",currencyDao.getAll(),CurrencyChoiceRenderer.INSTANCE);
+        DropDownChoice<Currency> currencyToField = new DropDownChoice<Currency>("currencyTo",currencyService.getAll(),CurrencyChoiceRenderer.INSTANCE);
         currencyToField.setRequired(true);
         form.add(currencyToField);
 		
