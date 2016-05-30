@@ -4,6 +4,9 @@ import java.util.Date;
 
 import javax.inject.Inject;
 
+import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.markup.html.AjaxLink;
+import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.SubmitLink;
@@ -35,10 +38,10 @@ public class ConverterPage extends AbstractHomePage {
 	private Transaction transaction;
 
 	private ExchangeRate exchangeRate;
-	
+
 	@Inject
 	CurrencyService currencyService;
-	
+
 	public ConverterPage(PageParameters parameters) {
 		super(parameters);
 	}
@@ -58,12 +61,14 @@ public class ConverterPage extends AbstractHomePage {
 		add(form);
 
 		DropDownChoice<Currency> currencyFromField = new DropDownChoice<Currency>("currencyFrom",
-				new PropertyModel(exchangeRate, "currencyFrom"), currencyService.getAll(), CurrencyChoiceRenderer.INSTANCE);
+				new PropertyModel(exchangeRate, "currencyFrom"), currencyService.getAll(),
+				CurrencyChoiceRenderer.INSTANCE);
 		currencyFromField.setRequired(true);
 		form.add(currencyFromField);
 
 		DropDownChoice<Currency> currencyToField = new DropDownChoice<Currency>("currencyTo",
-				new PropertyModel(exchangeRate, "currencyTo"), currencyService.getAll(), CurrencyChoiceRenderer.INSTANCE);
+				new PropertyModel(exchangeRate, "currencyTo"), currencyService.getAll(),
+				CurrencyChoiceRenderer.INSTANCE);
 		currencyToField.setRequired(true);
 		form.add(currencyToField);
 
@@ -75,10 +80,11 @@ public class ConverterPage extends AbstractHomePage {
 			@Override
 			public void onSubmit() {
 				super.onSubmit();
-				setResponsePage(new CheckPage(transaction,exchangeRate));
+				setResponsePage(new CheckPage(transaction, exchangeRate));
 			}
 		});
 
 		add(new FeedbackPanel("feedback"));
 	}
+
 }
