@@ -43,11 +43,6 @@ public class OperationDaoImpl extends AbstractDaoImpl<Operation,Long> implements
         }
         
         
-        // set fetching
-//        if (filter.isFetchCredentials()) {
-//            from.fetch(Operation_., JoinType.LEFT);
-//        }
-
         // set sort params
         if (filter.getSortProperty() != null) {
             cq.orderBy(new OrderImpl(from.get(filter.getSortProperty()), filter.isSortOrder()));

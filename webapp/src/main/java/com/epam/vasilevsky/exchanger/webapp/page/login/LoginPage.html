@@ -1,22 +1,22 @@
 <wicket:extend>
-	<h2>LoginPage</h2>
+	<h2 style="text-align: center;"><wicket:message key="login.label.loginpage" /></h2>
 	<div>
-		<h5 wicket:id="message"></h5>
+		<h5><wicket:message key="login.label.lp"/></h5>
 	</div>
 	<form wicket:id="form">
 		<table>
 			<tr>
-				<td><b>Login:</b></td>
+				<td><b><wicket:message key="login.label.login" />:</b></td>
 				<td><input wicket:id="login" type="text" /></td>
 			</tr>
 			<tr>
-				<td><b>Password:</b></td>
+				<td><b><wicket:message key="login.label.password" />:</b></td>
 				<td><input wicket:id="password" type="password" /></td>
 			</tr>
 			<tr>
 				<td><button type="submit" class="btn waves-effect"
 						wicket:id="login-btn">
-						<b>Log in</b>
+						<b><wicket:message key="login.btn.login" /></b>
 					</button></td>
 			</tr>
 
@@ -25,7 +25,7 @@
 	</form>
 	<form wicket:id="form1">
 		<button type="submit" class="btn waves-effect" wicket:id="reg-btn">
-			<b>Registration</b>
+			<b><wicket:message key="login.btn.registration" /></b>
 		</button>
 	</form>
 

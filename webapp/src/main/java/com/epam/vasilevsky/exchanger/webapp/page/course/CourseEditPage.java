@@ -1,6 +1,7 @@
 package com.epam.vasilevsky.exchanger.webapp.page.course;
 
 import java.util.Arrays;
+import java.util.Date;
 
 import javax.inject.Inject;
 
@@ -14,6 +15,7 @@ import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
+import org.apache.wicket.validation.validator.DateValidator;
 import org.apache.wicket.validation.validator.RangeValidator;
 
 import com.epam.vasilevsky.exchanger.dataaccess.CurrencyDao;
@@ -29,7 +31,7 @@ public class CourseEditPage extends AbstractHomePage {
 
 	@Inject
 	private ExchangeRateService exchangeRateService;
-	
+
 	@Inject
 	private CurrencyService currencyService;
 
@@ -43,24 +45,25 @@ public class CourseEditPage extends AbstractHomePage {
 		super();
 		this.exchangeRate = exchangeRate;
 	}
-	
+
 	@Override
 	protected void onInitialize() {
 		super.onInitialize();
 		Form form = new Form("form", new CompoundPropertyModel<ExchangeRate>(exchangeRate));
 		add(form);
 
-		DropDownChoice<Currency> currencyFromField = new DropDownChoice<Currency>("currencyFrom", currencyService.getAll(),CurrencyChoiceRenderer.INSTANCE);
-        currencyFromField.setRequired(true);
-        form.add(currencyFromField);
+		DropDownChoice<Currency> currencyFromField = new DropDownChoice<Currency>("currencyFrom",
+				currencyService.getAll(), CurrencyChoiceRenderer.INSTANCE);
+		currencyFromField.setRequired(true);
+		form.add(currencyFromField);
 
-        DropDownChoice<Currency> currencyToField = new DropDownChoice<Currency>("currencyTo",currencyService.getAll(),CurrencyChoiceRenderer.INSTANCE);
-        currencyToField.setRequired(true);
-        form.add(currencyToField);
-		
+		DropDownChoice<Currency> currencyToField = new DropDownChoice<Currency>("currencyTo", currencyService.getAll(),
+				CurrencyChoiceRenderer.INSTANCE);
+		currencyToField.setRequired(true);
+		form.add(currencyToField);
 
 		TextField<Double> conversion = new TextField<>("conversion");
-		conversion.add(RangeValidator.<Double> minimum(0.1d));
+		conversion.add(RangeValidator.<Double> minimum(0.0d));
 		conversion.setRequired(true);
 		form.add(conversion);
 
@@ -73,8 +76,12 @@ public class CourseEditPage extends AbstractHomePage {
 			@Override
 			public void onSubmit() {
 				super.onSubmit();
-				exchangeRateService.saveOrUpdate(exchangeRate);
-				setResponsePage(new CoursePage());
+				if (exchangeRate.getCurrencyFrom().getName().equals(exchangeRate.getCurrencyTo().getName())) {
+					error("The currency must be different");
+				} else {
+					exchangeRateService.saveOrUpdate(exchangeRate);
+					setResponsePage(new CoursePage());
+				}
 			}
 		});
 

@@ -11,6 +11,7 @@ import org.apache.wicket.markup.html.form.RequiredTextField;
 import org.apache.wicket.markup.html.form.SubmitLink;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.util.string.Strings;
 
 import com.epam.vasilevsky.exchanger.datamodel.CurrencyName;
@@ -45,6 +46,7 @@ public class LoginPage extends AbstractPage {
 
 		final Form<Void> form = new Form<Void>("form");
 		final Form<Void> form1 = new Form<Void>("form1");
+		
 		form.setDefaultModel(new CompoundPropertyModel<LoginPage>(this));
 		form.add(new RequiredTextField<String>("login"));
 		form.add(new PasswordTextField("password"));
@@ -69,12 +71,10 @@ public class LoginPage extends AbstractPage {
 					// continueToOriginalDestination();
 					setResponsePage(Application.get().getHomePage());
 				} else {
-					error("authorization error");
+					error(getString("login.err.auth"));
 				}
 			}
 		});
-
-		add(new Label("message", "Ввод логина и пароля:"));
 
 		add(form);
 		add(form1);
@@ -83,7 +83,8 @@ public class LoginPage extends AbstractPage {
 
 		CourseNBRBImpl course = new CourseNBRBImpl();
 		add(new Label("course",
-				String.format("Курсы валют НБРБ на %s:  EURO - %s   USD - %s   RUB - %s   PLZ - %s", course.getDate(),
+				String.format("%s:  EURO - %s   USD - %s   RUB - %s   PLZ - %s",
+						course.getDate(),
 						course.getCourse(CodeCurrency.getCurrencyFromName(CurrencyName.EUR)),
 						course.getCourse(CodeCurrency.getCurrencyFromName(CurrencyName.USD)),
 						course.getCourse(CodeCurrency.getCurrencyFromName(CurrencyName.RUB)),

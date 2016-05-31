@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="login.label.login">Email</entry>
+	<entry key="login.label.password">Password</entry>
+	<entry key="login.btn.login">Log in</entry>
+	<entry key="login.btn.registration">Registration</entry>
+	<entry key="login.label.lp">Login and password:</entry>
+	<entry key="login.err.auth">Invalid login or password</entry>
+	<entry key="login.label.loginpage">Login Page</entry>
+
+	<entry key="US">English</entry>
+	<entry key="RU">Russian</entry>
+	
+</properties>

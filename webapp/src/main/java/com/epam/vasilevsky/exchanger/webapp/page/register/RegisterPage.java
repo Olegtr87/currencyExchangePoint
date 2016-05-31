@@ -1,5 +1,7 @@
 package com.epam.vasilevsky.exchanger.webapp.page.register;
 
+import java.util.Date;
+
 import javax.inject.Inject;
 
 import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
@@ -16,6 +18,7 @@ import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.validation.validator.RangeValidator;
+import org.apache.wicket.validation.validator.*;
 
 import com.epam.vasilevsky.exchanger.datamodel.ExchangeRate;
 import com.epam.vasilevsky.exchanger.datamodel.UserCredentials;
@@ -57,6 +60,7 @@ public class RegisterPage extends AbstractPage {
 
 		TextField<String> loginField = new TextField<>("login", new PropertyModel(userCredentials, "login"));
 		loginField.setRequired(true);
+		loginField.add(EmailAddressValidator.getInstance());
 		form.add(loginField);
 
 		TextField<String> passwordField = new TextField<>("password", new PropertyModel(userCredentials, "password"));
@@ -84,6 +88,7 @@ public class RegisterPage extends AbstractPage {
 		DateTextField dateIssueField = new DateTextField("dateIssue");
 		dateIssueField.add(new DatePicker());
 		dateIssueField.setRequired(true);
+		dateIssueField.add(DateValidator.maximum(new Date()));
 		form.add(dateIssueField);
 
 		DateTextField createdField = new DateTextField("created");

@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.JoinType;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import org.hibernate.jpa.criteria.OrderImpl;
@@ -41,10 +42,10 @@ public class CurrencyDaoImpl extends AbstractDaoImpl<Currency,Long> implements C
             Predicate currencyNameEqualCondition = cb.equal(from.get(Currency_.name), filter.getNameCurrency());
             cq.where((currencyNameEqualCondition));
         }
-        // set fetching
-//        if (filter.isFetchCredentials()) {
-//            from.fetch(Currency_.name, JoinType.LEFT);
-//        }
+         //set fetching
+        if (filter.isFetchCredentials()) {
+            from.fetch(Currency_.name, JoinType.LEFT);
+        }
 
         // set sort params
         if (filter.getSortProperty() != null) {

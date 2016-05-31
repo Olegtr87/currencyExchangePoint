@@ -1,10 +1,10 @@
 body, p, li, a { font-family: georgia, times, serif;font-size:13pt;}
-h1, h2, h3 { font-family: 'Yanone Kaffeesatz', arial, serif; }
+h1, h2, h3 { font-family:  arial, serif; }
 body { margin:0;padding:0;}
 #hd {
 	width : 100%;
 	height : 87px;
-	background-color : #092E67;
+	background-color : #6493D2;
 	margin-top : 0;
 	padding-top : 10px;
 	border-bottom : 1px solid #888;
@@ -58,8 +58,8 @@ a, a:visited, a:hover, a:active {
 }
 h2 {
 	padding : 0; margin:0;
-	font-size:36pt;
-	color:#FF5500;
+	font-size:25pt;
+	color:#88376b;
 }
 h3 {
 	padding : 0; margin:0;

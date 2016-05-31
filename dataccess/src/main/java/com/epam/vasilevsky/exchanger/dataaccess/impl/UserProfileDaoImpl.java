@@ -39,22 +39,12 @@ public class UserProfileDaoImpl extends AbstractDaoImpl<UserProfile, Long> imple
 		// set selection
 		cq.select(from);
 
-//		if (filter.getUserName() != null) {
-//			Predicate fNameEqualCondition = cb.equal(from.get(UserProfile_.firstName), filter.getUserName());
-//			Predicate lNameEqualCondition = cb.equal(from.get(UserProfile_.lastName), filter.getUserName());
-//			cq.where(cb.or(fNameEqualCondition, lNameEqualCondition));
-//		}
-		
-		
-		 if (filter.getLogin() != null) { 
-		 Predicate loginEqualCondition =              //получаемое значение
-		 cb.equal(from.get(UserProfile_.userCredentials).get(UserCredentials_.login),
-		 // передаваемое значение
-		 filter.getLogin());
-		 cq.where(cb.and(loginEqualCondition));
-		 }
-				
-				
+		if (filter.getLogin() != null) {
+			Predicate loginEqualCondition = cb.equal(from.get(UserProfile_.userCredentials).get(UserCredentials_.login),
+					filter.getLogin());
+			cq.where(cb.and(loginEqualCondition));
+		}
+
 		// set fetching
 		if (filter.isFetchCredentials()) {
 			from.fetch(UserProfile_.userCredentials, JoinType.LEFT);

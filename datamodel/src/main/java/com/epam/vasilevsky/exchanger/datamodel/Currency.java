@@ -14,17 +14,6 @@ public class Currency extends AbstractModel {
 	@Enumerated(value = EnumType.STRING)
 	private CurrencyName name;
 	
-//	@OneToMany(mappedBy = "currencyTo", fetch = FetchType.LAZY)
-//    private List<ExchangeRate> exchangeRate;
-//	
-//	public List<ExchangeRate> getExchangeRate() {
-//		return exchangeRate;
-//	}
-//
-//	public void setExchangeRate(List<ExchangeRate> exchangeRate) {
-//		this.exchangeRate = exchangeRate;
-//	}
-
 	public CurrencyName getName() {
 		return name;
 	}

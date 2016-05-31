@@ -1,5 +1,13 @@
-table.list-table tr td,
-table.list-table tr th {
+table.list-table tr td, table.list-table tr th {
 	border: 1px solid black;
 }
-table.list-table {border-collapse: collapse;}
+
+table.list-table {
+	border-collapse: collapse;
+}
+
+.language-comp select {
+	position: absolute;
+	top: 5px;
+	right: 10px;
+}

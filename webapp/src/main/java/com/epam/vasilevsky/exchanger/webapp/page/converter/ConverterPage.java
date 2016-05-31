@@ -15,6 +15,7 @@ import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
+import org.apache.wicket.validation.validator.RangeValidator;
 
 import com.epam.vasilevsky.exchanger.dataaccess.CurrencyDao;
 import com.epam.vasilevsky.exchanger.dataaccess.ExchangeRateDao;
@@ -72,7 +73,8 @@ public class ConverterPage extends AbstractHomePage {
 		currencyToField.setRequired(true);
 		form.add(currencyToField);
 
-		TextField<String> sumInField = new TextField<>("sumIn");
+		TextField<Integer> sumInField = new TextField<>("sumIn");
+		sumInField.add(RangeValidator.<Integer> minimum(1));
 		sumInField.setRequired(true);
 		form.add(sumInField);
 
@@ -80,7 +82,11 @@ public class ConverterPage extends AbstractHomePage {
 			@Override
 			public void onSubmit() {
 				super.onSubmit();
-				setResponsePage(new CheckPage(transaction, exchangeRate));
+				if (exchangeRate.getCurrencyFrom().getName().equals(exchangeRate.getCurrencyTo().getName())) {
+					error("The currency must be different");
+				} else {
+					setResponsePage(new CheckPage(transaction, exchangeRate));
+				}
 			}
 		});
 

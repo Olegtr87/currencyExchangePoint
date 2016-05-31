@@ -51,7 +51,6 @@ public class TransactionsListPanel extends Panel {
 		};
 		add(dataView);
 		add(new PagingNavigator("paging", dataView));
-
 		add(new OrderByBorder("sort-id", Transaction_.id, transactionsDataProvider));
 		add(new OrderByBorder("sort-date", Transaction_.dateOperation, transactionsDataProvider));
 		add(new OrderByBorder("sort-sum-in", Transaction_.sumIn, transactionsDataProvider));
@@ -96,6 +95,5 @@ public class TransactionsListPanel extends Panel {
 		public IModel<Transaction> model(Transaction object) {
 			return new Model(object);
 		}
-
 	}
 }
