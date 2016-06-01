@@ -46,7 +46,7 @@ public class LoginPage extends AbstractPage {
 
 		final Form<Void> form = new Form<Void>("form");
 		final Form<Void> form1 = new Form<Void>("form1");
-		
+
 		form.setDefaultModel(new CompoundPropertyModel<LoginPage>(this));
 		form.add(new RequiredTextField<String>("login"));
 		form.add(new PasswordTextField("password"));
@@ -82,12 +82,14 @@ public class LoginPage extends AbstractPage {
 		add(new FeedbackPanel("feedbackpanel"));
 
 		CourseNBRBImpl course = new CourseNBRBImpl();
-		add(new Label("course",
-				String.format("%s:  EURO - %s   USD - %s   RUB - %s   PLZ - %s",
-						course.getDate(),
-						course.getCourse(CodeCurrency.getCurrencyFromName(CurrencyName.EUR)),
-						course.getCourse(CodeCurrency.getCurrencyFromName(CurrencyName.USD)),
-						course.getCourse(CodeCurrency.getCurrencyFromName(CurrencyName.RUB)),
-						course.getCourse(CodeCurrency.getCurrencyFromName(CurrencyName.PLZ)))));
+		if (course.getCourse(CodeCurrency.getCurrencyFromName(CurrencyName.EUR)) != null) {
+			add(new Label("course",
+					String.format("%s:  EURO - %s   USD - %s   RUB - %s   PLZ - %s", course.getDate(),
+							course.getCourse(CodeCurrency.getCurrencyFromName(CurrencyName.EUR)),
+							course.getCourse(CodeCurrency.getCurrencyFromName(CurrencyName.USD)),
+							course.getCourse(CodeCurrency.getCurrencyFromName(CurrencyName.RUB)),
+							course.getCourse(CodeCurrency.getCurrencyFromName(CurrencyName.PLZ)))));
+		} else
+			add(new Label("course", ""));
 	}
 }

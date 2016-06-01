@@ -60,8 +60,12 @@ public class CheckPage extends AbstractHomePage {
 
 	}
 
-	private Double totalSum() {
-		return transaction.getSumIn() * transaction.getExchangeRate().getConversion();
+	private Integer totalSum() {
+		Double totalNoCom = transaction.getSumIn() * transaction.getExchangeRate().getConversion();
+		Double tax = transaction.getExchangeRate().getConversion() * transaction.getSumIn()
+				* transaction.getOperation().getTax() / 100;
+		Double total = totalNoCom - tax;
+		return (int) Math.round(total);
 	}
 
 	private void setTransaction() {
@@ -90,10 +94,12 @@ public class CheckPage extends AbstractHomePage {
 	}
 
 	private ExchangeRate searchExchangeRate() {
+		Date date = new Date();
+		date.setHours(date.getHours() + 1);
 		exchangeRateFilter = new ExchangeRateFilter();
 		exchangeRateFilter.setCurrencyFrom(exchangeRate.getCurrencyFrom().getName());
 		exchangeRateFilter.setCurrencyTo(exchangeRate.getCurrencyTo().getName());
-		exchangeRateFilter.setDateCourse(new Date());
+		exchangeRateFilter.setDateCourse(date);
 		exchangeRateFilter.setFetchCredentials(true);
 		return exchangeRateService.find(exchangeRateFilter).get(0);
 	}

@@ -1,51 +1,56 @@
-body, p, li, a { font-family: georgia, times, serif;font-size:13pt;}
-h1, h2, h3 { font-family:  arial, serif; }
-body { margin:0;padding:0;}
-#hd {
-	width : 100%;
-	height : 87px;
-	background-color : #6493D2;
-	margin-top : 0;
-	padding-top : 10px;
-	border-bottom : 1px solid #888;
-	z-index : 0;
+body, p, li, a {
+	font-family: georgia, times, serif;
+	font-size: 13pt;
 }
-#ft {
-	position : absolute;
-	bottom : 0;
-	width : 100%;
-	height : 99px;
-	background-color : #6493D2;
-	border-top : 1px solid #888;
-	z-index : 0;
+
+h1, h2, h3 {
+	font-family: arial, serif;
 }
-#logo,#bd {
-	width : 650px;
+
+body {
+	margin: 0;
+	padding: 0;
+}
+
+#logo, #bd {
+	width: 650px;
 	margin: 0 auto;
 	padding: 25px 50px 0 50px;
+	border-style: groove;
 }
+
 #logo h1 {
-	color : white;
-	font-size:36pt;
+	color: white;
+	font-size: 36pt;
 	display: inline;
 }
-#logo img { 
-	display:inline;
+
+#logo img {
+	display: inline;
 	vertical-align: bottom;
-	margin-left : 50px;
-	margin-right : 5px;
+	margin-left: 50px;
+	margin-right: 5px;
 }
-body { margin-top : 0; padding-top : 0;}
-#logo, #logo h1 { margin-top : 0; padding-top : 0;}
+
+body {
+	margin-top: 0;
+	padding-top: 0;
+}
+
+#logo, #logo h1 {
+	margin-top: 0;
+	padding-top: 0;
+}
+
 #bd {
-	position : absolute;
-	top : 75px;
-	bottom : 75px;
-	left : 50%;
-	margin-left : -325px;
-	z-index : 1;
+	position: absolute;
+	top: 75px;
+	bottom: 75px;
+	left: 50%;
+	margin-left: -325px;
+	z-index: 1;
 	overflow: auto;
-	background-color : #fff;
+	background-image: url("images/form.jpg");
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
 	border-radius: 10px;
@@ -53,16 +58,31 @@ body { margin-top : 0; padding-top : 0;}
 	-webkit-box-shadow: 0px 0px 10px #888;
 	box-shadow: 0px 0px 10px #888;
 }
+
+#hd {
+	text-align: center;
+	font: bold 3em Arial, sans-serif;
+	color: #8080ff;
+	text-shadow: #000000 1px 1px 0, #000000 2px 2px 0, #000000 3px 3px 0,
+		#000000 4px 4px 0, #000000 5px 5px 0;
+}
+
 a, a:visited, a:hover, a:active {
-	color : #6493D2;
+	color: #6493D2;
 }
+
 h2 {
-	padding : 0; margin:0;
-	font-size:25pt;
-	color:#88376b;
+	padding: 0;
+	margin: 0;
+	font-size: 25pt;
+	color: #ebebeb;
+	text-shadow: 1px 1px 2px black;
 }
+
 h3 {
-	padding : 0; margin:0;
-	font-size:24pt;
-	color:#092E67;
+	padding: 0;
+	margin: 0;
+	font-size: 24pt;
+	color: #092E67;
 }
+

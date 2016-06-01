@@ -15,10 +15,12 @@ import org.apache.wicket.markup.repeater.Item;
 import org.apache.wicket.markup.repeater.data.DataView;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
+import com.epam.vasilevsky.exchanger.dataaccess.TransactionDao;
 import com.epam.vasilevsky.exchanger.dataaccess.filters.TransactionFilter;
 import com.epam.vasilevsky.exchanger.datamodel.Transaction;
 import com.epam.vasilevsky.exchanger.datamodel.Transaction_;
 import com.epam.vasilevsky.exchanger.datamodel.UserCredentials;
+import com.epam.vasilevsky.exchanger.service.ExchangeRateService;
 import com.epam.vasilevsky.exchanger.service.TransactionService;
 import com.epam.vasilevsky.exchanger.service.UserService;
 import com.epam.vasilevsky.exchanger.webapp.app.AuthorizedSession;
@@ -27,10 +29,12 @@ public class TransactionsListPanel extends Panel {
 
 	@Inject
 	private TransactionService transactionService;
-
+	
+	Transaction transaction;
+	
 	@Inject
 	private UserService userService;
-
+	
 	public TransactionsListPanel(String id) {
 		super(id);
 
@@ -38,39 +42,46 @@ public class TransactionsListPanel extends Panel {
 		DataView<Transaction> dataView = new DataView<Transaction>("rows", transactionsDataProvider, 5) {
 			@Override
 			protected void populateItem(Item<Transaction> item) {
-				Transaction transaction = item.getModelObject();
+				transaction = item.getModelObject();
 
-				item.add(new Label("id", transaction.getId()));
-				item.add(
-						DateLabel.forDatePattern("date", Model.of(transaction.getDateOperation()), "dd-MM-yyyy hh:mm"));
+				item.add(DateLabel.forDatePattern("date", Model.of(transaction.getDateOperation()), "dd-MM-yyyy hh:mm"));
 				item.add(new Label("sumin", transaction.getSumIn()));
+				item.add(new Label("currencyFrom", transaction.getExchangeRate().getCurrencyFrom().getName()));
+				item.add(new Label("currencyTo", transaction.getExchangeRate().getCurrencyTo().getName()));
 				item.add(new Label("operation", transaction.getOperation().getName()));
-
-				item.add(new Label("user", transaction.getUser().getId()));
+				item.add(new Label("tax", transaction.getOperation().getTax()));
+				item.add(new Label("total", total()));
+				item.add(new Label("user", userService.getProfile(transaction.getUser().getId()).getFirstName()+" "+userService.getProfile(transaction.getUser().getId()).getLastName()));
 			}
 		};
 		add(dataView);
 		add(new PagingNavigator("paging", dataView));
-		add(new OrderByBorder("sort-id", Transaction_.id, transactionsDataProvider));
 		add(new OrderByBorder("sort-date", Transaction_.dateOperation, transactionsDataProvider));
 		add(new OrderByBorder("sort-sum-in", Transaction_.sumIn, transactionsDataProvider));
 
+	}
+	
+	private Integer total(){
+		Double totalNoCom=transaction.getSumIn()*transaction.getExchangeRate().getConversion();
+		Double tax=transaction.getExchangeRate().getConversion()*transaction.getSumIn()*transaction.getOperation().getTax()/100;
+		Double total=totalNoCom-tax;
+		return (int) Math.round(total);
 	}
 
 	private class TransactionsDataProvider extends SortableDataProvider<Transaction, Serializable> {
 
 		private TransactionFilter transactionFilter;
+		
 
 		public TransactionsDataProvider() {
 			super();
-
 			transactionFilter = new TransactionFilter();
 			transactionFilter.setFetchCredentials(true);
-
+			
 			UserCredentials user = AuthorizedSession.get().getLoggedUser();
 			transactionFilter.setUserCredentials(userService.getCredentials(user.getId()));
 
-			setSort((Serializable) Transaction_.id, SortOrder.ASCENDING);
+			setSort((Serializable) Transaction_.dateOperation, SortOrder.ASCENDING);
 		}
 
 		@Override

@@ -14,9 +14,9 @@ import org.slf4j.LoggerFactory;
 
 import com.epam.vasilevsky.exchanger.service.CourseNBRB;
 
-public class CourseNBRBImpl implements CourseNBRB{
+public class CourseNBRBImpl implements CourseNBRB {
 	private static Logger LOGGER = LoggerFactory.getLogger(CourseNBRBImpl.class);
-	
+
 	private final String DATE_FORMAT = "MM/dd/yyyy";
 	private final String TEXT_START = "<Rate>";
 	private final String TEXT_END = "</Rate>";
@@ -27,7 +27,7 @@ public class CourseNBRBImpl implements CourseNBRB{
 	private String code;
 
 	public String getCourse(String code) {
-		this.code=code;
+		this.code = code;
 		try {
 			InputStream in = getInputStringFromUrl();
 			int i = -1;
@@ -44,15 +44,19 @@ public class CourseNBRBImpl implements CourseNBRB{
 			course = buffer.substring(indexStart, indexEnd);
 			LOGGER.info("Currency get ok!");
 			return course;
-			
+
 		} catch (StringIndexOutOfBoundsException e) {
 			LOGGER.warn("No correct code currency!");
+			return null;
+		} catch (Exception e) {
+			LOGGER.warn("No course!");
 			return null;
 		}
 	}
 
 	public String getDate() {
 		Date date = new Date();
+		date.setHours(date.getHours()+1);
 		SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
 		String dateStr = String.valueOf(dateFormat.format(date));
 		LOGGER.info("Date get ok!");

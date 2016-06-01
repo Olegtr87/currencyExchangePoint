@@ -1,10 +1,15 @@
 <wicket:extend>
-	<h2 style="text-align: center;"><wicket:message key="login.label.loginpage" /></h2>
+	<h2 style="text-align: center;">
+		<wicket:message key="login.label.loginpage" />
+	</h2>
 	<div>
-		<h5><wicket:message key="login.label.lp"/></h5>
+		<h4>
+			<wicket:message key="login.label.lp" />
+		</h4>
 	</div>
+	<br>
 	<form wicket:id="form">
-		<table>
+		<table id="tab">
 			<tr>
 				<td><b><wicket:message key="login.label.login" />:</b></td>
 				<td><input wicket:id="login" type="text" /></td>
@@ -14,23 +19,28 @@
 				<td><input wicket:id="password" type="password" /></td>
 			</tr>
 			<tr>
-				<td><button type="submit" class="btn waves-effect"
-						wicket:id="login-btn">
+				<td><br></td>
+				<td><br></td>
+			</tr>
+			<tr>
+				<td><button type="submit" wicket:id="login-btn">
 						<b><wicket:message key="login.btn.login" /></b>
 					</button></td>
 			</tr>
-
-
 		</table>
 	</form>
 	<form wicket:id="form1">
-		<button type="submit" class="btn waves-effect" wicket:id="reg-btn">
+		<button type="submit" wicket:id="reg-btn">
 			<b><wicket:message key="login.btn.registration" /></b>
 		</button>
+		<a style="color: red"><span style="padding:0px 30px;">Забыли пароль?</span></a>
 	</form>
 
 
 	<div wicket:id="feedbackpanel"></div>
+	<br>
+	<br>
+	<br>
 	<marquee>
 		<h5 wicket:id="course"></h5>
 	</marquee>

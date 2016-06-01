@@ -1,21 +1,27 @@
 <wicket:panel>
 	<table class="list-table">
 		<thead>
-			<tr>
-				<th><a wicket:id="sort-id">Id</a></th>
-				<th><a wicket:id="sort-date">Date</a></th>
-				<th><a wicket:id="sort-sum-in">Sum in</a></th>
+			<tr >
+				<th id="cell"><a id="table.link" wicket:id="sort-date">Date</a></th>
+				<th><a id="table.link" wicket:id="sort-sum-in">Sum in</a></th>
+				<th>Cur.From</th>
+				<th>Cur.To</th>
 				<th>Operation</th>
+				<th>Tax</th>
+				<th>Total</th>
 				<th>User</th>
 			</tr>
 		
 		</thead>
 		<tbody>
 			<tr wicket:id="rows">
-				<td><span wicket:id="id"/></td>
 				<td><span wicket:id="date"/></td>
 				<td><span wicket:id="sumin"/></td>
+				<td><span wicket:id="currencyFrom"/></td>
+				<td><span wicket:id="currencyTo"/></td>
 				<td><span wicket:id="operation"/></td>
+				<td><span wicket:id="tax"/></td>
+				<td><span wicket:id="total"/></td>
 				<td><span wicket:id="user"/></td>
 			</tr>
 		</tbody>

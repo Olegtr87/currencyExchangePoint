@@ -38,10 +38,6 @@ public class ExchangeRateDaoImpl extends AbstractDaoImpl<ExchangeRate, Long> imp
 		// set selection
 		cq.select(from);
 
-		if (filter.getConversion()!=null){
-			Predicate conFromExchRateEqualCondition = cb.gt(from.get(ExchangeRate_.conversion),1.5);
-			cq.where(conFromExchRateEqualCondition);
-		}
 		
 		if (((filter.getCurrencyFrom()) != null)&&((filter.getCurrencyTo()) != null)&&(filter.getDateCourse() != null)) {
 			Predicate curFromExchRateEqualCondition = cb.equal(from.get(ExchangeRate_.currencyFrom).get(Currency_.name),

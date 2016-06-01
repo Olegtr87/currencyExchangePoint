@@ -14,7 +14,9 @@ import org.springframework.stereotype.Repository;
 
 import com.epam.vasilevsky.exchanger.dataaccess.TransactionDao;
 import com.epam.vasilevsky.exchanger.dataaccess.filters.TransactionFilter;
-
+import com.epam.vasilevsky.exchanger.datamodel.Currency_;
+import com.epam.vasilevsky.exchanger.datamodel.ExchangeRate;
+import com.epam.vasilevsky.exchanger.datamodel.ExchangeRate_;
 import com.epam.vasilevsky.exchanger.datamodel.Transaction;
 import com.epam.vasilevsky.exchanger.datamodel.Transaction_;
 import com.epam.vasilevsky.exchanger.datamodel.UserCredentials_;
@@ -50,16 +52,17 @@ public class TransactionDaoImpl extends AbstractDaoImpl<Transaction,Long> implem
 
         // set selection
         cq.select(from);
-
+        
         if (filter.getUserCredentials() != null) {
             Predicate userEqualCondition = cb.equal(from.get(Transaction_.user).get(UserCredentials_.id), filter.getUserCredentials().getId());
-            System.out.println(filter.getUserCredentials());
             cq.where((userEqualCondition));
         }
         // set fetching
         if (filter.isFetchCredentials()) {
             from.fetch(Transaction_.operation, JoinType.LEFT);
             from.fetch(Transaction_.user, JoinType.LEFT);
+            from.fetch(Transaction_.exchangeRate, JoinType.LEFT);
+           
         }
 
         // set sort params

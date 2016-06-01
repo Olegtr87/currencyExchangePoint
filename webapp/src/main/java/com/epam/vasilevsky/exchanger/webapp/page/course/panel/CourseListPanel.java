@@ -26,7 +26,6 @@ import com.epam.vasilevsky.exchanger.service.ExchangeRateService;
 import com.epam.vasilevsky.exchanger.webapp.page.course.CourseEditPage;
 import com.epam.vasilevsky.exchanger.webapp.page.course.CoursePage;
 
-
 public class CourseListPanel extends Panel {
 
 	@Inject
@@ -46,27 +45,26 @@ public class CourseListPanel extends Panel {
 				item.add(new Label("currency-from", exchangeRate.getCurrencyFrom().getName()));
 				item.add(new Label("currency-to", exchangeRate.getCurrencyTo().getName()));
 				item.add(DateLabel.forDatePattern("date", Model.of(exchangeRate.getDateCourse()), "dd-MM-yyyy"));
-				
-				item.add(new Link<Void>("edit-link") {
-                    @Override
-                    public void onClick() {
-                        setResponsePage(new CourseEditPage(exchangeRate));
-                    }
-                });
-				
-                item.add(new Link<Void>("delete-link") {
-                    @Override
-                    public void onClick() {
-                        try {
-                        	exchangeRateService.delete(exchangeRate.getId());
-                        } catch (PersistenceException e) {
-                            System.out.println("caughth persistance exception");
-                        }
 
-                        setResponsePage(new CoursePage());
-                    }
-                });
-				
+				item.add(new Link<Void>("edit-link") {
+					@Override
+					public void onClick() {
+						setResponsePage(new CourseEditPage(exchangeRate));
+					}
+				});
+
+				item.add(new Link<Void>("delete-link") {
+					@Override
+					public void onClick() {
+						try {
+							exchangeRateService.delete(exchangeRate.getId());
+						} catch (PersistenceException e) {
+							System.out.println("caughth persistance exception");
+						}
+
+						setResponsePage(new CoursePage());
+					}
+				});
 			}
 		};
 		add(dataView);
@@ -77,7 +75,7 @@ public class CourseListPanel extends Panel {
 		add(new OrderByBorder("sort-date", ExchangeRate_.dateCourse, exchangeRateDataProvider));
 		add(new OrderByBorder("sort-currency-from", ExchangeRate_.currencyFrom, exchangeRateDataProvider));
 		add(new OrderByBorder("sort-currency-to", ExchangeRate_.currencyTo, exchangeRateDataProvider));
-		
+
 	}
 
 	private class ExchangeRateDataProvider extends SortableDataProvider<ExchangeRate, Serializable> {

@@ -93,7 +93,10 @@ public class CheckPdf {
 		return file;
 	}
 	
-	private Double totalSum() {
-		return transaction.getSumIn() * transaction.getExchangeRate().getConversion();
+	private Integer totalSum() {
+		Double totalNoCom=transaction.getSumIn()*transaction.getExchangeRate().getConversion();
+		Double tax=transaction.getExchangeRate().getConversion()*transaction.getSumIn()*transaction.getOperation().getTax()/100;
+		Double total=totalNoCom-tax;
+		return (int) Math.round(total);
 	}
 }
