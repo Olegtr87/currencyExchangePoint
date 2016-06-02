@@ -3,9 +3,25 @@ table.list-table tr th {
 	color: #039;
 }
 
+table.list-table tr td {
+	background-color: white;
+	color: #039;
+}
+
 table.list-table tr td, table.list-table tr th {
 	border: 1px solid black;
 	border-collapse: collapse;
+	text-align: center;
+}
+
+.outline {
+	border: 1px solid #000000;
+	padding: 0 10px;
+}
+
+.outliner {
+	border: 1px solid #000000;
+	background: white;
 }
 
 table.list-table {
@@ -19,7 +35,7 @@ table.list-table {
 }
 
 #link {
-	size: 20px;
+	size: 60px;
 	color: white;
 	font: bold;
 	background-color: black;

@@ -8,9 +8,63 @@
 	<entry key="login.label.lp">Ввод логина и пароля:</entry>
 	<entry key="login.err.auth">Неверные логин или пароль</entry>
 	<entry key="login.label.loginpage">Страница авторизации</entry>
-
+	<entry key="login.btn.forgot.pass">Забыли пароль?</entry>
+	
+	<entry key="home.label.page">Домашняя страница</entry>
+	
+	<entry key="course.label.page">Курсы валют</entry>
+	
+	<entry key="editcourse.label.page">Редактирование курсов</entry>
+	<entry key="editcourse.label.date">Дата</entry>
+	<entry key="editcourse.label.currency.from">Валюта "из"</entry>
+	<entry key="editcourse.label.currency.to">Валюта "в"</entry>
+	<entry key="editcourse.label.conversion">Конверсия</entry>
+	<entry key="editcourse.label.to">в</entry>
+	
+	<entry key="operations.label.page">Операции</entry>
+	<entry key="operations.label.name">Имя</entry>
+	<entry key="operations.label.tax">Комиссия</entry>
+	<entry key="operations.label.statusblock">Статус блокировки</entry>
+	<entry key="operations.label.operation">Операция</entry>
+	
+	<entry key="operationsedit.label.page">Редактирование операции</entry>
+	
+	<entry key="transacions.label.user">Пользователь</entry>
+	<entry key="transacions.label.total">Итого</entry>
+	
+	<entry key="converter.sumin">Сумма</entry>
+	<entry key="converter.transaction">Транзакция</entry>
+	
+	<entry key="register.label.page">Страница регистрации</entry>
+	<entry key="register.label.email">Эл. почта</entry>
+	<entry key="register.label.password">Пароль</entry>
+	<entry key="register.label.firstname">Имя</entry>
+	<entry key="register.label.lastname">Фамилия</entry>
+	<entry key="register.label.patronymic">Отчество</entry>
+	<entry key="register.label.numberPassport">Номер паспорта</entry>
+	<entry key="register.label.dateIssue">Дата выдачи</entry>
+	<entry key="register.label.issued">Кем выдан</entry>
+	<entry key="register.label.created">Дата создания</entry>
+	
+	<entry key="check.label.page">Чек</entry>
+	<entry key="check.label.successful">Транзакция прошла успешно</entry>
+	<entry key="check.label.numbercheck">Номер чека</entry>
+	<entry key="check.label.payer">Плательщик</entry>
+	
+	<entry key="btn.create">Создать</entry>
+	<entry key="btn.save">Сохранить</entry>
+	<entry key="btn.delete">удалить</entry>
+	<entry key="btn.edit">редакт.</entry>
+	
 	<entry key="US">Английский</entry>
 	<entry key="RU">Русский</entry>
-
+	
+	<entry key="panel.logout">ВЫЙТИ</entry>
+	<entry key="panel.operations">ОПЕРАЦИИ</entry>
+	<entry key="panel.courses">КУРСЫ</entry>
+	<entry key="panel.converter">КОНВЕРТЕР</entry>
+	<entry key="panel.cabinet">КАБИНЕТ</entry>
+	<entry key="panel.transactions">ТРАНЗАКЦИИ</entry>
+	
 
 </properties>

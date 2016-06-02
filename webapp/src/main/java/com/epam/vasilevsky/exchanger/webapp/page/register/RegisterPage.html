@@ -1,49 +1,55 @@
 <wicket:extend>
-	<h2>RegisterPage</h2>
+	<h2>
+		<wicket:message key="register.label.page" />
+	</h2>
+	<br>
 
 	<form wicket:id="form">
 		<table>
 			<tr>
-				<td><b>Email:</b></td>
+				<td><b><wicket:message key="register.label.email" />:</b></td>
 				<td><input type="text" wicket:id="login" /></td>
 			</tr>
 			<tr>
-				<td><b>Password:</b></td>
+				<td><b><wicket:message key="register.label.password" />:</b></td>
 				<td><input type="text" wicket:id="password" /></td>
 			</tr>
 			<tr>
-				<td><b>First name:</b></td>
+				<td><b><wicket:message key="register.label.firstname" />:</b></td>
 				<td><input type="text" wicket:id="firstName" /></td>
 			</tr>
 			<tr>
-				<td><b>LastName:</b></td>
+				<td><b><wicket:message key="register.label.lastname" />:</b></td>
 				<td><input type="text" wicket:id="lastName" /></td>
 			</tr>
 			<tr>
-				<td><b>Patronymic:</b></td>
+				<td><b><wicket:message key="register.label.patronymic" />:</b></td>
 				<td><input type="text" wicket:id="patronymic" /></td>
 			</tr>
 			<tr>
-				<td><b>Number passport:</b></td>
+				<td><b><wicket:message key="register.label.numberPassport" />:</b></td>
 				<td><input type="text" wicket:id="numberPassport" /></td>
 			</tr>
 			<tr>
-				<td><b>Date issue:</b></td>
+				<td><b><wicket:message key="register.label.dateIssue" />:</b></td>
 				<td><input type="text" wicket:id="dateIssue" /></td>
 			</tr>
 			<tr>
-				<td><b>Issued:</b></td>
+				<td><b><wicket:message key="register.label.issued" />:</b></td>
 				<td><input type="text" wicket:id="issued" /></td>
 			</tr>
 			<tr>
-				<td><b>Created:</b></td>
+				<td><b><wicket:message key="register.label.created" />:</b></td>
 				<td><input type="text" wicket:id="created" /></td>
 			</tr>
 			<tr>
-				<td><button type="submit" wicket:id="save">Save</button></td>
+				<td><br>
+				<button type="submit" wicket:id="save">
+						<wicket:message key="btn.save" />
+					</button></td>
 				<td></td>
 			</tr>
-			
+
 		</table>
 	</form>
 	<div wicket:id="feedback"></div>

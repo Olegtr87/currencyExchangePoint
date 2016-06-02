@@ -2,10 +2,10 @@
 	<table class="list-table">
 		<thead>
 			<tr>
-				<th><a wicket:id="sort-id">Id</a></th>
-				<th><a wicket:id="sort-name">Name</a></th>
-				<th><a wicket:id="sort-tax">Tax</a></th>
-				<th>Status block</th>
+				<th><a wicket:id="sort-id">ID</a></th>
+				<th><a wicket:id="sort-name"><wicket:message key="operations.label.name" /></a></th>
+				<th><a wicket:id="sort-tax"><wicket:message key="operations.label.tax" /></a></th>
+				<th><wicket:message key="operations.label.statusblock"/></th>
 				<th></th>
 			</tr>
 
@@ -16,7 +16,7 @@
 				<td><span wicket:id="name" /></td>
 				<td><span wicket:id="tax" /></td>
 				<td><input wicket:id="status-block" type="checkbox" /></td>
-				<td><a wicket:id="delete-link">delete</a>/<a wicket:id="edit-link">edit</a></td>
+				<td><a wicket:id="delete-link"><wicket:message key="btn.delete" /></a>/<a wicket:id="edit-link"><wicket:message key="btn.edit" /></a></td>
 			</tr>
 		</tbody>
 	</table>

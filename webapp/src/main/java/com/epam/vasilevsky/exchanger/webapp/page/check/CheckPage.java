@@ -45,15 +45,15 @@ public class CheckPage extends AbstractHomePage {
 		transactionService.add(transaction, AuthorizedSession.get().getLoggedUser(), searchOperation(),
 				searchExchangeRate());
 
-		add(new Label("message", "The transaction has been successful"));
-		add(new Label("number_check", "Number check " + transaction.getId()));
-		add(new Label("payer", "Payer: " + userService.getProfile(transaction.getUser().getId()).getFirstName() + " "
+		add(new Label("message",getString("check.label.successful")));
+		add(new Label("number_check", getString("check.label.numbercheck")+": " + transaction.getId()));
+		add(new Label("payer", getString("check.label.payer")+": " + userService.getProfile(transaction.getUser().getId()).getFirstName() + " "
 				+ userService.getProfile(transaction.getUser().getId()).getLastName()));
-		add(new Label("operation", "Operation: " + transaction.getOperation().getName()));
-		add(new Label("sumin", "Sum in: " + transaction.getSumIn()));
-		add(new Label("currency", "Currency from " + transaction.getExchangeRate().getCurrencyFrom().getName() + " to "
+		add(new Label("operation", getString("operations.label.operation")+": " + transaction.getOperation().getName()));
+		add(new Label("sumin", getString("converter.sumin")+": " + transaction.getSumIn()));
+		add(new Label("currency", getString("editcourse.label.currency.from")+" " + transaction.getExchangeRate().getCurrencyFrom().getName() + " "+getString("editcourse.label.to")+" "
 				+ transaction.getExchangeRate().getCurrencyTo().getName()));
-		add(new Label("total", "Total: " + totalSum()));
+		add(new Label("total", getString("transacions.label.total")+": " + totalSum()));
 
 		CheckPdf checkPdf = new CheckPdf(transaction, userService);
 		add(new DownloadLink("download", checkPdf.createPdf(), "download.pdf"));

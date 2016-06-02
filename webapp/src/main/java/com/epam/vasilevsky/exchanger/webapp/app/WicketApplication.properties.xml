@@ -8,8 +8,62 @@
 	<entry key="login.label.lp">Login and password:</entry>
 	<entry key="login.err.auth">Invalid login or password</entry>
 	<entry key="login.label.loginpage">Login Page</entry>
+	<entry key="login.btn.forgot.pass">Forgot password?</entry>
+	
+	<entry key="home.label.page">Home page</entry>
+	
+	<entry key="course.label.page">Exchange page</entry>
+	
+	<entry key="editcourse.label.page">Course edit</entry>
+	<entry key="editcourse.label.date">Date</entry>
+	<entry key="editcourse.label.currency.from">Currency from</entry>
+	<entry key="editcourse.label.currency.to">Currency to</entry>
+	<entry key="editcourse.label.conversion">Conversion</entry>
+	<entry key="editcourse.label.to">to</entry>
+	
+	<entry key="operations.label.page">Operations page</entry>
+	<entry key="operations.label.name">Name</entry>
+	<entry key="operations.label.tax">Tax</entry>
+	<entry key="operations.label.statusblock">Status block</entry>
+	<entry key="operations.label.operation">Operation</entry>
+	
+	<entry key="operationsedit.label.page">Edit operation</entry>
+	
+	<entry key="transacions.label.user">User</entry>
+	<entry key="transacions.label.total">Total</entry>
+	
+	<entry key="converter.sumin">Summ in</entry>
+	<entry key="converter.transaction">Transaction</entry>
+	
+	<entry key="register.label.page">Register page</entry>
+	<entry key="register.label.email">Email</entry>
+	<entry key="register.label.password">Password</entry>
+	<entry key="register.label.firstname">First name</entry>
+	<entry key="register.label.lastname">Last name</entry>
+	<entry key="register.label.patronymic">Patronymic</entry>
+	<entry key="register.label.numberPassport">Number passport</entry>
+	<entry key="register.label.dateIssue">Date issue</entry>
+	<entry key="register.label.issued">Issued</entry>
+	<entry key="register.label.created">Created</entry>
+	
+	<entry key="check.label.page">Check page</entry>
+	<entry key="check.label.successful">The transaction has been successful</entry>
+	<entry key="check.label.numbercheck">Number check</entry>
+	<entry key="check.label.payer">Payer</entry>
+	
+	<entry key="btn.create">Create</entry>
+	<entry key="btn.save">Save</entry>
+	<entry key="btn.delete">delete</entry>
+	<entry key="btn.edit">edit</entry>
 
 	<entry key="US">English</entry>
 	<entry key="RU">Russian</entry>
+	
+	<entry key="panel.logout">LOGOUT</entry>
+	<entry key="panel.operations">OPERATIONS</entry>
+	<entry key="panel.courses">COURSES</entry>
+	<entry key="panel.converter">CONVERTER</entry>
+	<entry key="panel.cabinet">CABINET</entry>
+	<entry key="panel.transactions">TRANSACTIONS</entry>
 	
 </properties>

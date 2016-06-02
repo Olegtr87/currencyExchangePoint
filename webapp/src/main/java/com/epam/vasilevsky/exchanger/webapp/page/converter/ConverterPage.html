@@ -1,26 +1,27 @@
 <wicket:extend>
 
-	<h2>Converter</h2>
+	<h2>
+		<wicket:message key="panel.converter" />
+	</h2>
 
 	<form wicket:id="form">
 
 		<table>
 			<tr>
-				<td><b>Currency from:</b></td>
+				<td><b><wicket:message key="editcourse.label.currency.from" />:</b></td>
 				<td><select wicket:id="currencyFrom"></select></td>
 
 			</tr>
 			<tr>
-				<td><b>Currency to:</b></td>
+				<td><b><wicket:message key="editcourse.label.currency.to" />:</b></td>
 				<td><select wicket:id="currencyTo"></select></td>
 			</tr>
 			<tr>
-				<td><b>Summ in:</b></td>
+				<td><b><wicket:message key="converter.sumin" />:</b></td>
 				<td><input type="text" wicket:id="sumIn" /></td>
 			</tr>
-
 			<tr>
-				<td><button type="submit" wicket:id="transaction">Transaction</button></td>
+				<td><br><button type="submit" wicket:id="transaction"><wicket:message key="converter.transaction" /></button></td>
 				<td></td>
 			</tr>
 		</table>

@@ -1,25 +1,33 @@
 <wicket:extend>
-	<h2>CheckPage</h2>
-	<div>
-		<h1 align="center" wicket:id="message"></h1>
+	<h2><wicket:message key="check.label.page" /></h2>
+	<div class="outline">
+		<div>
+			<h1 style="color: green;" align="center" wicket:id="message"></h1>
+		</div>
+		<div class="outliner" style="width: 300px">
+			<div>
+				<h5 align="center" wicket:id="number_check"></h5>
+			</div>
+			<div>
+				<h5 align="center" wicket:id="payer"></h5>
+			</div>
+			<div>
+				<h5 align="center" wicket:id="operation"></h5>
+			</div>
+			<div>
+				<h5 align="center" wicket:id="sumin"></h5>
+			</div>
+			<div>
+				<h5 align="center" wicket:id="currency"></h5>
+			</div>
+			<div>
+				<h5 align="center" wicket:id="total"></h5>
+			</div>
+
+			<div align="center">
+				<input type="button" wicket:id="download" value="Download check" />
+			</div>
+			<br>
+		</div>
 	</div>
-	<div>
-		<h5 align="center" wicket:id="number_check"></h5>
-	</div>
-	<div>
-		<h5 wicket:id="payer"></h5>
-	</div>
-	<div>
-		<h5 wicket:id="operation"></h5>
-	</div>
-	<div>
-		<h5 wicket:id="sumin"></h5>
-	</div>
-	<div>
-		<h5 wicket:id="currency"></h5>
-	</div>
-	<div>
-		<h5 wicket:id="total"></h5>
-	</div>
-	<input type="button" wicket:id="download" value="Download check" />
 </wicket:extend>

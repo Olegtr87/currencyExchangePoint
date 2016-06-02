@@ -4,9 +4,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+
+import org.apache.wicket.Component;
+import org.apache.wicket.Localizer;
+
 import com.epam.vasilevsky.exchanger.datamodel.Transaction;
 import com.epam.vasilevsky.exchanger.service.UserService;
 import com.epam.vasilevsky.exchanger.webapp.app.AuthorizedSession;
+import com.epam.vasilevsky.exchanger.webapp.app.WicketApplication;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
@@ -58,6 +63,9 @@ public class CheckPdf {
 			PdfPTable t = new PdfPTable(5);
 			t.setSpacingBefore(25);
 			t.setSpacingAfter(25);
+			
+			//String st=WicketApplication.get().getResourceSettings().getLocalizer().getString("editcourse.label.currency.to", null);
+			
 			PdfPCell c1 = new PdfPCell(new Phrase("Operation"));
 			t.addCell(c1);
 			PdfPCell c2 = new PdfPCell(new Phrase("Sum in"));
@@ -68,6 +76,7 @@ public class CheckPdf {
 			t.addCell(c4);
 			PdfPCell c5 = new PdfPCell(new Phrase("Total"));
 			t.addCell(c5);
+			
 			t.addCell(transaction.getOperation().getName());
 			t.addCell(transaction.getSumIn().toString());
 			t.addCell(transaction.getExchangeRate().getCurrencyFrom().getName().name());
@@ -99,4 +108,8 @@ public class CheckPdf {
 		Double total=totalNoCom-tax;
 		return (int) Math.round(total);
 	}
+	
+	private String getObject(String s) {
+        return WicketApplication.get().getResourceSettings().getLocalizer().getString(s, null);
+    }
 }
