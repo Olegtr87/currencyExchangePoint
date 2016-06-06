@@ -78,7 +78,10 @@ public class CourseEditPage extends AbstractHomePage {
 				super.onSubmit();
 				if (exchangeRate.getCurrencyFrom().getName().equals(exchangeRate.getCurrencyTo().getName())) {
 					error("The currency must be different");
+				} else if (checkDoubleBrb()) {
+					error("The exchange rate should contain BRB");
 				} else {
+					setCorrectConversion();
 					exchangeRateService.saveOrUpdate(exchangeRate);
 					setResponsePage(new CoursePage());
 				}
@@ -86,7 +89,16 @@ public class CourseEditPage extends AbstractHomePage {
 		});
 
 		add(new FeedbackPanel("feedback"));
-
 	}
 
+	private void setCorrectConversion() {
+		if (exchangeRate.getCurrencyFrom().getName().name().equals(CurrencyName.BRB.name())) {
+			exchangeRate.setConversion(1 / exchangeRate.getConversion());
+		}
+	}
+	
+	private boolean checkDoubleBrb(){
+		return ((!exchangeRate.getCurrencyFrom().getName().name().equals(CurrencyName.BRB.name()))
+				&& (!exchangeRate.getCurrencyTo().getName().name().equals(CurrencyName.BRB.name())));
+	}
 }

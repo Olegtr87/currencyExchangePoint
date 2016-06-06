@@ -5,9 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-import org.apache.wicket.Component;
-import org.apache.wicket.Localizer;
-
 import com.epam.vasilevsky.exchanger.datamodel.Transaction;
 import com.epam.vasilevsky.exchanger.service.UserService;
 import com.epam.vasilevsky.exchanger.webapp.app.AuthorizedSession;
@@ -64,7 +61,7 @@ public class CheckPdf {
 			t.setSpacingBefore(25);
 			t.setSpacingAfter(25);
 			
-			//String st=WicketApplication.get().getResourceSettings().getLocalizer().getString("editcourse.label.currency.to", null);
+			String st=WicketApplication.get().getResourceSettings().getLocalizer().getString("editcourse.label.currency.to", null);
 			
 			PdfPCell c1 = new PdfPCell(new Phrase("Operation"));
 			t.addCell(c1);
@@ -108,8 +105,4 @@ public class CheckPdf {
 		Double total=totalNoCom-tax;
 		return (int) Math.round(total);
 	}
-	
-	private String getObject(String s) {
-        return WicketApplication.get().getResourceSettings().getLocalizer().getString(s, null);
-    }
 }

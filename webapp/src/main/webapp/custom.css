@@ -14,6 +14,14 @@ table.list-table tr td, table.list-table tr th {
 	text-align: center;
 }
 
+table.list-table{
+	width: 100%;
+}
+
+body.modal-body {
+	background-image: url("images/form.jpg");
+}
+
 .outline {
 	border: 1px solid #000000;
 	padding: 0 10px;
@@ -30,8 +38,8 @@ table.list-table {
 
 .language-comp select {
 	position: absolute;
-	top: 5px;
-	right: 10px;
+	top: 10px;
+	right: 20px;
 }
 
 #link {
@@ -44,8 +52,12 @@ table.list-table {
 
 a {
 	text-decoration: none;
-	color: black;
+	color: #039;
 	font: bold;
+}
+
+a:VISITED{
+	color: #039;
 }
 
 button {
@@ -66,5 +78,26 @@ button:active {
 }
 
 button:hover {
-	background: rgba(255, 255, 255, .2);
+	background: linear-gradient(to bottom, #fcfff4, #e9e9ce);
 }
+
+.c {
+	border: 1px solid #333;
+	display: inline-block;
+	padding: 5px 15px;
+	text-decoration: none;
+	color: #000;
+}
+
+.c:hover {
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+	background: linear-gradient(to bottom, #fcfff4, #e9e9ce);
+	color: #000;
+}
+.c:VISITED {
+	color: #000;
+}
+
+div.wicket-modal {
+    font-size: x-large;
+    }

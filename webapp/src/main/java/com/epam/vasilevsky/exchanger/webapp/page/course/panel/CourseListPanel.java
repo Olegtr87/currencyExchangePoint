@@ -20,6 +20,7 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 
 import com.epam.vasilevsky.exchanger.dataaccess.filters.ExchangeRateFilter;
+import com.epam.vasilevsky.exchanger.datamodel.CurrencyName;
 import com.epam.vasilevsky.exchanger.datamodel.ExchangeRate;
 import com.epam.vasilevsky.exchanger.datamodel.ExchangeRate_;
 import com.epam.vasilevsky.exchanger.service.ExchangeRateService;
@@ -27,7 +28,8 @@ import com.epam.vasilevsky.exchanger.webapp.page.course.CourseEditPage;
 import com.epam.vasilevsky.exchanger.webapp.page.course.CoursePage;
 
 public class CourseListPanel extends Panel {
-
+	ExchangeRate exchangeRate;
+	
 	@Inject
 	private ExchangeRateService exchangeRateService;
 
@@ -38,10 +40,10 @@ public class CourseListPanel extends Panel {
 		DataView<ExchangeRate> dataView = new DataView<ExchangeRate>("rows", exchangeRateDataProvider, 5) {
 			@Override
 			protected void populateItem(Item<ExchangeRate> item) {
-				ExchangeRate exchangeRate = item.getModelObject();
+				exchangeRate = item.getModelObject();
 
 				item.add(new Label("id", exchangeRate.getId()));
-				item.add(new Label("conversion", exchangeRate.getConversion()));
+				item.add(new Label("conversion", viewCorrectCourse()));
 				item.add(new Label("currency-from", exchangeRate.getCurrencyFrom().getName()));
 				item.add(new Label("currency-to", exchangeRate.getCurrencyTo().getName()));
 				item.add(DateLabel.forDatePattern("date", Model.of(exchangeRate.getDateCourse()), "dd-MM-yyyy"));
@@ -111,6 +113,10 @@ public class CourseListPanel extends Panel {
 		public IModel<ExchangeRate> model(ExchangeRate object) {
 			return new Model(object);
 		}
-
+	}
+	
+	private Double viewCorrectCourse(){
+		if (exchangeRate.getCurrencyFrom().getName().name().equals(CurrencyName.BRB.name())) {
+			return 1/exchangeRate.getConversion();} else return exchangeRate.getConversion();
 	}
 }

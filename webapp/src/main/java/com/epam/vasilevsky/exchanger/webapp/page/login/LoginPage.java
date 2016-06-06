@@ -3,7 +3,10 @@ package com.epam.vasilevsky.exchanger.webapp.page.login;
 import javax.inject.Inject;
 
 import org.apache.wicket.Application;
+import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
+import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
@@ -11,7 +14,6 @@ import org.apache.wicket.markup.html.form.RequiredTextField;
 import org.apache.wicket.markup.html.form.SubmitLink;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
-import org.apache.wicket.model.Model;
 import org.apache.wicket.util.string.Strings;
 
 import com.epam.vasilevsky.exchanger.datamodel.CurrencyName;
@@ -21,6 +23,7 @@ import com.epam.vasilevsky.exchanger.service.UserCredentialsService;
 import com.epam.vasilevsky.exchanger.service.coursenbrb.CodeCurrency;
 import com.epam.vasilevsky.exchanger.service.coursenbrb.CourseNBRBImpl;
 import com.epam.vasilevsky.exchanger.webapp.page.AbstractPage;
+import com.epam.vasilevsky.exchanger.webapp.page.password.ModalWin;
 import com.epam.vasilevsky.exchanger.webapp.page.register.RegisterPage;
 
 public class LoginPage extends AbstractPage {
@@ -30,6 +33,8 @@ public class LoginPage extends AbstractPage {
 
 	@Inject
 	UserCredentialsService userCredentialsService;
+
+	ModalWindow modalWindow;
 
 	public LoginPage() {
 		super();
@@ -58,6 +63,19 @@ public class LoginPage extends AbstractPage {
 				setResponsePage(new RegisterPage(new UserCredentials(), new UserProfile()));
 			}
 		});
+		
+		final ModalWin win = new ModalWin("modal1");
+		win.setTitle(getString("password.page.title"));
+        add(win);
+
+        AjaxLink link = new AjaxLink("link") {
+            @Override
+            public void onClick(AjaxRequestTarget target) {
+                win.show(target);
+            }
+        };
+        add(link);
+		        
 
 		form.add(new SubmitLink("login-btn") {
 			@Override
@@ -75,6 +93,7 @@ public class LoginPage extends AbstractPage {
 				}
 			}
 		});
+
 
 		add(form);
 		add(form1);

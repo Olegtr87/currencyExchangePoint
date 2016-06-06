@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
+	<entry key="email.subject">Password reminder</entry>
+	<entry key="email.text">Hello! Your password is:</entry>
+	<entry key="email.error">E-mail address with the same name is not found!</entry>
+
 	<entry key="login.label.login">Email</entry>
 	<entry key="login.label.password">Password</entry>
 	<entry key="login.btn.login">Log in</entry>
@@ -16,9 +20,9 @@
 	
 	<entry key="editcourse.label.page">Course edit</entry>
 	<entry key="editcourse.label.date">Date</entry>
-	<entry key="editcourse.label.currency.from">Currency from</entry>
-	<entry key="editcourse.label.currency.to">Currency to</entry>
-	<entry key="editcourse.label.conversion">Conversion</entry>
+	<entry key="editcourse.label.currency.from">Currency buy</entry>
+	<entry key="editcourse.label.currency.to">Currency sell</entry>
+	<entry key="editcourse.label.conversion">Course</entry>
 	<entry key="editcourse.label.to">to</entry>
 	
 	<entry key="operations.label.page">Operations page</entry>
@@ -51,10 +55,14 @@
 	<entry key="check.label.numbercheck">Number check</entry>
 	<entry key="check.label.payer">Payer</entry>
 	
+	<entry key="password.page.title">Password reminder</entry>
+	<entry key="password.page.label">Enter your email for password recovery:</entry>
+	
 	<entry key="btn.create">Create</entry>
 	<entry key="btn.save">Save</entry>
 	<entry key="btn.delete">delete</entry>
 	<entry key="btn.edit">edit</entry>
+	<entry key="btn.send">Send</entry>
 
 	<entry key="US">English</entry>
 	<entry key="RU">Russian</entry>
