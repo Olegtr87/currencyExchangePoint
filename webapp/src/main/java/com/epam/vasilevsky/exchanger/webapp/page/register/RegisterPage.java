@@ -4,7 +4,11 @@ import java.util.Date;
 
 import javax.inject.Inject;
 
+import org.apache.wicket.Application;
+import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
+import org.apache.wicket.core.request.handler.IPartialPageRequestHandler;
 import org.apache.wicket.extensions.markup.html.form.DateTextField;
 import org.apache.wicket.extensions.yui.calendar.DatePicker;
 import org.apache.wicket.markup.html.form.CheckBox;
@@ -17,6 +21,7 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
+import org.apache.wicket.util.string.Strings;
 import org.apache.wicket.validation.validator.RangeValidator;
 import org.apache.wicket.validation.validator.*;
 
@@ -24,15 +29,24 @@ import com.epam.vasilevsky.exchanger.datamodel.ExchangeRate;
 import com.epam.vasilevsky.exchanger.datamodel.UserCredentials;
 import com.epam.vasilevsky.exchanger.datamodel.UserProfile;
 import com.epam.vasilevsky.exchanger.datamodel.UserRole;
+import com.epam.vasilevsky.exchanger.service.UserCredentialsService;
 import com.epam.vasilevsky.exchanger.service.UserService;
 import com.epam.vasilevsky.exchanger.webapp.page.AbstractPage;
 import com.epam.vasilevsky.exchanger.webapp.page.homepage.HomePage;
 import com.epam.vasilevsky.exchanger.webapp.page.login.LoginPage;
+import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
+import com.googlecode.wicket.jquery.ui.widget.dialog.DialogButton;
+import com.googlecode.wicket.jquery.ui.widget.dialog.DialogButtons;
+import com.googlecode.wicket.jquery.ui.widget.dialog.DialogIcon;
+import com.googlecode.wicket.jquery.ui.widget.dialog.MessageDialog;
 
 public class RegisterPage extends AbstractPage {
 
 	@Inject
 	private UserService userService;
+
+	@Inject
+	private UserCredentialsService userCredentialsService;
 
 	UserCredentials userCredentials;
 	UserProfile userProfile;
@@ -103,16 +117,32 @@ public class RegisterPage extends AbstractPage {
 			@Override
 			public void onSubmit() {
 				super.onSubmit();
+
 				if (AuthenticatedWebSession.get().isSignedIn()) {
 					userService.updateProfile(userProfile);
 					userService.updateCredentials(userCredentials);
+					setResponsePage(new LoginPage());
+				} else if (userCredentialsService.findByLogin(userCredentials.getLogin()).getLogin()
+						.equals(userCredentials.getLogin())) {
+					error(getString("register.error.login"));
+					
 				} else {
 					userService.register(userProfile, userCredentials);
+					setResponsePage(new LoginPage());
 				}
-				setResponsePage(new LoginPage());
 			}
 		});
-
+		
+		SubmitLink link=new SubmitLink("exit") {
+			@Override
+			public void onSubmit() {
+				super.onSubmit();
+				setResponsePage(new LoginPage());
+			}
+		};
+		link.setDefaultFormProcessing(false);
+		form.add(link);
+		
 		add(new FeedbackPanel("feedback"));
 
 	}

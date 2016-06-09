@@ -30,6 +30,13 @@ public class UserCredentialsServiceImpl implements UserCredentialsService {
 		filter.setPassword(password);
 		return userCredentialsDao.find(filter);
 	}
+	
+	@Override
+	public UserCredentials findByLogin(String login) {
+		UserCredentialsFilter filter=new UserCredentialsFilter();
+		filter.setLogin(login);
+		return userCredentialsDao.find(filter);
+	}
 
 	@Override
 	public Collection<? extends String> resolveRoles(Long id) {

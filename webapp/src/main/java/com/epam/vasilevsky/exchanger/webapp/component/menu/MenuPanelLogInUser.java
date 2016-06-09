@@ -47,6 +47,12 @@ public class MenuPanelLogInUser extends MenuPanel{
                 setResponsePage(new RegisterPage(userCredentials,userProfile));
             }
         });
+        
+        add(new Link("link-transfer") {
+            @Override
+            public void onClick() {
+            }
+        });
     }
 
 }

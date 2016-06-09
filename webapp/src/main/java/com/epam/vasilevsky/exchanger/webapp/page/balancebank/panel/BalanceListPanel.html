@@ -1,0 +1,26 @@
+<wicket:panel>
+	<table class="list-table">
+		<thead>
+			<tr>
+				<th><a >ID</a></th>
+				<th><a><wicket:message
+							key="converter.sumin" /></a></th>
+				<th><a><wicket:message
+							key="operations.label.name" /></a></th>
+				<th></th>
+			</tr>
+
+		</thead>
+		<tbody>
+			<tr wicket:id="rows">
+				<td><span wicket:id="id" /></td>
+				<td><span wicket:id="sum" /></td>
+				<td><span wicket:id="currency" /></td>
+				<td><a wicket:id="add-link"><img
+						src="images/add.png" width="30" height="30"></a></td>
+			</tr>
+		</tbody>
+	</table>
+	<div wicket:id="paging"></div>
+
+</wicket:panel>

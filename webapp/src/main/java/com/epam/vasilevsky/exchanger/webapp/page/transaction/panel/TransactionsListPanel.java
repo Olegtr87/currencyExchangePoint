@@ -29,12 +29,12 @@ public class TransactionsListPanel extends Panel {
 
 	@Inject
 	private TransactionService transactionService;
-	
+
 	Transaction transaction;
-	
+
 	@Inject
 	private UserService userService;
-	
+
 	public TransactionsListPanel(String id) {
 		super(id);
 
@@ -44,14 +44,15 @@ public class TransactionsListPanel extends Panel {
 			protected void populateItem(Item<Transaction> item) {
 				transaction = item.getModelObject();
 
-				item.add(DateLabel.forDatePattern("date", Model.of(transaction.getDateOperation()), "dd-MM-yyyy hh:mm"));
+				item.add(
+						DateLabel.forDatePattern("date", Model.of(transaction.getDateOperation()), "dd-MM-yyyy hh:mm"));
 				item.add(new Label("sumin", transaction.getSumIn()));
 				item.add(new Label("currencyFrom", transaction.getExchangeRate().getCurrencyFrom().getName()));
 				item.add(new Label("currencyTo", transaction.getExchangeRate().getCurrencyTo().getName()));
 				item.add(new Label("operation", transaction.getOperation().getName()));
-				item.add(new Label("tax", transaction.getOperation().getTax()));
-				item.add(new Label("total", total()));
-				item.add(new Label("user", userService.getProfile(transaction.getUser().getId()).getFirstName()+" "+userService.getProfile(transaction.getUser().getId()).getLastName()));
+				item.add(new Label("total", transaction.getTotalSum()));
+				item.add(new Label("user", userService.getProfile(transaction.getUser().getId()).getFirstName() + " "
+						+ userService.getProfile(transaction.getUser().getId()).getLastName()));
 			}
 		};
 		add(dataView);
@@ -60,27 +61,17 @@ public class TransactionsListPanel extends Panel {
 		add(new OrderByBorder("sort-sum-in", Transaction_.sumIn, transactionsDataProvider));
 
 	}
-	
-	private Integer total(){
-		Double totalNoCom=transaction.getSumIn()*transaction.getExchangeRate().getConversion();
-		Double tax=transaction.getExchangeRate().getConversion()*transaction.getSumIn()*transaction.getOperation().getTax()/100;
-		Double total=totalNoCom-tax;
-		return (int) Math.round(total);
-	}
 
 	private class TransactionsDataProvider extends SortableDataProvider<Transaction, Serializable> {
 
 		private TransactionFilter transactionFilter;
-		
 
 		public TransactionsDataProvider() {
 			super();
 			transactionFilter = new TransactionFilter();
 			transactionFilter.setFetchCredentials(true);
-			
 			UserCredentials user = AuthorizedSession.get().getLoggedUser();
 			transactionFilter.setUserCredentials(userService.getCredentials(user.getId()));
-
 			setSort((Serializable) Transaction_.dateOperation, SortOrder.ASCENDING);
 		}
 
@@ -88,10 +79,8 @@ public class TransactionsListPanel extends Panel {
 		public Iterator<Transaction> iterator(long first, long count) {
 			Serializable property = getSort().getProperty();
 			SortOrder propertySortOrder = getSortState().getPropertySortOrder(property);
-
 			transactionFilter.setSortProperty((SingularAttribute) property);
 			transactionFilter.setSortOrder(propertySortOrder.equals(SortOrder.ASCENDING) ? true : false);
-
 			transactionFilter.setLimit((int) count);
 			transactionFilter.setOffset((int) first);
 			return transactionService.find(transactionFilter).iterator();

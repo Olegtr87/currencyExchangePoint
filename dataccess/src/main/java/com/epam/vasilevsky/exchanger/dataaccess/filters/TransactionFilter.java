@@ -9,6 +9,15 @@ public class TransactionFilter extends AbstractFilter{
 
 	private Date dateTransaction;
 	private Integer sumIn;
+	private Integer totalSum;
+	public Integer getTotalSum() {
+		return totalSum;
+	}
+
+	public void setTotalSum(Integer totalSum) {
+		this.totalSum = totalSum;
+	}
+
 	private UserCredentials userCredentials;
 	private Long id;
 

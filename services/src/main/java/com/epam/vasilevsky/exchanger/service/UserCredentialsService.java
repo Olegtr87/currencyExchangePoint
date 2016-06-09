@@ -11,4 +11,6 @@ public interface UserCredentialsService {
 	UserCredentials findByLoginAndPassword(String login, String password);
 
 	Collection<? extends String> resolveRoles(Long id);
+
+	UserCredentials findByLogin(String login);
 }

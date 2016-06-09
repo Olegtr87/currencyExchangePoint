@@ -33,6 +33,8 @@ import com.epam.vasilevsky.exchanger.webapp.app.AuthorizedSession;
 import com.epam.vasilevsky.exchanger.webapp.app.common.CurrencyChoiceRenderer;
 import com.epam.vasilevsky.exchanger.webapp.page.AbstractHomePage;
 import com.epam.vasilevsky.exchanger.webapp.page.check.CheckPage;
+import com.googlecode.wicket.jquery.core.Options;
+import com.googlecode.wicket.kendo.ui.panel.KendoFeedbackPanel;
 
 public class ConverterPage extends AbstractHomePage {
 
@@ -42,6 +44,14 @@ public class ConverterPage extends AbstractHomePage {
 
 	@Inject
 	CurrencyService currencyService;
+
+	@Inject
+	OperationService operationService;
+
+	@Inject
+	ExchangeRateService exchangeRateService;
+
+	private ExchangeRateFilter exchangeRateFilter;
 
 	public ConverterPage(PageParameters parameters) {
 		super(parameters);
@@ -55,6 +65,12 @@ public class ConverterPage extends AbstractHomePage {
 	@Override
 	protected void onInitialize() {
 		super.onInitialize();
+
+		Options options = new Options();
+		options.set("button", true);
+
+		final KendoFeedbackPanel feedback = new KendoFeedbackPanel("feedback", options);
+		this.add(feedback);
 
 		exchangeRate = new ExchangeRate();
 
@@ -82,15 +98,67 @@ public class ConverterPage extends AbstractHomePage {
 			@Override
 			public void onSubmit() {
 				super.onSubmit();
-				if (exchangeRate.getCurrencyFrom().getName().equals(exchangeRate.getCurrencyTo().getName())) {
-					error("The currency must be different");
+				if (searchExchangeRate() == null) {
+					this.warn(getString("converter.nocourse"));
+				} else if (exchangeRate.getCurrencyFrom().getName().equals(exchangeRate.getCurrencyTo().getName())) {
+					this.warn(getString("converter.error.different"));
+				}
+				if (searchOperation().getStatusBlock() == true) {
+					this.warn(getString("converter.error.block"));
 				} else {
 					setResponsePage(new CheckPage(transaction, exchangeRate));
 				}
 			}
 		});
+		add(feedback);
+	}
 
-		add(new FeedbackPanel("feedback"));
+	private Operation searchOperation() {
+		if (exchangeRate.getCurrencyFrom().getName().equals(CurrencyName.BRB)
+				&& (!exchangeRate.getCurrencyTo().getName().equals(CurrencyName.BRB))) {
+			return operationService.get((long) 1);
+		} else if (exchangeRate.getCurrencyTo().getName().equals(CurrencyName.BRB)
+				&& (!exchangeRate.getCurrencyFrom().getName().equals(CurrencyName.BRB))) {
+			return operationService.get((long) 2);
+		} else {
+			return operationService.get((long) 3);
+		}
+	}
+
+	private ExchangeRate searchExchangeRate() {
+		Date date = new Date();
+		date.setHours(date.getHours() + 1);
+		try {
+			if (!exchangeRate.getCurrencyFrom().getName().equals(CurrencyName.BRB)
+					&& !exchangeRate.getCurrencyTo().getName().equals("BRB")) {
+				setFilterExRate(exchangeRate.getCurrencyFrom().getName(), CurrencyName.BRB);
+				return exchangeRateService.find(exchangeRateFilter).get(0);
+			}
+
+			else if (!exchangeRate.getCurrencyFrom().getName().equals(CurrencyName.BRB)
+					&& !exchangeRate.getCurrencyTo().getName().equals("BRB")) {
+				setFilterExRate(CurrencyName.BRB, exchangeRate.getCurrencyTo().getName());
+				return exchangeRateService.find(exchangeRateFilter).get(0);
+			}
+
+			else {
+				setFilterExRate(exchangeRate.getCurrencyFrom().getName(), exchangeRate.getCurrencyTo().getName());
+				return exchangeRateService.find(exchangeRateFilter).get(0);
+			}
+
+		} catch (IndexOutOfBoundsException e) {
+			return null;
+		}
+	}
+
+	private void setFilterExRate(CurrencyName from, CurrencyName to) {
+		Date date = new Date();
+		date.setHours(date.getHours() + 1);
+		exchangeRateFilter = new ExchangeRateFilter();
+		exchangeRateFilter.setCurrencyFrom(from);
+		exchangeRateFilter.setCurrencyTo(to);
+		exchangeRateFilter.setDateCourse(date);
+		exchangeRateFilter.setFetchCredentials(true);
 	}
 
 }

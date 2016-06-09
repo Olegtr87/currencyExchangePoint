@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Date;
 
 import javax.inject.Inject;
+import javax.persistence.PersistenceException;
 
 import org.apache.wicket.extensions.markup.html.form.DateTextField;
 import org.apache.wicket.extensions.yui.calendar.DatePicker;
@@ -76,14 +77,18 @@ public class CourseEditPage extends AbstractHomePage {
 			@Override
 			public void onSubmit() {
 				super.onSubmit();
+				try{
 				if (exchangeRate.getCurrencyFrom().getName().equals(exchangeRate.getCurrencyTo().getName())) {
-					error("The currency must be different");
+					error(getString("course.error.different"));
 				} else if (checkDoubleBrb()) {
-					error("The exchange rate should contain BRB");
+					error(getString("course.error.brb"));
 				} else {
 					setCorrectConversion();
 					exchangeRateService.saveOrUpdate(exchangeRate);
 					setResponsePage(new CoursePage());
+				}
+				}catch(PersistenceException e){
+					error(getString("course.error.duplicate"));
 				}
 			}
 		});

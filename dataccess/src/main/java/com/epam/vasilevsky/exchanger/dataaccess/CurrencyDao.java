@@ -9,4 +9,6 @@ import com.epam.vasilevsky.exchanger.datamodel.Currency;
 public interface CurrencyDao extends AbstractDao<Currency, Long>{
 	
 	List<Currency> find(CurrencyFilter filter);
+
+	long count(CurrencyFilter currencyFilter);
 }

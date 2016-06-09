@@ -73,4 +73,10 @@ public class CurrencyServiceImpl implements CurrencyService {
 		return currencyDao.getAll();
 	}
 
+	@Override
+	public long count(CurrencyFilter currencyFilter) {
+		LOGGER.info("Count for Currency perfomed!");
+		return currencyDao.count(currencyFilter);
+	}
+
 }

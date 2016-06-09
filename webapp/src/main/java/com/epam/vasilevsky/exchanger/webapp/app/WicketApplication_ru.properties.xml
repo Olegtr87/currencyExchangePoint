@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
+	<entry key="balance.title">Баланс банка</entry>
+
 	<entry key="email.subject">Напоминание пароля</entry>
 	<entry key="email.text">Здраствуйте! Ваш пароль:</entry>
 	<entry key="email.error">Электронного адреса с таким именем не найдено!</entry>
+	<entry key="email.name">Имя</entry>
+	<entry key="email.tel">Телефон</entry>
+	<entry key="email.sub">Тема</entry>
+	<entry key="email.title">Написать нам</entry>
+	<entry key="email.info">Сообщение отправлено! Пожалуйста закройте окно!</entry>
 
 	<entry key="login.label.login">Эл. почта</entry>
 	<entry key="login.label.password">Пароль</entry>
@@ -17,6 +24,9 @@
 	<entry key="home.label.page">Домашняя страница</entry>
 
 	<entry key="course.label.page">Курсы валют</entry>
+	<entry key="course.error.duplicate">Дублирование курса валюты</entry>
+	<entry key="course.error.different">Валюты должны отличаться</entry>
+	<entry key="course.error.brb">Обменный курс должен содержать валюту BRB</entry>
 
 	<entry key="editcourse.label.page">Редактирование курсов</entry>
 	<entry key="editcourse.label.date">Дата</entry>
@@ -38,6 +48,10 @@
 
 	<entry key="converter.sumin">Сумма</entry>
 	<entry key="converter.transaction">Транзакция</entry>
+	<entry key="converter.nocourse">Извините, на сегодняшнюю дату отсуствует курс.
+		Обратитесь к администратору.</entry>
+	<entry key="converter.error.different">Валюты должны быть разными!</entry>
+	<entry key="converter.error.block">Извините, данная операция временно заблокирована!</entry>
 
 	<entry key="register.label.page">Страница регистрации</entry>
 	<entry key="register.label.email">Эл. почта</entry>
@@ -49,6 +63,7 @@
 	<entry key="register.label.dateIssue">Дата выдачи</entry>
 	<entry key="register.label.issued">Кем выдан</entry>
 	<entry key="register.label.created">Дата создания</entry>
+	<entry key="register.error.login">Пользователь с таким именем существует</entry>
 
 	<entry key="check.label.page">Чек</entry>
 	<entry key="check.label.successful">Транзакция прошла успешно</entry>
@@ -63,6 +78,7 @@
 	<entry key="btn.delete">удалить</entry>
 	<entry key="btn.edit">редакт.</entry>
 	<entry key="btn.send">Отправить</entry>
+	<entry key="btn.exit">Выход</entry>
 
 	<entry key="US">Английский</entry>
 	<entry key="RU">Русский</entry>
@@ -73,6 +89,7 @@
 	<entry key="panel.converter">КОНВЕРТЕР</entry>
 	<entry key="panel.cabinet">КАБИНЕТ</entry>
 	<entry key="panel.transactions">ТРАНЗАКЦИИ</entry>
+	<entry key="panel.balance">БАЛАНС</entry>
 
 
 </properties>

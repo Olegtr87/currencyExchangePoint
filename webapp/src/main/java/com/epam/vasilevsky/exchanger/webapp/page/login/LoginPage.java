@@ -66,6 +66,7 @@ public class LoginPage extends AbstractPage {
 		
 		final ModalWin win = new ModalWin("modal1");
 		win.setTitle(getString("password.page.title"));
+		win.setResizable(false);
         add(win);
 
         AjaxLink link = new AjaxLink("link") {
@@ -93,7 +94,6 @@ public class LoginPage extends AbstractPage {
 				}
 			}
 		});
-
 
 		add(form);
 		add(form1);

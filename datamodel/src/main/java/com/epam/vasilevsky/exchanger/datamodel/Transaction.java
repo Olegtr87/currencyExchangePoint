@@ -18,6 +18,16 @@ public class Transaction extends AbstractModel {
 	@Column
 	private Integer sumIn;
 	@Column
+	private Integer totalSum;
+	public Integer getTotalSum() {
+		return totalSum;
+	}
+
+	public void setTotalSum(Integer totalSum) {
+		this.totalSum = totalSum;
+	}
+
+	@Column
 	private Date dateOperation;
 
 	public UserCredentials getUser() {

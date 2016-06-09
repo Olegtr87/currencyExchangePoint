@@ -24,6 +24,5 @@ public abstract class AbstractHomePage extends AbstractPage {
 		} else {
 			add(new MenuPanelLogInUser("menu-panel"));
 		}
-
 	}
 }

@@ -1,6 +1,8 @@
 package com.epam.vasilevsky.exchanger.webapp.component.menu;
 
 import org.apache.wicket.markup.html.link.Link;
+
+import com.epam.vasilevsky.exchanger.webapp.page.balancebank.BalancePage;
 import com.epam.vasilevsky.exchanger.webapp.page.course.CoursePage;
 import com.epam.vasilevsky.exchanger.webapp.page.operations.OperationPage;
 
@@ -25,6 +27,13 @@ public class MenuPanelLogInAdmin extends MenuPanel {
 			@Override
 			public void onClick() {
 				setResponsePage(new CoursePage());
+			}
+		});
+		
+		add(new Link("link-balance") {
+			@Override
+			public void onClick() {
+				setResponsePage(new BalancePage());
 			}
 		});
 	}

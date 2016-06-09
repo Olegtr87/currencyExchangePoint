@@ -23,20 +23,20 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
 public class CheckPdf {
-	
+
 	UserService userService;
-	
+
 	private Transaction transaction;
-	
-	public CheckPdf(Transaction transaction, UserService userService){
-		this.transaction=transaction;
-		this.userService=userService;
+
+	public CheckPdf(Transaction transaction, UserService userService) {
+		this.transaction = transaction;
+		this.userService = userService;
 	}
-	
+
 	private String createNamePdf() {
 		return AuthorizedSession.get().getLoggedUser().getLogin() + ".pdf";
 	}
-	
+
 	public File createPdf() {
 		Document document = new Document();
 		try {
@@ -60,9 +60,10 @@ public class CheckPdf {
 			PdfPTable t = new PdfPTable(5);
 			t.setSpacingBefore(25);
 			t.setSpacingAfter(25);
-			
-			String st=WicketApplication.get().getResourceSettings().getLocalizer().getString("editcourse.label.currency.to", null);
-			
+
+			String st = WicketApplication.get().getResourceSettings().getLocalizer()
+					.getString("editcourse.label.currency.to", null);
+
 			PdfPCell c1 = new PdfPCell(new Phrase("Operation"));
 			t.addCell(c1);
 			PdfPCell c2 = new PdfPCell(new Phrase("Sum in"));
@@ -73,7 +74,7 @@ public class CheckPdf {
 			t.addCell(c4);
 			PdfPCell c5 = new PdfPCell(new Phrase("Total"));
 			t.addCell(c5);
-			
+
 			t.addCell(transaction.getOperation().getName());
 			t.addCell(transaction.getSumIn().toString());
 			t.addCell(transaction.getExchangeRate().getCurrencyFrom().getName().name());
@@ -98,11 +99,8 @@ public class CheckPdf {
 		File file = new File("src/main/pdf/checks/" + createNamePdf());
 		return file;
 	}
-	
+
 	private Integer totalSum() {
-		Double totalNoCom=transaction.getSumIn()*transaction.getExchangeRate().getConversion();
-		Double tax=transaction.getExchangeRate().getConversion()*transaction.getSumIn()*transaction.getOperation().getTax()/100;
-		Double total=totalNoCom-tax;
-		return (int) Math.round(total);
+		return transaction.getTotalSum();
 	}
 }

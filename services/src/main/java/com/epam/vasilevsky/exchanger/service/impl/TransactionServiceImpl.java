@@ -29,7 +29,9 @@ public class TransactionServiceImpl implements TransactionService {
 		transaction.setUser(userCredentials);
 		transaction.setOperation(operation);
 		transaction.setExchangeRate(exchangeRate);
-		transaction.setDateOperation(new Date());
+		Date date = new Date();
+		date.setHours(date.getHours() + 1);
+		transaction.setDateOperation(date);
 		transactionDao.insert(transaction);	
 		LOGGER.info("Transaction {} added", transaction);
 	}

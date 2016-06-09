@@ -17,6 +17,7 @@ import com.epam.vasilevsky.exchanger.dataaccess.filters.CurrencyFilter;
 
 import com.epam.vasilevsky.exchanger.datamodel.Currency;
 import com.epam.vasilevsky.exchanger.datamodel.Currency_;
+import com.epam.vasilevsky.exchanger.datamodel.Operation;
 
 @Repository
 public class CurrencyDaoImpl extends AbstractDaoImpl<Currency,Long> implements CurrencyDao{
@@ -60,6 +61,17 @@ public class CurrencyDaoImpl extends AbstractDaoImpl<Currency,Long> implements C
         // set execute query
         List<Currency> allitems = q.getResultList();
         return allitems;
+	}
+
+	@Override
+	public long count(CurrencyFilter currencyFilter) {
+		 	EntityManager em = getEntityManager();
+	        CriteriaBuilder cb = em.getCriteriaBuilder();
+	        CriteriaQuery<Long> cq = cb.createQuery(Long.class);
+	        Root<Currency> from = cq.from(Currency.class);
+	        cq.select(cb.count(from));
+	        TypedQuery<Long> q = em.createQuery(cq);
+	        return q.getSingleResult();
 	}
 
 }

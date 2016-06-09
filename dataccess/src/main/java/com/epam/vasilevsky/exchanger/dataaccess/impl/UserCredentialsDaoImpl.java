@@ -34,6 +34,12 @@ public class UserCredentialsDaoImpl extends AbstractDaoImpl<UserCredentials, Lon
 			Predicate passwordEqualCondition = cb.equal(from.get(UserCredentials_.password), filter.getPassword());
 			cq.where(cb.and(loginEqualCondition, passwordEqualCondition));
 		}
+		
+		if ((filter.getLogin() != null) & (filter.getPassword()) == null) {
+			Predicate loginEqualCondition = cb.equal(from.get(UserCredentials_.login), filter.getLogin());
+			cq.where(cb.and(loginEqualCondition));
+		}
+		
 		TypedQuery<UserCredentials> q = em.createQuery(cq);
 
 		List<UserCredentials> allitems = q.getResultList();
@@ -43,7 +49,7 @@ public class UserCredentialsDaoImpl extends AbstractDaoImpl<UserCredentials, Lon
         } else if (allitems.size() == 1) {
             return allitems.get(0);
         } else {
-            throw new IllegalArgumentException("more than 1 user found ");
+            throw new IllegalArgumentException("More than 1 user found ");
         }
 	}
 }

@@ -1,0 +1,36 @@
+<html>
+<head>
+<title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="custom.css" type="text/css" media="screen"
+	title="Stylesheet" />
+</head>
+<body class="modal-body">
+		<form wicket:id="form">
+		
+		<table id="tab">
+			<tr>
+				<td><b><wicket:message key="email.name" />:</b></td>
+				<td><input wicket:id="name" type="text"/></td>
+			</tr>
+			<tr>
+				<td><b><wicket:message key="email.tel" />:</b></td>
+				<td><input wicket:id="telephone" type="text"/></td>
+			</tr>
+			<tr>
+				<td><b><wicket:message key="email.sub" />:</b></td>
+				<td><input wicket:id="subject" type="text"/></td>
+			</tr>
+			
+		</table>
+		<p>	
+			<textarea wicket:id="text" rows="15" cols="63"></textarea>
+			<br><br>
+			<button type="submit" wicket:id="mailer">
+				<b><wicket:message key="btn.send" /></b>
+			</button>
+		</p>
+		</form>
+		<div wicket:id="feedback"></div>
+</body>
+</html>
