@@ -2,7 +2,12 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 	<entry key="balance.title">Balance bank</entry>
-
+	<entry key="balance.edit.title">Adding currency</entry>
+	<entry key="balance.edit.sum">Сurrency amount</entry>
+	<entry key="balance.edit.newsum">Add currency</entry>
+	<entry key="balance.panel.error">Currency with the same name does not exist!</entry>
+	<entry key="balance.panel.currency">Currency</entry>
+	
 	<entry key="email.subject">Password reminder</entry>
 	<entry key="email.text">Hello! Your password is:</entry>
 	<entry key="email.error">E-mail address with the same name is not found!</entry>
@@ -28,6 +33,7 @@
 	<entry key="course.error.duplicate">Dublicate course</entry>
 	<entry key="course.error.different">The currency must be different</entry>
 	<entry key="course.error.brb">The exchange rate should contain BRB</entry>
+	<entry key="course.nbrb">Exchange rate NBRB on</entry>
 
 	<entry key="editcourse.label.page">Course edit</entry>
 	<entry key="editcourse.label.date">Date</entry>

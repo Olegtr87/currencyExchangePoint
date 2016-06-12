@@ -19,6 +19,7 @@ public class Transaction extends AbstractModel {
 	private Integer sumIn;
 	@Column
 	private Integer totalSum;
+	
 	public Integer getTotalSum() {
 		return totalSum;
 	}

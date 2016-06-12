@@ -2,6 +2,12 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 	<entry key="balance.title">Баланс банка</entry>
+	<entry key="balance.edit.title">Добавление валюты</entry>
+	<entry key="balance.edit.sum">Количество валюты</entry>
+	<entry key="balance.edit.newsum">Добавить валюты</entry>
+	<entry key="balance.panel.error">Валюты с таким именем не существует!</entry>
+	<entry key="balance.panel.currency">Валюта</entry>
+	
 
 	<entry key="email.subject">Напоминание пароля</entry>
 	<entry key="email.text">Здраствуйте! Ваш пароль:</entry>
@@ -27,6 +33,7 @@
 	<entry key="course.error.duplicate">Дублирование курса валюты</entry>
 	<entry key="course.error.different">Валюты должны отличаться</entry>
 	<entry key="course.error.brb">Обменный курс должен содержать валюту BRB</entry>
+	<entry key="course.nbrb">Курс НБРБ на</entry>
 
 	<entry key="editcourse.label.page">Редактирование курсов</entry>
 	<entry key="editcourse.label.date">Дата</entry>

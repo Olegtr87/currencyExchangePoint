@@ -85,7 +85,7 @@ public class CourseEditPage extends AbstractHomePage {
 				} else {
 					setCorrectConversion();
 					exchangeRateService.saveOrUpdate(exchangeRate);
-					setResponsePage(new CoursePage());
+					setResponsePage(new CoursePage(new ExchangeRate()));
 				}
 				}catch(PersistenceException e){
 					error(getString("course.error.duplicate"));

@@ -1,5 +1,19 @@
 <wicket:extend>
-	<h2><wicket:message key="course.label.page" /></h2>
+	<form wicket:id="form">
+		<h2>
+			<wicket:message key="course.label.page" />
+		</h2>
+		<br>
+		<div>
+			<b><wicket:message key="editcourse.label.date" />:</b> <input
+				type="text" wicket:id="dateCourse" /> <a wicket:id="filter"><img
+				src="images/find.png" width="20" height="20"></a>
+		</div>
+	</form>
+	<br>
 	<div wicket:id="list-panel"></div>
-	<button wicket:id="create"><wicket:message key="btn.create" /></button>
+	<button wicket:id="create">
+		<wicket:message key="btn.create" />
+	</button>
 </wicket:extend>
+

@@ -14,7 +14,7 @@ table.list-table tr td, table.list-table tr th {
 	text-align: center;
 }
 
-table.list-table{
+table.list-table {
 	width: 100%;
 }
 
@@ -42,16 +42,16 @@ table.list-table {
 	right: 20px;
 }
 
-a.mail  {
+a.mail {
 	position: absolute;
 	top: 0px;
-	right:160px;
+	right: 160px;
 }
 
-a.info  {
+a.info {
 	position: absolute;
 	top: 4px;
-	right:195px;
+	right: 195px;
 }
 
 #link {
@@ -68,7 +68,7 @@ a {
 	font: bold;
 }
 
-a:VISITED{
+a:VISITED {
 	color: #039;
 }
 
@@ -106,10 +106,21 @@ button:hover {
 	background: linear-gradient(to bottom, #fcfff4, #e9e9ce);
 	color: #000;
 }
+
 .c:VISITED {
 	color: #000;
 }
 
 div.wicket-modal {
-    font-size: x-large;
-    }
+	font-size: x-large;
+}
+
+div.course {
+	position: absolute;
+	bottom: 3px;
+	right: 0px;
+	left: 0px;
+	font-size: 25px;
+	font-style: italic;
+	color: black;
+}

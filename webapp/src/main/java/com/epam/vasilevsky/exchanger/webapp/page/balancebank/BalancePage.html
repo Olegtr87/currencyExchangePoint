@@ -1,4 +1,15 @@
 <wicket:extend>
-	<h2><wicket:message key="balance.title" /></h2>
+	<form wicket:id="form">
+		<h2>
+			<wicket:message key="balance.title" />
+		</h2>
+		<br>
+		<div>
+			<b><wicket:message key="balance.panel.currency" />:</b> <input type="text" wicket:id="name" /> <a
+				wicket:id="filter"><img src="images/find.png" width="20"
+				height="20"></a>
+		</div>
+	</form>
+	<br>
 	<div wicket:id="list-panel"></div>
 </wicket:extend>

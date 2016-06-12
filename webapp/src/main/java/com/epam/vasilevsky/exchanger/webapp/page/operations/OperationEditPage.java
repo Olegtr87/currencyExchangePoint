@@ -42,10 +42,10 @@ public class OperationEditPage extends AbstractHomePage {
 		nameField.setRequired(true);
 		form.add(nameField);
 		
-		TextField<Double> basePriceField = new TextField<>("tax");
-		basePriceField.add(RangeValidator.<Double> range(0d, 100d));
-		basePriceField.setRequired(true);
-		form.add(basePriceField);
+		TextField<Double> tax = new TextField<>("tax");
+		tax.add(RangeValidator.<Double> range(0d, 100d));
+		tax.setRequired(true);
+		form.add(tax);
 
 		CheckBox activeField = new CheckBox("statusBlock");
 		form.add(activeField);

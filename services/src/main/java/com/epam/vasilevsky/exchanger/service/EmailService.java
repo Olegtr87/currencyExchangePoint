@@ -1,5 +1,5 @@
 package com.epam.vasilevsky.exchanger.service;
 
-public interface SendEmail {
+public interface EmailService {
 	void send(String subject, String text, String toEmail);
 }

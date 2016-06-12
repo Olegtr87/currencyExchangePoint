@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
+import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
@@ -98,19 +99,27 @@ public class ConverterPage extends AbstractHomePage {
 			@Override
 			public void onSubmit() {
 				super.onSubmit();
-				if (searchExchangeRate() == null) {
-					this.warn(getString("converter.nocourse"));
-				} else if (exchangeRate.getCurrencyFrom().getName().equals(exchangeRate.getCurrencyTo().getName())) {
+				searchLocation();
+				if (exchangeRate.getCurrencyFrom().getName().equals(exchangeRate.getCurrencyTo().getName())) {
 					this.warn(getString("converter.error.different"));
-				}
-				if (searchOperation().getStatusBlock() == true) {
+				} else if (searchOperation().getStatusBlock() == true) {
 					this.warn(getString("converter.error.block"));
+				} else if (searchExchangeRate() == null) {
+					this.info(searchLocation());
 				} else {
 					setResponsePage(new CheckPage(transaction, exchangeRate));
 				}
 			}
 		});
 		add(feedback);
+	}
+
+	private String searchLocation() {
+		String lang = AuthenticatedWebSession.get().getLocale().getLanguage();
+		if (lang.equals("ru"))
+			return "Извините, на сегодняшнюю дату отсуствует курс валюты. Обратитесь к администратору.";
+		else
+			return "Sorry, at today's date there is no course. Contact	administrator.";
 	}
 
 	private Operation searchOperation() {

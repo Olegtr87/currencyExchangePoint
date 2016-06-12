@@ -8,61 +8,65 @@ import org.apache.wicket.markup.html.form.SubmitLink;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.model.Model;
+import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.validation.validator.RangeValidator;
 
 import com.epam.vasilevsky.exchanger.datamodel.Balance;
 import com.epam.vasilevsky.exchanger.datamodel.Currency;
-import com.epam.vasilevsky.exchanger.datamodel.Operation;
-import com.epam.vasilevsky.exchanger.service.OperationService;
+import com.epam.vasilevsky.exchanger.service.CurrencyService;
 import com.epam.vasilevsky.exchanger.webapp.page.AbstractHomePage;
-import com.epam.vasilevsky.exchanger.webapp.page.operations.panel.OperationsListPanel;
 
 public class BalanceEditPage extends AbstractHomePage {
 
 	@Inject
-	private OperationService operationService;
+	private CurrencyService currencyService;
 
-	private Balance currency;
+	private Balance balance;
 
 	public BalanceEditPage(PageParameters parameters) {
 		super(parameters);
 	}
 
-	public BalanceEditPage(Balance currency) {
+	public BalanceEditPage(Balance balance) {
 		super();
-		this.currency = currency;
+		this.balance = balance;
+	}
+
+	private Integer newSum = 0;
+
+	public Integer getNewSum() {
+		return newSum;
+	}
+
+	public void setNewSum(Integer newSum) {
+		this.newSum = newSum;
 	}
 
 	@Override
 	protected void onInitialize() {
 		super.onInitialize();
-		Form form = new Form("form", new CompoundPropertyModel<Operation>(operation));
+		Form form = new Form("form", new CompoundPropertyModel<Balance>(balance));
 		add(form);
-
-		TextField<String> nameField = new TextField<>("name");
-		nameField.setRequired(true);
-		form.add(nameField);
 		
-		TextField<Double> basePriceField = new TextField<>("tax");
-		basePriceField.add(RangeValidator.<Double> range(0d, 100d));
-		basePriceField.setRequired(true);
-		form.add(basePriceField);
+		TextField<Integer> sumField = new TextField<>("sum");
+		sumField.setEnabled(false);
+		form.add(sumField);
 
-		CheckBox activeField = new CheckBox("statusBlock");
-		form.add(activeField);
+		TextField<Integer> newSumField = new TextField<>("newsum", new PropertyModel<Integer>(this, "newSum"));
+		newSumField.add(RangeValidator.<Integer> range(0, Integer.MAX_VALUE));
+		form.add(newSumField);
 
 		form.add(new SubmitLink("save") {
 			@Override
 			public void onSubmit() {
 				super.onSubmit();
-				operationService.saveOrUpdate(operation);
-				setResponsePage(new BalancePage());
+				balance.setSum(balance.getSum() + newSum);
+				currencyService.updateBalance(balance);
+				setResponsePage(new BalancePage(new String()));
 			}
 		});
-
 		add(new FeedbackPanel("feedback"));
-
 	}
-
 }

@@ -13,9 +13,9 @@ import javax.mail.internet.MimeMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.epam.vasilevsky.exchanger.service.SendEmail;
+import com.epam.vasilevsky.exchanger.service.EmailService;
 
-public class SendEmailImpl implements SendEmail{
+public class SendEmailImpl implements EmailService{
 	private static Logger LOGGER = LoggerFactory.getLogger(SendEmailImpl.class);
 
 	private String email;

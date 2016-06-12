@@ -25,6 +25,8 @@ import com.epam.vasilevsky.exchanger.service.coursenbrb.CourseNBRBImpl;
 import com.epam.vasilevsky.exchanger.webapp.page.AbstractPage;
 import com.epam.vasilevsky.exchanger.webapp.page.password.ModalWin;
 import com.epam.vasilevsky.exchanger.webapp.page.register.RegisterPage;
+import com.googlecode.wicket.jquery.core.Options;
+import com.googlecode.wicket.kendo.ui.panel.KendoFeedbackPanel;
 
 public class LoginPage extends AbstractPage {
 
@@ -56,6 +58,11 @@ public class LoginPage extends AbstractPage {
 		form.add(new RequiredTextField<String>("login"));
 		form.add(new PasswordTextField("password"));
 
+		Options options = new Options();
+		options.set("button", true);
+		final KendoFeedbackPanel feedback = new KendoFeedbackPanel("feedback", options);
+		this.add(feedback);
+
 		form1.add(new SubmitLink("reg-btn") {
 			@Override
 			public void onSubmit() {
@@ -63,20 +70,19 @@ public class LoginPage extends AbstractPage {
 				setResponsePage(new RegisterPage(new UserCredentials(), new UserProfile()));
 			}
 		});
-		
+
 		final ModalWin win = new ModalWin("modal1");
 		win.setTitle(getString("password.page.title"));
 		win.setResizable(false);
-        add(win);
+		add(win);
 
-        AjaxLink link = new AjaxLink("link") {
-            @Override
-            public void onClick(AjaxRequestTarget target) {
-                win.show(target);
-            }
-        };
-        add(link);
-		        
+		AjaxLink link = new AjaxLink("link") {
+			@Override
+			public void onClick(AjaxRequestTarget target) {
+				win.show(target);
+			}
+		};
+		add(link);
 
 		form.add(new SubmitLink("login-btn") {
 			@Override
@@ -94,21 +100,7 @@ public class LoginPage extends AbstractPage {
 				}
 			}
 		});
-
 		add(form);
 		add(form1);
-
-		add(new FeedbackPanel("feedbackpanel"));
-
-		CourseNBRBImpl course = new CourseNBRBImpl();
-		if (course.getCourse(CodeCurrency.getCurrencyFromName(CurrencyName.EUR)) != null) {
-			add(new Label("course",
-					String.format("%s:  EURO - %s   USD - %s   RUB - %s   PLZ - %s", course.getDate(),
-							course.getCourse(CodeCurrency.getCurrencyFromName(CurrencyName.EUR)),
-							course.getCourse(CodeCurrency.getCurrencyFromName(CurrencyName.USD)),
-							course.getCourse(CodeCurrency.getCurrencyFromName(CurrencyName.RUB)),
-							course.getCourse(CodeCurrency.getCurrencyFromName(CurrencyName.PLZ)))));
-		} else
-			add(new Label("course", ""));
 	}
 }

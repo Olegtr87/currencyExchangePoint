@@ -19,6 +19,7 @@ import com.epam.vasilevsky.exchanger.dataaccess.filters.UserFilter;
 import com.epam.vasilevsky.exchanger.datamodel.Balance;
 import com.epam.vasilevsky.exchanger.datamodel.Balance_;
 import com.epam.vasilevsky.exchanger.datamodel.Currency;
+import com.epam.vasilevsky.exchanger.datamodel.Currency_;
 import com.epam.vasilevsky.exchanger.datamodel.UserCredentials_;
 import com.epam.vasilevsky.exchanger.datamodel.UserProfile;
 import com.epam.vasilevsky.exchanger.datamodel.UserProfile_;
@@ -42,6 +43,12 @@ public class BalanceDaoImpl extends AbstractDaoImpl<Balance,Long> implements Bal
 
 		// set selection
 		cq.select(from);
+		
+		if (filter.getCurrencyName() != null) {
+			Predicate curNameEqualCondition = cb.equal(from.get(Balance_.currency).get(Currency_.name),
+					filter.getCurrencyName());
+			cq.where(cb.and(curNameEqualCondition));
+		}
 
 		// set fetching
 		if (filter.isFetchCredentials()) {

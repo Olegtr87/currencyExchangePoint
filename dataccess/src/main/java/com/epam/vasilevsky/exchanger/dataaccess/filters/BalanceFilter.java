@@ -5,6 +5,17 @@ import com.epam.vasilevsky.exchanger.datamodel.CurrencyName;
 public class BalanceFilter extends AbstractFilter{
 	
 	private Integer sum;
+	private CurrencyName currencyName;
+
+
+
+	public CurrencyName getCurrencyName() {
+		return currencyName;
+	}
+
+	public void setCurrencyName(CurrencyName currencyName) {
+		this.currencyName = currencyName;
+	}
 
 	public Integer getSum() {
 		return sum;

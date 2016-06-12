@@ -1,16 +1,17 @@
 package com.epam.vasilevsky.exchanger.webapp.page.course.panel;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Iterator;
 import javax.inject.Inject;
 import javax.persistence.PersistenceException;
 import javax.persistence.metamodel.SingularAttribute;
+
 import org.apache.wicket.datetime.markup.html.basic.DateLabel;
 import org.apache.wicket.extensions.markup.html.repeater.data.sort.OrderByBorder;
 import org.apache.wicket.extensions.markup.html.repeater.data.sort.SortOrder;
 import org.apache.wicket.extensions.markup.html.repeater.util.SortableDataProvider;
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.form.CheckBox;
 import org.apache.wicket.markup.html.link.Link;
 import org.apache.wicket.markup.html.navigation.paging.PagingNavigator;
 import org.apache.wicket.markup.html.panel.Panel;
@@ -30,17 +31,31 @@ import com.epam.vasilevsky.exchanger.webapp.page.course.CoursePage;
 public class CourseListPanel extends Panel {
 	ExchangeRate exchangeRate;
 	
+	Date date;
+	
 	@Inject
 	private ExchangeRateService exchangeRateService;
-
+	
+	private ExchangeRateFilter exchangeRateFilter;
+	
 	public CourseListPanel(String id) {
 		super(id);
-
+	}
+	
+	public CourseListPanel(String id, Date date) {
+		super(id);
+		this.date=date;
+	}
+	
+	@Override
+	protected void onInitialize() {
+		super.onInitialize();
 		ExchangeRateDataProvider exchangeRateDataProvider = new ExchangeRateDataProvider();
 		DataView<ExchangeRate> dataView = new DataView<ExchangeRate>("rows", exchangeRateDataProvider, 5) {
 			@Override
 			protected void populateItem(Item<ExchangeRate> item) {
 				exchangeRate = item.getModelObject();
+				
 
 				item.add(new Label("id", exchangeRate.getId()));
 				item.add(new Label("conversion", viewCorrectCourse()));
@@ -64,7 +79,7 @@ public class CourseListPanel extends Panel {
 							System.out.println("caughth persistance exception");
 						}
 
-						setResponsePage(new CoursePage());
+						setResponsePage(new CoursePage(new ExchangeRate()));
 					}
 				});
 			}
@@ -77,12 +92,11 @@ public class CourseListPanel extends Panel {
 		add(new OrderByBorder("sort-date", ExchangeRate_.dateCourse, exchangeRateDataProvider));
 		add(new OrderByBorder("sort-currency-from", ExchangeRate_.currencyFrom, exchangeRateDataProvider));
 		add(new OrderByBorder("sort-currency-to", ExchangeRate_.currencyTo, exchangeRateDataProvider));
-
+		
 	}
 
 	private class ExchangeRateDataProvider extends SortableDataProvider<ExchangeRate, Serializable> {
 
-		private ExchangeRateFilter exchangeRateFilter;
 
 		public ExchangeRateDataProvider() {
 			super();
@@ -101,6 +115,7 @@ public class CourseListPanel extends Panel {
 
 			exchangeRateFilter.setLimit((int) count);
 			exchangeRateFilter.setOffset((int) first);
+			if (date!=null) exchangeRateFilter.setDateCourse(date);
 			return exchangeRateService.find(exchangeRateFilter).iterator();
 		}
 
