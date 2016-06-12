@@ -29,24 +29,22 @@ import com.epam.vasilevsky.exchanger.webapp.page.course.CourseEditPage;
 import com.epam.vasilevsky.exchanger.webapp.page.course.CoursePage;
 
 public class CourseListPanel extends Panel {
-	ExchangeRate exchangeRate;
-	
 	Date date;
-	
+
 	@Inject
 	private ExchangeRateService exchangeRateService;
-	
+
 	private ExchangeRateFilter exchangeRateFilter;
-	
+
 	public CourseListPanel(String id) {
 		super(id);
 	}
-	
+
 	public CourseListPanel(String id, Date date) {
 		super(id);
-		this.date=date;
+		this.date = date;
 	}
-	
+
 	@Override
 	protected void onInitialize() {
 		super.onInitialize();
@@ -54,11 +52,16 @@ public class CourseListPanel extends Panel {
 		DataView<ExchangeRate> dataView = new DataView<ExchangeRate>("rows", exchangeRateDataProvider, 5) {
 			@Override
 			protected void populateItem(Item<ExchangeRate> item) {
-				exchangeRate = item.getModelObject();
-				
+				ExchangeRate exchangeRate = item.getModelObject();
 
 				item.add(new Label("id", exchangeRate.getId()));
-				item.add(new Label("conversion", viewCorrectCourse()));
+
+				if (exchangeRate.getCurrencyFrom().getName().name().equals(CurrencyName.BRB.name())) {
+					item.add(new Label("conversion", 1 / exchangeRate.getConversion()));
+				} else {
+					item.add(new Label("conversion", exchangeRate.getConversion()));
+				}
+
 				item.add(new Label("currency-from", exchangeRate.getCurrencyFrom().getName()));
 				item.add(new Label("currency-to", exchangeRate.getCurrencyTo().getName()));
 				item.add(DateLabel.forDatePattern("date", Model.of(exchangeRate.getDateCourse()), "dd-MM-yyyy"));
@@ -92,11 +95,10 @@ public class CourseListPanel extends Panel {
 		add(new OrderByBorder("sort-date", ExchangeRate_.dateCourse, exchangeRateDataProvider));
 		add(new OrderByBorder("sort-currency-from", ExchangeRate_.currencyFrom, exchangeRateDataProvider));
 		add(new OrderByBorder("sort-currency-to", ExchangeRate_.currencyTo, exchangeRateDataProvider));
-		
+
 	}
 
 	private class ExchangeRateDataProvider extends SortableDataProvider<ExchangeRate, Serializable> {
-
 
 		public ExchangeRateDataProvider() {
 			super();
@@ -115,7 +117,8 @@ public class CourseListPanel extends Panel {
 
 			exchangeRateFilter.setLimit((int) count);
 			exchangeRateFilter.setOffset((int) first);
-			if (date!=null) exchangeRateFilter.setDateCourse(date);
+			if (date != null)
+				exchangeRateFilter.setDateCourse(date);
 			return exchangeRateService.find(exchangeRateFilter).iterator();
 		}
 
@@ -129,9 +132,5 @@ public class CourseListPanel extends Panel {
 			return new Model(object);
 		}
 	}
-	
-	private Double viewCorrectCourse(){
-		if (exchangeRate.getCurrencyFrom().getName().name().equals(CurrencyName.BRB.name())) {
-			return 1/exchangeRate.getConversion();} else return exchangeRate.getConversion();
-	}
+
 }

@@ -125,15 +125,14 @@ public class RegisterPage extends AbstractPage {
 				} else if (userCredentialsService.findByLogin(userCredentials.getLogin()).getLogin()
 						.equals(userCredentials.getLogin())) {
 					error(getString("register.error.login"));
-					
 				} else {
 					userService.register(userProfile, userCredentials);
 					setResponsePage(new LoginPage());
 				}
 			}
 		});
-		
-		SubmitLink link=new SubmitLink("exit") {
+
+		SubmitLink link = new SubmitLink("exit") {
 			@Override
 			public void onSubmit() {
 				super.onSubmit();
@@ -142,7 +141,7 @@ public class RegisterPage extends AbstractPage {
 		};
 		link.setDefaultFormProcessing(false);
 		form.add(link);
-		
+
 		add(new FeedbackPanel("feedback"));
 
 	}

@@ -4,36 +4,30 @@ import java.util.Date;
 
 import javax.inject.Inject;
 
-import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.authroles.authentication.AuthenticatedWebSession;
-import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.SubmitLink;
 import org.apache.wicket.markup.html.form.TextField;
-import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.validation.validator.RangeValidator;
 
-import com.epam.vasilevsky.exchanger.dataaccess.CurrencyDao;
-import com.epam.vasilevsky.exchanger.dataaccess.ExchangeRateDao;
-import com.epam.vasilevsky.exchanger.dataaccess.OperationDao;
+import com.epam.vasilevsky.exchanger.dataaccess.filters.BalanceFilter;
 import com.epam.vasilevsky.exchanger.dataaccess.filters.ExchangeRateFilter;
 import com.epam.vasilevsky.exchanger.datamodel.Currency;
 import com.epam.vasilevsky.exchanger.datamodel.CurrencyName;
 import com.epam.vasilevsky.exchanger.datamodel.ExchangeRate;
 import com.epam.vasilevsky.exchanger.datamodel.Operation;
 import com.epam.vasilevsky.exchanger.datamodel.Transaction;
+import com.epam.vasilevsky.exchanger.service.BalanceService;
 import com.epam.vasilevsky.exchanger.service.CurrencyService;
 import com.epam.vasilevsky.exchanger.service.ExchangeRateService;
 import com.epam.vasilevsky.exchanger.service.OperationService;
-import com.epam.vasilevsky.exchanger.webapp.app.AuthorizedSession;
 import com.epam.vasilevsky.exchanger.webapp.app.common.CurrencyChoiceRenderer;
 import com.epam.vasilevsky.exchanger.webapp.page.AbstractHomePage;
-import com.epam.vasilevsky.exchanger.webapp.page.check.CheckPage;
+import com.epam.vasilevsky.exchanger.webapp.page.invoice.InvoicePage;
 import com.googlecode.wicket.jquery.core.Options;
 import com.googlecode.wicket.kendo.ui.panel.KendoFeedbackPanel;
 
@@ -45,6 +39,9 @@ public class ConverterPage extends AbstractHomePage {
 
 	@Inject
 	CurrencyService currencyService;
+
+	@Inject
+	BalanceService balanceService;
 
 	@Inject
 	OperationService operationService;
@@ -100,18 +97,36 @@ public class ConverterPage extends AbstractHomePage {
 			public void onSubmit() {
 				super.onSubmit();
 				searchLocation();
+
 				if (exchangeRate.getCurrencyFrom().getName().equals(exchangeRate.getCurrencyTo().getName())) {
 					this.warn(getString("converter.error.different"));
 				} else if (searchOperation().getStatusBlock() == true) {
 					this.warn(getString("converter.error.block"));
 				} else if (searchExchangeRate() == null) {
 					this.info(searchLocation());
+				} else if (checkBalance() < totalSum()) {
+					this.info(getString("converter.error.nomoney"));
 				} else {
-					setResponsePage(new CheckPage(transaction, exchangeRate));
+					setResponsePage(new InvoicePage(transaction, exchangeRate));
 				}
 			}
 		});
 		add(feedback);
+	}
+
+	private Integer checkBalance() {
+		BalanceFilter filter = new BalanceFilter();
+		filter.setFetchCredentials(true);
+		filter.setCurrencyName(exchangeRate.getCurrencyTo().getName());
+		return balanceService.find(filter).get(0).getSum();
+	}
+
+	private Double totalSum() {
+		BalanceFilter filter1 = new BalanceFilter();
+		filter1.setFetchCredentials(true);
+		filter1.setCurrencyName(exchangeRate.getCurrencyFrom().getName());
+		return transaction.getSumIn() * searchExchangeRate().getConversion();
+
 	}
 
 	private String searchLocation() {
@@ -138,20 +153,37 @@ public class ConverterPage extends AbstractHomePage {
 		Date date = new Date();
 		date.setHours(date.getHours() + 1);
 		try {
+//			if (!exchangeRate.getCurrencyFrom().getName().equals(CurrencyName.BRB)
+//					&& !exchangeRate.getCurrencyTo().getName().equals("BRB")) {
+//				setFilterExRate(exchangeRate.getCurrencyFrom().getName(), CurrencyName.BRB);
+//				return exchangeRateService.find(exchangeRateFilter).get(0);
+//			}
+//
+//			else if (!exchangeRate.getCurrencyFrom().getName().equals(CurrencyName.BRB)
+//					&& !exchangeRate.getCurrencyTo().getName().equals("BRB")) {
+//				setFilterExRate(CurrencyName.BRB, exchangeRate.getCurrencyTo().getName());
+//				return exchangeRateService.find(exchangeRateFilter).get(0);
+//			}
+//
+//			else {
+//				setFilterExRate(exchangeRate.getCurrencyFrom().getName(), exchangeRate.getCurrencyTo().getName());
+//				return exchangeRateService.find(exchangeRateFilter).get(0);
+//			}
+//			
 			if (!exchangeRate.getCurrencyFrom().getName().equals(CurrencyName.BRB)
-					&& !exchangeRate.getCurrencyTo().getName().equals("BRB")) {
+					&& exchangeRate.getCurrencyTo().getName().equals(CurrencyName.BRB)) {
 				setFilterExRate(exchangeRate.getCurrencyFrom().getName(), CurrencyName.BRB);
 				return exchangeRateService.find(exchangeRateFilter).get(0);
 			}
 
-			else if (!exchangeRate.getCurrencyFrom().getName().equals(CurrencyName.BRB)
-					&& !exchangeRate.getCurrencyTo().getName().equals("BRB")) {
+			else if (exchangeRate.getCurrencyFrom().getName().equals(CurrencyName.BRB)
+					&& !exchangeRate.getCurrencyTo().getName().equals(CurrencyName.BRB)) {
 				setFilterExRate(CurrencyName.BRB, exchangeRate.getCurrencyTo().getName());
 				return exchangeRateService.find(exchangeRateFilter).get(0);
 			}
 
 			else {
-				setFilterExRate(exchangeRate.getCurrencyFrom().getName(), exchangeRate.getCurrencyTo().getName());
+				setFilterExRate(exchangeRate.getCurrencyFrom().getName(), CurrencyName.BRB);
 				return exchangeRateService.find(exchangeRateFilter).get(0);
 			}
 

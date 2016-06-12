@@ -37,8 +37,8 @@
 
 	<entry key="editcourse.label.page">Редактирование курсов</entry>
 	<entry key="editcourse.label.date">Дата</entry>
-	<entry key="editcourse.label.currency.from">Валюта покупки</entry>
-	<entry key="editcourse.label.currency.to">Валюта продажи</entry>
+	<entry key="editcourse.label.currency.from">Валюта покупки банком</entry>
+	<entry key="editcourse.label.currency.to">Валюта продажи банком</entry>
 	<entry key="editcourse.label.conversion">Курс</entry>
 	<entry key="editcourse.label.to">в</entry>
 
@@ -59,6 +59,7 @@
 		Обратитесь к администратору.</entry>
 	<entry key="converter.error.different">Валюты должны быть разными!</entry>
 	<entry key="converter.error.block">Извините, данная операция временно заблокирована!</entry>
+	<entry key="converter.error.nomoney">Извините, в банке недостаточно средств для проведения операции!</entry>
 
 	<entry key="register.label.page">Страница регистрации</entry>
 	<entry key="register.label.email">Эл. почта</entry>

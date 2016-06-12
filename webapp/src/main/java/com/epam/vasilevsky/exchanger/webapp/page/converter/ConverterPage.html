@@ -8,17 +8,16 @@
 
 		<table>
 			<tr>
+				
 				<td><b><wicket:message key="editcourse.label.currency.from" />:</b></td>
+				<td><input type="text" wicket:id="sumIn" /></td>
 				<td><select wicket:id="currencyFrom"></select></td>
 
 			</tr>
 			<tr>
 				<td><b><wicket:message key="editcourse.label.currency.to" />:</b></td>
+				<td></td>
 				<td><select wicket:id="currencyTo"></select></td>
-			</tr>
-			<tr>
-				<td><b><wicket:message key="converter.sumin" />:</b></td>
-				<td><input type="text" wicket:id="sumIn" /></td>
 			</tr>
 			<tr>
 				<td><br><button type="submit" wicket:id="transaction"><wicket:message key="converter.transaction" /></button></td>

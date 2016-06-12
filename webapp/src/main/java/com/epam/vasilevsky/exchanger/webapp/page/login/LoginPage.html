@@ -2,42 +2,45 @@
 	<h2 style="text-align: center;">
 		<wicket:message key="login.label.loginpage" />
 	</h2>
-	<div>
-		<h4>
-			<wicket:message key="login.label.lp" />
-		</h4>
-	</div>
-	<br>
-	<form wicket:id="form">
-		<table id="tab">
-			<tr>
-				<td><b><wicket:message key="login.label.login" />:</b></td>
-				<td><input wicket:id="login" type="text" /></td>
-			</tr>
-			<tr>
-				<td><b><wicket:message key="login.label.password" />:</b></td>
-				<td><input wicket:id="password" type="password" /></td>
-			</tr>
-			<tr>
-				<td><br></td>
-				<td><br></td>
-			</tr>
-			<tr>
-				<td><button type="submit" wicket:id="login-btn">
-						<b><wicket:message key="login.btn.login" /></b>
-					</button></td>
-			</tr>
-		</table>
-	</form>
-	<form wicket:id="form1">
-		<button type="submit" wicket:id="reg-btn">
-			<b><wicket:message key="login.btn.registration" /></b>
-		</button>
+	<center>
+		<div>
+			<h4>
+				<wicket:message key="login.label.lp" />
+			</h4>
+		</div>
+		<br>
+		<form wicket:id="form">
 
-	</form>
-	<div wicket:id="modal1"></div>
-	<a style="color: red" wicket:id="link"><span><wicket:message
-				key="login.btn.forgot.pass" /></span></a>
+			<table id="tab">
+				<tr>
+					<td><b><wicket:message key="login.label.login" />:</b></td>
+					<td><input wicket:id="login" type="text" /></td>
+				</tr>
+				<tr>
+					<td><b><wicket:message key="login.label.password" />:</b></td>
+					<td><input wicket:id="password" type="password" /></td>
+				</tr>
+				<tr>
+					<td><br></td>
+					<td><br></td>
+				</tr>
+			</table>
+			<div>
+			<button type="submit" wicket:id="login-btn">
+				<b><wicket:message key="login.btn.login" /></b>
+			</button>
+			</div>
+			<br>
+		</form>
+		<form wicket:id="form1">
+			<button type="submit" wicket:id="reg-btn">
+				<b><wicket:message key="login.btn.registration" /></b>
+			</button>
 
+		</form>
+		<div wicket:id="modal1"></div>
+		<a style="color: red" wicket:id="link"><span><wicket:message
+					key="login.btn.forgot.pass" /></span></a>
+	</center>
 	<div wicket:id="feedback"></div>
 </wicket:extend>

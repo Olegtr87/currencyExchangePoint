@@ -39,6 +39,7 @@ public class OperationEditPage extends AbstractHomePage {
 		add(form);
 
 		TextField<String> nameField = new TextField<>("name");
+		nameField.setEnabled(false);
 		nameField.setRequired(true);
 		form.add(nameField);
 		

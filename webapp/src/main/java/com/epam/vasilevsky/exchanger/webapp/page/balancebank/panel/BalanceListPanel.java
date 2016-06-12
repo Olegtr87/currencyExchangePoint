@@ -26,8 +26,6 @@ import com.googlecode.wicket.kendo.ui.panel.KendoFeedbackPanel;
 
 public class BalanceListPanel extends Panel {
 
-	private Balance balance;
-	
 	public KendoFeedbackPanel feedback;
 
 	@Inject
@@ -41,7 +39,6 @@ public class BalanceListPanel extends Panel {
 
 	public BalanceListPanel(String id, String name) {
 		super(id);
-		System.out.println(name);
 		this.name = name;
 	}
 
@@ -59,7 +56,7 @@ public class BalanceListPanel extends Panel {
 		DataView<Balance> dataView = new DataView<Balance>("rows", balanceDataProvider, 5) {
 			@Override
 			protected void populateItem(Item<Balance> item) {
-				balance = item.getModelObject();
+				Balance balance = item.getModelObject();
 				item.add(new Label("id", balance.getId()));
 				item.add(new Label("sum", balance.getSum()));
 				item.add(new Label("currency", balance.getCurrency().getName()));

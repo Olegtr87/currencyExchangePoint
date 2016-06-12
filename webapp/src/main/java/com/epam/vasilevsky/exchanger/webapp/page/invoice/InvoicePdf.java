@@ -1,9 +1,11 @@
-package com.epam.vasilevsky.exchanger.webapp.page.check;
+package com.epam.vasilevsky.exchanger.webapp.page.invoice;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+
+import javax.inject.Inject;
 
 import com.epam.vasilevsky.exchanger.datamodel.Transaction;
 import com.epam.vasilevsky.exchanger.service.UserService;
@@ -22,15 +24,30 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
-public class CheckPdf {
+public class InvoicePdf {
 
 	UserService userService;
+	
+	Integer sumIn;
+	
+	String curFrom;
+
+	String nameOperation;
 
 	private Transaction transaction;
 
-	public CheckPdf(Transaction transaction, UserService userService) {
+	public InvoicePdf(Transaction transaction, UserService userService) {
 		this.transaction = transaction;
 		this.userService = userService;
+	}
+
+	public InvoicePdf(Transaction transaction, UserService userService, String operation, Integer sumIn,
+			String curFrom) {
+		this.transaction = transaction;
+		this.userService = userService;
+		this.nameOperation = operation;
+		this.sumIn=sumIn;
+		this.curFrom=curFrom;
 	}
 
 	private String createNamePdf() {
@@ -75,9 +92,16 @@ public class CheckPdf {
 			PdfPCell c5 = new PdfPCell(new Phrase("Total"));
 			t.addCell(c5);
 
-			t.addCell(transaction.getOperation().getName());
-			t.addCell(transaction.getSumIn().toString());
-			t.addCell(transaction.getExchangeRate().getCurrencyFrom().getName().name());
+			if (nameOperation == null) {
+				t.addCell(transaction.getOperation().getName());
+				t.addCell(transaction.getSumIn().toString());
+				t.addCell(transaction.getExchangeRate().getCurrencyFrom().getName().name());
+			} else {
+				t.addCell("convertation");
+				t.addCell(sumIn.toString());
+				t.addCell(curFrom);
+			}
+
 			t.addCell(transaction.getExchangeRate().getCurrencyTo().getName().name());
 			t.addCell(totalSum().toString());
 			document.add(t);

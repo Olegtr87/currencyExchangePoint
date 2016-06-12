@@ -37,8 +37,8 @@
 
 	<entry key="editcourse.label.page">Course edit</entry>
 	<entry key="editcourse.label.date">Date</entry>
-	<entry key="editcourse.label.currency.from">Currency buy</entry>
-	<entry key="editcourse.label.currency.to">Currency sell</entry>
+	<entry key="editcourse.label.currency.from">Currency buy of bank</entry>
+	<entry key="editcourse.label.currency.to">Currency sell of bank</entry>
 	<entry key="editcourse.label.conversion">Course</entry>
 	<entry key="editcourse.label.to">to</entry>
 
@@ -59,6 +59,7 @@
 		administrator.</entry>
 	<entry key="converter.error.different">The currency must be different!</entry>
 	<entry key="converter.error.block">Sorry, this operation is locked!</entry>
+	<entry key="converter.error.nomoney">Sorry, not enough money in the bank for the operation!</entry>
 
 	<entry key="register.label.page">Register page</entry>
 	<entry key="register.label.email">Email</entry>

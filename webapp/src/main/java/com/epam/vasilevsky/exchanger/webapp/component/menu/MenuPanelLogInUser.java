@@ -48,7 +48,7 @@ public class MenuPanelLogInUser extends MenuPanel{
             }
         });
         
-        add(new Link("link-transfer") {
+        add(new Link("link-add") {
             @Override
             public void onClick() {
             }
