@@ -8,6 +8,7 @@ import com.epam.vasilevsky.exchanger.datamodel.UserCredentials;
 import com.epam.vasilevsky.exchanger.datamodel.UserProfile;
 import com.epam.vasilevsky.exchanger.service.UserService;
 import com.epam.vasilevsky.exchanger.webapp.app.AuthorizedSession;
+import com.epam.vasilevsky.exchanger.webapp.page.balanceuser.BalanceUserPage;
 import com.epam.vasilevsky.exchanger.webapp.page.converter.ConverterPage;
 import com.epam.vasilevsky.exchanger.webapp.page.register.RegisterPage;
 import com.epam.vasilevsky.exchanger.webapp.page.transaction.TransactionsPage;
@@ -48,9 +49,10 @@ public class MenuPanelLogInUser extends MenuPanel{
             }
         });
         
-        add(new Link("link-add") {
+        add(new Link("link-balance") {
             @Override
             public void onClick() {
+            	setResponsePage(new BalanceUserPage());
             }
         });
     }

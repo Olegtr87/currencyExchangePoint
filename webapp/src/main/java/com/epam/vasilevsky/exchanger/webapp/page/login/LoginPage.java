@@ -16,6 +16,7 @@ import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.util.string.Strings;
 
+import com.epam.vasilevsky.exchanger.datamodel.BankAccountUser;
 import com.epam.vasilevsky.exchanger.datamodel.CurrencyName;
 import com.epam.vasilevsky.exchanger.datamodel.UserCredentials;
 import com.epam.vasilevsky.exchanger.datamodel.UserProfile;
@@ -67,11 +68,11 @@ public class LoginPage extends AbstractPage {
 			@Override
 			public void onSubmit() {
 				super.onSubmit();
-				setResponsePage(new RegisterPage(new UserCredentials(), new UserProfile()));
+				setResponsePage(new RegisterPage(new UserCredentials(), new UserProfile(), new BankAccountUser()));
 			}
 		});
 
-		final ModalWin win = new ModalWin("modal1");
+		final ModalWin win = new ModalWin("modalPassword");
 		win.setTitle(getString("password.page.title"));
 		win.setResizable(false);
 		add(win);

@@ -14,12 +14,6 @@ public class OperationPage extends AbstractHomePage {
         
         add(new OperationsListPanel("list-panel"));
         
-		add(new Link("create") {
-			@Override
-			public void onClick() {
-				setResponsePage(new OperationEditPage(new Operation()));
-			}
-		});
     }
 
 }

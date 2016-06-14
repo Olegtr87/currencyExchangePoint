@@ -8,6 +8,9 @@
 	<entry key="balance.panel.error">Currency with the same name does not exist!</entry>
 	<entry key="balance.panel.currency">Currency</entry>
 	
+	<entry key="userbalance.panel.balance">Balance</entry>
+	<entry key="userbalance.panel.account">Number account</entry>
+	
 	<entry key="email.subject">Password reminder</entry>
 	<entry key="email.text">Hello! Your password is:</entry>
 	<entry key="email.error">E-mail address with the same name is not found!</entry>
@@ -60,6 +63,7 @@
 	<entry key="converter.error.different">The currency must be different!</entry>
 	<entry key="converter.error.block">Sorry, this operation is locked!</entry>
 	<entry key="converter.error.nomoney">Sorry, not enough money in the bank for the operation!</entry>
+	<entry key="converter.error.nomoney.user">Sorry, you have not enough money for the operation!</entry>
 
 	<entry key="register.label.page">Register page</entry>
 	<entry key="register.label.email">Email</entry>

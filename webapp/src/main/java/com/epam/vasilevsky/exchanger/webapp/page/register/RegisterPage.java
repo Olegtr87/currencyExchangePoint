@@ -25,10 +25,13 @@ import org.apache.wicket.util.string.Strings;
 import org.apache.wicket.validation.validator.RangeValidator;
 import org.apache.wicket.validation.validator.*;
 
+import com.epam.vasilevsky.exchanger.datamodel.BankAccountUser;
+import com.epam.vasilevsky.exchanger.datamodel.CurrencyName;
 import com.epam.vasilevsky.exchanger.datamodel.ExchangeRate;
 import com.epam.vasilevsky.exchanger.datamodel.UserCredentials;
 import com.epam.vasilevsky.exchanger.datamodel.UserProfile;
 import com.epam.vasilevsky.exchanger.datamodel.UserRole;
+import com.epam.vasilevsky.exchanger.service.BankUserAccountService;
 import com.epam.vasilevsky.exchanger.service.UserCredentialsService;
 import com.epam.vasilevsky.exchanger.service.UserService;
 import com.epam.vasilevsky.exchanger.webapp.page.AbstractPage;
@@ -50,6 +53,10 @@ public class RegisterPage extends AbstractPage {
 
 	UserCredentials userCredentials;
 	UserProfile userProfile;
+	BankAccountUser bankAccountUser;
+	
+	@Inject
+	private BankUserAccountService bankUserAccountService;
 
 	public RegisterPage(PageParameters parameters) {
 		super(parameters);
@@ -59,10 +66,18 @@ public class RegisterPage extends AbstractPage {
 		super();
 	}
 
+	public RegisterPage(UserCredentials userCredentials, UserProfile userProfile, BankAccountUser bankAccountUser) {
+		super();
+		this.userCredentials = userCredentials;
+		this.userProfile = userProfile;
+		this.bankAccountUser=bankAccountUser;
+	}
+	
 	public RegisterPage(UserCredentials userCredentials, UserProfile userProfile) {
 		super();
 		this.userCredentials = userCredentials;
 		this.userProfile = userProfile;
+		
 	}
 
 	@Override
@@ -122,11 +137,14 @@ public class RegisterPage extends AbstractPage {
 					userService.updateProfile(userProfile);
 					userService.updateCredentials(userCredentials);
 					setResponsePage(new LoginPage());
-				} else if (userCredentialsService.findByLogin(userCredentials.getLogin()).getLogin()
-						.equals(userCredentials.getLogin())) {
+				} 
+				else if (userCredentialsService.findByLogin(loginField.getModelObject()).getLogin()
+						.equals(loginField.getModelObject())) {
 					error(getString("register.error.login"));
-				} else {
+				} 
+				else {
 					userService.register(userProfile, userCredentials);
+					regUserAccaunt();
 					setResponsePage(new LoginPage());
 				}
 			}
@@ -143,7 +161,19 @@ public class RegisterPage extends AbstractPage {
 		form.add(link);
 
 		add(new FeedbackPanel("feedback"));
-
 	}
-
+	
+	private void regUserAccaunt(){
+		bankAccountUser=new BankAccountUser();
+		CurrencyName[] currency=CurrencyName.values();
+		for(int i=0;i<CurrencyName.values().length;i++){
+			bankAccountUser.setBalance(0);
+			bankAccountUser.setCurrency(currency[i]);
+			bankAccountUser.setUser(userCredentials);
+			bankUserAccountService.add(bankAccountUser);
+			bankAccountUser=new BankAccountUser();
+		}
+		
+		
+	}
 }

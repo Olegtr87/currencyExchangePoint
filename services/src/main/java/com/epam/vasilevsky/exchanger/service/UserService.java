@@ -4,8 +4,10 @@ import java.util.List;
 
 import javax.transaction.Transactional;
 
+import com.epam.vasilevsky.exchanger.dataaccess.filters.BankAccountUserFilter;
+import com.epam.vasilevsky.exchanger.dataaccess.filters.TransactionFilter;
 import com.epam.vasilevsky.exchanger.dataaccess.filters.UserFilter;
-
+import com.epam.vasilevsky.exchanger.datamodel.BankAccountUser;
 import com.epam.vasilevsky.exchanger.datamodel.UserCredentials;
 import com.epam.vasilevsky.exchanger.datamodel.UserProfile;
 
@@ -30,4 +32,6 @@ public interface UserService {
     void delete(Long id);
     
     List<UserProfile> find(UserFilter filter);
+    
+    
 }

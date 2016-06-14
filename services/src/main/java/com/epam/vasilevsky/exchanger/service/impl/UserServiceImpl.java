@@ -7,11 +7,13 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.epam.vasilevsky.exchanger.dataaccess.BankAccountUserDao;
 import com.epam.vasilevsky.exchanger.dataaccess.UserCredentialsDao;
 import com.epam.vasilevsky.exchanger.dataaccess.UserProfileDao;
+import com.epam.vasilevsky.exchanger.dataaccess.filters.BankAccountUserFilter;
 import com.epam.vasilevsky.exchanger.dataaccess.filters.UserFilter;
 import com.epam.vasilevsky.exchanger.service.UserService;
-
+import com.epam.vasilevsky.exchanger.datamodel.BankAccountUser;
 import com.epam.vasilevsky.exchanger.datamodel.UserCredentials;
 import com.epam.vasilevsky.exchanger.datamodel.UserProfile;
 import com.epam.vasilevsky.exchanger.datamodel.UserRole;
@@ -25,6 +27,9 @@ public class UserServiceImpl implements UserService {
 
     @Inject
     private UserCredentialsDao userCredentialsDao;
+    
+    @Inject
+    private BankAccountUserDao bankAccountUserDao;
 
     @Override
     public void register(UserProfile userProfile, UserCredentials userCredentials) {

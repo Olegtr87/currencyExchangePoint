@@ -43,30 +43,17 @@ public class OperationsListPanel extends Panel {
 				item.add(new Label("id", operation.getId()));
 				item.add(new Label("name", operation.getName()));
 				item.add(new Label("tax", operation.getTax()));
-				
-				CheckBox checkbox = new CheckBox("status-block", Model.of(operation.getStatusBlock()));
-                checkbox.setEnabled(false);
-                item.add(checkbox);
-                
-                item.add(new Link<Void>("edit-link") {
-                    @Override
-                    public void onClick() {
-                        setResponsePage(new OperationEditPage(operation));
-                    }
-                });
-                
-                item.add(new Link<Void>("delete-link") {
-                    @Override
-                    public void onClick() {
-                        try {
-                            operationService.delete(operation.getId());
-                        } catch (PersistenceException e) {
-                            System.out.println("caughth persistance exception");
-                        }
 
-                        setResponsePage(new OperationPage());
-                    }
-                });
+				CheckBox checkbox = new CheckBox("status-block", Model.of(operation.getStatusBlock()));
+				checkbox.setEnabled(false);
+				item.add(checkbox);
+
+				item.add(new Link<Void>("edit-link") {
+					@Override
+					public void onClick() {
+						setResponsePage(new OperationEditPage(operation));
+					}
+				});
 			}
 		};
 		add(dataView);

@@ -1,0 +1,23 @@
+<wicket:panel>
+	<table class="list-table">
+		<thead>
+			<tr>
+				<th><a wicket:id="sort-balance"><wicket:message
+							key="userbalance.panel.balance" /></a></th>
+				<th><a wicket:id="sort-currency"><wicket:message
+							key="balance.panel.currency" /></a></th>
+				<th></th>
+			</tr>
+
+		</thead>
+		<tbody>
+			<tr wicket:id="rows">
+				<td><span wicket:id="balance" /></td>
+				<td><span wicket:id="currency" /></td>
+				<td><a wicket:id="add-link"><img
+						src="images/add.png" width="30" height="30"></a></td>
+			</tr>
+		</tbody>
+	</table>
+	<div wicket:id="paging"></div>
+</wicket:panel>

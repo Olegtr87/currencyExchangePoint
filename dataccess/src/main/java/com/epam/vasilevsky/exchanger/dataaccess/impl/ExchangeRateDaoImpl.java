@@ -22,7 +22,6 @@ public class ExchangeRateDaoImpl extends AbstractDaoImpl<ExchangeRate, Long> imp
 
 	protected ExchangeRateDaoImpl() {
 		super(ExchangeRate.class);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

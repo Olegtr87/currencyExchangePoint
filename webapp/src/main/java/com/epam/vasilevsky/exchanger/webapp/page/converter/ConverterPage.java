@@ -15,6 +15,7 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.validation.validator.RangeValidator;
 
 import com.epam.vasilevsky.exchanger.dataaccess.filters.BalanceFilter;
+import com.epam.vasilevsky.exchanger.dataaccess.filters.BankAccountUserFilter;
 import com.epam.vasilevsky.exchanger.dataaccess.filters.ExchangeRateFilter;
 import com.epam.vasilevsky.exchanger.datamodel.Currency;
 import com.epam.vasilevsky.exchanger.datamodel.CurrencyName;
@@ -22,9 +23,11 @@ import com.epam.vasilevsky.exchanger.datamodel.ExchangeRate;
 import com.epam.vasilevsky.exchanger.datamodel.Operation;
 import com.epam.vasilevsky.exchanger.datamodel.Transaction;
 import com.epam.vasilevsky.exchanger.service.BalanceService;
+import com.epam.vasilevsky.exchanger.service.BankUserAccountService;
 import com.epam.vasilevsky.exchanger.service.CurrencyService;
 import com.epam.vasilevsky.exchanger.service.ExchangeRateService;
 import com.epam.vasilevsky.exchanger.service.OperationService;
+import com.epam.vasilevsky.exchanger.webapp.app.AuthorizedSession;
 import com.epam.vasilevsky.exchanger.webapp.app.common.CurrencyChoiceRenderer;
 import com.epam.vasilevsky.exchanger.webapp.page.AbstractHomePage;
 import com.epam.vasilevsky.exchanger.webapp.page.invoice.InvoicePage;
@@ -48,6 +51,9 @@ public class ConverterPage extends AbstractHomePage {
 
 	@Inject
 	ExchangeRateService exchangeRateService;
+	
+	@Inject
+	BankUserAccountService bankUserAccountService;
 
 	private ExchangeRateFilter exchangeRateFilter;
 
@@ -104,8 +110,10 @@ public class ConverterPage extends AbstractHomePage {
 					this.warn(getString("converter.error.block"));
 				} else if (searchExchangeRate() == null) {
 					this.info(searchLocation());
-				} else if (checkBalance() < totalSum()) {
+				} else if (getBalanceCurrencyTo() < totalSum()) {
 					this.info(getString("converter.error.nomoney"));
+				} else if (getBalanceCurrencyFrom() > getUserBalance()) {
+					this.info(getString("converter.error.nomoney.user"));
 				} else {
 					setResponsePage(new InvoicePage(transaction, exchangeRate));
 				}
@@ -113,12 +121,24 @@ public class ConverterPage extends AbstractHomePage {
 		});
 		add(feedback);
 	}
+	
+	private Integer getUserBalance(){
+		BankAccountUserFilter filter=new BankAccountUserFilter();
+		filter.setCurrency(exchangeRate.getCurrencyFrom().getName());
+		filter.setUserCredentials(AuthorizedSession.get().getLoggedUser());
+		System.out.println("bal "+bankUserAccountService.findBankUserAccount(filter).get(0).getBalance());
+		return bankUserAccountService.findBankUserAccount(filter).get(0).getBalance();
+	}
 
-	private Integer checkBalance() {
+	private Integer getBalanceCurrencyTo() {
 		BalanceFilter filter = new BalanceFilter();
 		filter.setFetchCredentials(true);
 		filter.setCurrencyName(exchangeRate.getCurrencyTo().getName());
 		return balanceService.find(filter).get(0).getSum();
+	}
+	
+	private Integer getBalanceCurrencyFrom() {
+		return transaction.getSumIn();
 	}
 
 	private Double totalSum() {

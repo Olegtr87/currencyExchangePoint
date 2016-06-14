@@ -1,0 +1,28 @@
+<wicket:extend xmlns:wicket="http://wicket.apache.org">
+	<h2>
+		<wicket:message key="balance.edit.title" />
+	</h2>
+	<br>
+	<div class="outline">
+	<form wicket:id="form">
+		<table>
+			<tr>
+				<td><b><wicket:message key="balance.edit.sum" />:</b></td>
+				<td><input type="text" wicket:id="balance" /><span wicket:id="currency"></span></td>
+			</tr>
+			<tr>
+				<td><b><wicket:message key="balance.edit.newsum" />:</b></td>
+				<td><input type="text" wicket:id="newsum" /></td>
+			</tr>
+			<tr>
+				<td><button type="submit" wicket:id="save">
+						<wicket:message key="btn.save" />
+					</button></td>
+				<td></td>
+			</tr>
+		</table>
+	</form>
+	</div>
+	<div wicket:id="feedback"></div>
+
+</wicket:extend>

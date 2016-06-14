@@ -1,6 +1,5 @@
 package com.epam.vasilevsky.exchanger.webapp.page.invoice;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -10,13 +9,16 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.link.DownloadLink;
 
 import com.epam.vasilevsky.exchanger.dataaccess.filters.BalanceFilter;
+import com.epam.vasilevsky.exchanger.dataaccess.filters.BankAccountUserFilter;
 import com.epam.vasilevsky.exchanger.dataaccess.filters.ExchangeRateFilter;
 import com.epam.vasilevsky.exchanger.datamodel.Balance;
+import com.epam.vasilevsky.exchanger.datamodel.BankAccountUser;
 import com.epam.vasilevsky.exchanger.datamodel.CurrencyName;
 import com.epam.vasilevsky.exchanger.datamodel.ExchangeRate;
 import com.epam.vasilevsky.exchanger.datamodel.Operation;
 import com.epam.vasilevsky.exchanger.datamodel.Transaction;
 import com.epam.vasilevsky.exchanger.service.BalanceService;
+import com.epam.vasilevsky.exchanger.service.BankUserAccountService;
 import com.epam.vasilevsky.exchanger.service.CurrencyService;
 import com.epam.vasilevsky.exchanger.service.ExchangeRateService;
 import com.epam.vasilevsky.exchanger.service.OperationService;
@@ -45,6 +47,8 @@ public class InvoicePage extends AbstractHomePage {
 	BalanceService balanceService;
 	@Inject
 	CurrencyService currencyService;
+	@Inject
+	BankUserAccountService bankUserAccountService;
 
 	private ExchangeRateFilter exchangeRateFilter;
 
@@ -120,13 +124,14 @@ public class InvoicePage extends AbstractHomePage {
 				+ transaction.getExchangeRate().getCurrencyFrom().getName()));
 		add(new Label("total", getString("transacions.label.total") + ": " + totalSum()+" "+ transaction.getExchangeRate().getCurrencyTo().getName()));
 		
-		lowBalance();
+		lowBalanceBank();
+		lowBalanceUser();
 		
 		InvoicePdf checkPdf = new InvoicePdf(transaction, userService);
 		add(new DownloadLink("download", checkPdf.createPdf(), "download.pdf"));
 	}
 
-	private void lowBalance() {
+	private void lowBalanceBank() {
 		BalanceFilter filter = new BalanceFilter();
 		filter.setFetchCredentials(true);
 		filter.setCurrencyName(exchangeRate.getCurrencyTo().getName());
@@ -134,6 +139,19 @@ public class InvoicePage extends AbstractHomePage {
 		balance.setCurrency(exchangeRate.getCurrencyTo());
 		balance.setSum(balanceService.find(filter).get(0).getSum() - totalSum());
 		currencyService.updateBalance(balance);
+	}
+	
+	private void lowBalanceUser() {
+		BankAccountUser userBalance=new BankAccountUser();
+		BankAccountUserFilter filter=new BankAccountUserFilter();
+		filter.setCurrency(exchangeRate.getCurrencyFrom().getName());
+		filter.setUserCredentials(AuthorizedSession.get().getLoggedUser());
+		userBalance=bankUserAccountService.findBankUserAccount(filter).get(0);
+		userBalance.setBalance(userBalance.getBalance()-transaction.getSumIn());
+		userBalance.setCurrency(exchangeRate.getCurrencyFrom().getName());
+		userBalance.setUser(AuthorizedSession.get().getLoggedUser());
+		bankUserAccountService.update(userBalance);
+		
 	}
 
 	private Integer totalSum() {

@@ -8,6 +8,9 @@
 	<entry key="balance.panel.error">Валюты с таким именем не существует!</entry>
 	<entry key="balance.panel.currency">Валюта</entry>
 	
+	<entry key="userbalance.panel.balance">Баланс</entry>
+	<entry key="userbalance.panel.account">Номер счета</entry>
+	
 
 	<entry key="email.subject">Напоминание пароля</entry>
 	<entry key="email.text">Здраствуйте! Ваш пароль:</entry>
@@ -60,6 +63,7 @@
 	<entry key="converter.error.different">Валюты должны быть разными!</entry>
 	<entry key="converter.error.block">Извините, данная операция временно заблокирована!</entry>
 	<entry key="converter.error.nomoney">Извините, в банке недостаточно средств для проведения операции!</entry>
+	<entry key="converter.error.nomoney.user">Извините, у вас недостаточно средств для проведения операции!</entry>
 
 	<entry key="register.label.page">Страница регистрации</entry>
 	<entry key="register.label.email">Эл. почта</entry>
