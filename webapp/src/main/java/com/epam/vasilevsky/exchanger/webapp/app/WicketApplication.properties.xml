@@ -19,6 +19,8 @@
 	<entry key="email.sub">Subject</entry>
 	<entry key="email.title">Write to us</entry>
 	<entry key="email.info">Mail sent. Please close window.</entry>
+	<entry key="email.textmess">Text message</entry>
+	<entry key="email.error.connect">Message not sent</entry>
 
 
 	<entry key="login.label.login">Email</entry>

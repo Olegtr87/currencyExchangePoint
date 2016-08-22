@@ -15,6 +15,7 @@ import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.PropertyModel;
+import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.validation.validator.DateValidator;
 import org.apache.wicket.validation.validator.RangeValidator;
@@ -65,11 +66,13 @@ public class CourseEditPage extends AbstractHomePage {
 
 		TextField<Double> conversion = new TextField<>("conversion");
 		conversion.add(RangeValidator.<Double> minimum(0.0d));
+		conversion.setLabel(new ResourceModel("editcourse.label.conversion"));
 		conversion.setRequired(true);
 		form.add(conversion);
 
 		DateTextField dateCourseField = new DateTextField("dateCourse");
 		dateCourseField.add(new DatePicker());
+		dateCourseField.setLabel(new ResourceModel("editcourse.label.date"));
 		dateCourseField.setRequired(true);
 		form.add(dateCourseField);
 

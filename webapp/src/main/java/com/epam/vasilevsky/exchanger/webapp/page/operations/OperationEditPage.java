@@ -8,6 +8,7 @@ import org.apache.wicket.markup.html.form.SubmitLink;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.validation.validator.RangeValidator;
 
@@ -45,6 +46,7 @@ public class OperationEditPage extends AbstractHomePage {
 		
 		TextField<Double> tax = new TextField<>("tax");
 		tax.add(RangeValidator.<Double> range(0d, 100d));
+		tax.setLabel(new ResourceModel("operations.label.tax"));
 		tax.setRequired(true);
 		form.add(tax);
 

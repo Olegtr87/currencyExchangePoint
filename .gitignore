@@ -12,3 +12,5 @@ dataccess/.classpath
 .project
 dataccess/target/
 webapp/.classpath
+webapp/src/main/pdf/checks/
+.metadata/

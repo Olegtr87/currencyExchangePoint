@@ -10,6 +10,7 @@ import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
+import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.validation.validator.RangeValidator;
 
@@ -17,6 +18,8 @@ import com.epam.vasilevsky.exchanger.datamodel.Balance;
 import com.epam.vasilevsky.exchanger.datamodel.Currency;
 import com.epam.vasilevsky.exchanger.service.CurrencyService;
 import com.epam.vasilevsky.exchanger.webapp.page.AbstractHomePage;
+import com.googlecode.wicket.jquery.core.Options;
+import com.googlecode.wicket.kendo.ui.panel.KendoFeedbackPanel;
 
 public class BalanceEditPage extends AbstractHomePage {
 
@@ -49,12 +52,18 @@ public class BalanceEditPage extends AbstractHomePage {
 		super.onInitialize();
 		Form form = new Form("form", new CompoundPropertyModel<Balance>(balance));
 		add(form);
-		
+
+		Options options = new Options();
+		options.set("button", true);
+		final KendoFeedbackPanel feedback = new KendoFeedbackPanel("feedback", options);
+		add(feedback);
+
 		TextField<Integer> sumField = new TextField<>("sum");
 		sumField.setEnabled(false);
 		form.add(sumField);
 
 		TextField<Integer> newSumField = new TextField<>("newsum", new PropertyModel<Integer>(this, "newSum"));
+		newSumField.setLabel(new ResourceModel("balance.edit.newsum"));
 		newSumField.add(RangeValidator.<Integer> range(0, Integer.MAX_VALUE));
 		form.add(newSumField);
 
@@ -67,6 +76,5 @@ public class BalanceEditPage extends AbstractHomePage {
 				setResponsePage(new BalancePage(new String()));
 			}
 		});
-		add(new FeedbackPanel("feedback"));
 	}
 }

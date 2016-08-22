@@ -4,6 +4,7 @@ package com.epam.vasilevsky.exchanger.webapp.page.mail;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.mail.MessagingException;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -19,8 +20,10 @@ import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
+import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.validation.validator.EmailAddressValidator;
+import org.apache.wicket.validation.validator.RangeValidator;
 
 import com.epam.vasilevsky.exchanger.dataaccess.filters.UserCredentialsFilter;
 import com.epam.vasilevsky.exchanger.dataaccess.filters.UserFilter;
@@ -67,43 +70,50 @@ public class MailModalPage extends WebPage {
 		options.set("button", true);
 
 		final KendoFeedbackPanel feedback = new KendoFeedbackPanel("feedback", options);
-		this.add(feedback);
+		add(feedback);
 
 		sendEmailImpl = new SendEmailImpl(Passwords.EMAIL, Passwords.PASSWORD);
 
 		final Form<Void> form = new Form<Void>("form");
 		add(form);
-		
-		RequiredTextField<String> name = new RequiredTextField<>("name",new Model<String>());
+
+		RequiredTextField<String> name = new RequiredTextField<>("name", new Model<String>());
+		name.setLabel(new ResourceModel("email.name"));
 		form.add(name.setRequired(true));
-		
-		RequiredTextField<String> telephone = new RequiredTextField<>("telephone",new Model<String>());
+
+		RequiredTextField<String> telephone = new RequiredTextField<>("telephone", new Model<String>());
+		name.setLabel(new ResourceModel("email.tel"));
 		telephone.setRequired(true);
 		form.add(telephone.setRequired(true));
-		
-		RequiredTextField<String> subject = new RequiredTextField<>("subject",new Model<String>());
+
+		RequiredTextField<String> subject = new RequiredTextField<>("subject", new Model<String>());
+		subject.setLabel(new ResourceModel("email.subject"));
 		subject.setRequired(true);
 		form.add(subject.setRequired(true));
-		
-		TextArea<String> textArea = new TextArea<>("text",new Model<String>());
+
+		TextArea<String> textArea = new TextArea<>("text", new Model<String>());
 		textArea.setRequired(true);
-		
+
 		form.add(textArea.setRequired(true));
 
 		IndicatingAjaxButton link = new IndicatingAjaxButton("mailer") {
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
 				super.onSubmit(target, form);
-				sendEmailImpl.send(subject.getModelObject(), getText(), Passwords.EMAIL);
-				this.info(getString("email.info"));
+				try {
+					sendEmailImpl.send(subject.getModelObject(), getText(), Passwords.EMAIL);
+					this.info(getString("email.info"));
+				} catch (MessagingException e) {
+					this.warn(getString("email.error.connect"));
+				}
 				target.add(feedback);
 			}
-			
-			private String getText(){
-				return name.getModelObject()+" "+telephone.getModelObject()+"\n"+textArea.getModelObject();
+
+			private String getText() {
+				return name.getModelObject() + " " + telephone.getModelObject() + "\n" + textArea.getModelObject();
 			}
 		};
-		
+
 		form.add(link);
 		add(form);
 	}

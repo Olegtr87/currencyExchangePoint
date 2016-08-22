@@ -45,14 +45,6 @@ public abstract class AbstractPage extends WebPage {
 		};
 		add(link);
 
-		add(new Link("link-info") {
-			@Override
-			public void onClick() {
-			}
-		});
-		
-		//add(new FeedbackPanel("feedbackpanel"));
-
 		CourseNBRBImpl course = new CourseNBRBImpl();
 		if (course.getCourse(CodeCurrency.getCurrencyFromName(CurrencyName.EUR)) != null) {
 			add(new Label("course",

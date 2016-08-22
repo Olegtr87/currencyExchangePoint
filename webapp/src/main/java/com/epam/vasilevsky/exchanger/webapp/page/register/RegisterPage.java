@@ -20,6 +20,7 @@ import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
+import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.util.string.Strings;
 import org.apache.wicket.validation.validator.RangeValidator;
@@ -37,11 +38,14 @@ import com.epam.vasilevsky.exchanger.service.UserService;
 import com.epam.vasilevsky.exchanger.webapp.page.AbstractPage;
 import com.epam.vasilevsky.exchanger.webapp.page.homepage.HomePage;
 import com.epam.vasilevsky.exchanger.webapp.page.login.LoginPage;
+import com.googlecode.wicket.jquery.core.Options;
 import com.googlecode.wicket.jquery.ui.panel.JQueryFeedbackPanel;
 import com.googlecode.wicket.jquery.ui.widget.dialog.DialogButton;
 import com.googlecode.wicket.jquery.ui.widget.dialog.DialogButtons;
 import com.googlecode.wicket.jquery.ui.widget.dialog.DialogIcon;
 import com.googlecode.wicket.jquery.ui.widget.dialog.MessageDialog;
+import com.googlecode.wicket.kendo.ui.panel.KendoFeedbackPanel;
+import com.googlecode.wicket.kendo.ui.widget.notification.Notification;
 
 public class RegisterPage extends AbstractPage {
 
@@ -86,36 +90,48 @@ public class RegisterPage extends AbstractPage {
 
 		Form form = new Form("form", new CompoundPropertyModel<UserProfile>(userProfile));
 		add(form);
-
+		
+		Options options = new Options();
+		options.set("button", true);
+		final KendoFeedbackPanel feedback = new KendoFeedbackPanel("feedback", options);
+		add(feedback);
+		
 		TextField<String> loginField = new TextField<>("login", new PropertyModel(userCredentials, "login"));
+		loginField.setLabel(new ResourceModel("register.label.email"));
 		loginField.setRequired(true);
 		loginField.add(EmailAddressValidator.getInstance());
 		form.add(loginField);
 
 		TextField<String> passwordField = new TextField<>("password", new PropertyModel(userCredentials, "password"));
+		passwordField.setLabel(new ResourceModel("register.label.password"));
 		passwordField.setRequired(true);
 		form.add(passwordField);
 
 		userCredentials.setRole(UserRole.Client);
 
 		TextField<String> firstNameField = new TextField<>("firstName");
+		firstNameField.setLabel(new ResourceModel("register.label.firstname"));
 		firstNameField.setRequired(true);
 		form.add(firstNameField);
 
 		TextField<String> lastNameField = new TextField<>("lastName");
+		lastNameField.setLabel(new ResourceModel("register.label.lastname"));
 		lastNameField.setRequired(true);
 		form.add(lastNameField);
 
 		TextField<String> patronymicField = new TextField<>("patronymic");
+		patronymicField.setLabel(new ResourceModel("register.label.patronymic"));
 		patronymicField.setRequired(true);
 		form.add(patronymicField);
 
 		TextField<String> numberPassportField = new TextField<>("numberPassport");
+		numberPassportField.setLabel(new ResourceModel("register.label.numberPassport"));
 		numberPassportField.setRequired(true);
 		form.add(numberPassportField);
 
 		DateTextField dateIssueField = new DateTextField("dateIssue");
 		dateIssueField.add(new DatePicker());
+		dateIssueField.setLabel(new ResourceModel("register.label.dateIssue"));
 		dateIssueField.setRequired(true);
 		dateIssueField.add(DateValidator.maximum(new Date()));
 		form.add(dateIssueField);
@@ -125,6 +141,7 @@ public class RegisterPage extends AbstractPage {
 		form.add(createdField);
 
 		TextField<String> issuedField = new TextField<>("issued");
+		issuedField.setLabel(new ResourceModel("register.label.issued"));
 		issuedField.setRequired(true);
 		form.add(issuedField);
 
@@ -138,10 +155,10 @@ public class RegisterPage extends AbstractPage {
 					userService.updateCredentials(userCredentials);
 					setResponsePage(new LoginPage());
 				} 
-				else if (userCredentialsService.findByLogin(loginField.getModelObject()).getLogin()
-						.equals(loginField.getModelObject())) {
-					error(getString("register.error.login"));
-				} 
+//				else if (userCredentialsService.findByLogin(loginField.getModelObject()).getLogin()
+//						.equals(loginField.getModelObject())) {
+//					error(getString("register.error.login"));
+			//	} 
 				else {
 					userService.register(userProfile, userCredentials);
 					regUserAccaunt();
@@ -159,8 +176,6 @@ public class RegisterPage extends AbstractPage {
 		};
 		link.setDefaultFormProcessing(false);
 		form.add(link);
-
-		add(new FeedbackPanel("feedback"));
 	}
 	
 	private void regUserAccaunt(){

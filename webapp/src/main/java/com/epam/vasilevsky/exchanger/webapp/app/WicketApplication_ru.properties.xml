@@ -20,6 +20,8 @@
 	<entry key="email.sub">Тема</entry>
 	<entry key="email.title">Написать нам</entry>
 	<entry key="email.info">Сообщение отправлено! Пожалуйста закройте окно!</entry>
+	<entry key="email.textmess">Текст сообщения</entry>
+	<entry key="email.error.connect">Сообщение не отправлено</entry>
 
 	<entry key="login.label.login">Эл. почта</entry>
 	<entry key="login.label.password">Пароль</entry>
@@ -102,6 +104,5 @@
 	<entry key="panel.cabinet">КАБИНЕТ</entry>
 	<entry key="panel.transactions">ТРАНЗАКЦИИ</entry>
 	<entry key="panel.balance">БАЛАНС</entry>
-
 
 </properties>

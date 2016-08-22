@@ -4,6 +4,8 @@ package com.epam.vasilevsky.exchanger.webapp.page.password;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
@@ -17,8 +19,10 @@ import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.PropertyModel;
+import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.validation.validator.EmailAddressValidator;
+import org.apache.wicket.validation.validator.RangeValidator;
 
 import com.epam.vasilevsky.exchanger.dataaccess.filters.UserCredentialsFilter;
 import com.epam.vasilevsky.exchanger.dataaccess.filters.UserFilter;
@@ -61,23 +65,21 @@ public class ModalPage extends WebPage {
 	@Override
 	protected void onInitialize() {
 		super.onInitialize();
-
-		Options options = new Options();
-		options.set("button", true);
-
-		final KendoFeedbackPanel feedback = new KendoFeedbackPanel("feedback", options);
-		this.add(feedback);
-
 		userCredentials = new UserCredentials();
-
 		sendEmailImpl = new SendEmailImpl(Passwords.EMAIL, Passwords.PASSWORD);
 
 		Form form = new Form("form", new CompoundPropertyModel<UserCredentials>(userCredentials));
 		add(form);
+		
+		Options options = new Options();
+		options.set("button", true);
+		final KendoFeedbackPanel feedback = new KendoFeedbackPanel("feedback", options);
+		add(feedback);
+		
 		RequiredTextField<String> loginField = new RequiredTextField<>("login");
-		loginField.setRequired(true);
+		loginField.setRequired(true);		
 		form.add(loginField);
-
+		
 		AjaxSubmitLink link = new AjaxSubmitLink("link") {
 			@Override
 			protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
@@ -89,9 +91,16 @@ public class ModalPage extends WebPage {
 
 				if (list.size() > 0) {
 					Long id = list.get(0).getId();
-					sendEmailImpl.send(getString("email.subject"),
-							getString("email.text") + userService.getCredentials(id).getPassword(),
-							userCredentials.getLogin());
+					
+					try {
+						sendEmailImpl.send(getString("email.subject"),
+								getString("email.text") + userService.getCredentials(id).getPassword(),
+								userCredentials.getLogin());
+					} catch (AddressException e) {
+						e.printStackTrace();
+					} catch (MessagingException e) {
+						this.warn(getString("email.error.connect"));
+					}
 
 					modalWin.close(target);
 				} else {

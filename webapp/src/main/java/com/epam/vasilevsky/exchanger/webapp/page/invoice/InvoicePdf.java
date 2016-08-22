@@ -19,6 +19,7 @@ import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
+import com.itextpdf.text.pdf.BaseFont;
 import com.itextpdf.text.pdf.CMYKColor;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
@@ -27,9 +28,9 @@ import com.itextpdf.text.pdf.PdfWriter;
 public class InvoicePdf {
 
 	UserService userService;
-	
+
 	Integer sumIn;
-	
+
 	String curFrom;
 
 	String nameOperation;
@@ -46,8 +47,8 @@ public class InvoicePdf {
 		this.transaction = transaction;
 		this.userService = userService;
 		this.nameOperation = operation;
-		this.sumIn=sumIn;
-		this.curFrom=curFrom;
+		this.sumIn = sumIn;
+		this.curFrom = curFrom;
 	}
 
 	private String createNamePdf() {
@@ -63,33 +64,30 @@ public class InvoicePdf {
 		}
 		document.open();
 		try {
-			Paragraph p1 = new Paragraph("Claim check", FontFactory.getFont(FontFactory.COURIER, 25, Font.BOLD));
+			Paragraph p1 = new Paragraph(getStr("check.label.page"), getFont());
 			p1.setAlignment(Element.ALIGN_CENTER);
 
 			document.add(p1);
-			Paragraph p2 = new Paragraph("Number check: " + transaction.getId());
+			Paragraph p2 = new Paragraph(getStr("check.label.numbercheck")+": " + transaction.getId(), getFont());
 			p2.setAlignment(Element.ALIGN_CENTER);
 			document.add(p2);
 			document.add(new Paragraph(
-					"Payed: " + userService.getProfile(transaction.getUser().getId()).getFirstName() + " "
+					getStr("check.label.payer")+": " + userService.getProfile(transaction.getUser().getId()).getFirstName() + " "
 							+ userService.getProfile(transaction.getUser().getId()).getLastName(),
-					FontFactory.getFont(FontFactory.HELVETICA, 16, Font.BOLD, new CMYKColor(0, 255, 255, 17))));
+					getFont()));
 			PdfPTable t = new PdfPTable(5);
 			t.setSpacingBefore(25);
 			t.setSpacingAfter(25);
 
-			String st = WicketApplication.get().getResourceSettings().getLocalizer()
-					.getString("editcourse.label.currency.to", null);
-
-			PdfPCell c1 = new PdfPCell(new Phrase("Operation"));
+			PdfPCell c1 = new PdfPCell(new Phrase(getStr("operations.label.operation"), getFont()));
 			t.addCell(c1);
-			PdfPCell c2 = new PdfPCell(new Phrase("Sum in"));
+			PdfPCell c2 = new PdfPCell(new Phrase(getStr("converter.sumin"), getFont()));
 			t.addCell(c2);
-			PdfPCell c3 = new PdfPCell(new Phrase("From"));
+			PdfPCell c3 = new PdfPCell(new Phrase(getStr("editcourse.label.currency.from"), getFont()));
 			t.addCell(c3);
-			PdfPCell c4 = new PdfPCell(new Phrase("To"));
+			PdfPCell c4 = new PdfPCell(new Phrase(getStr("editcourse.label.currency.to"), getFont()));
 			t.addCell(c4);
-			PdfPCell c5 = new PdfPCell(new Phrase("Total"));
+			PdfPCell c5 = new PdfPCell(new Phrase(getStr("transacions.label.total"), getFont()));
 			t.addCell(c5);
 
 			if (nameOperation == null) {
@@ -126,5 +124,22 @@ public class InvoicePdf {
 
 	private Integer totalSum() {
 		return transaction.getTotalSum();
+	}
+
+	private Font getFont() {
+		BaseFont helvetica;
+		try {
+			helvetica = BaseFont.createFont("ARIAL.TTF", BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+		} catch (DocumentException | IOException e) {
+			helvetica = null;
+			e.printStackTrace();
+		}
+		Font font = new Font(helvetica);
+		return font;
+	}
+
+	private String getStr(String string) {
+		String operationName = WicketApplication.get().getResourceSettings().getLocalizer().getString(string, null);
+		return operationName;
 	}
 }

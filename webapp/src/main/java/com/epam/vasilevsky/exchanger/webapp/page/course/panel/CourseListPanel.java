@@ -54,8 +54,6 @@ public class CourseListPanel extends Panel {
 			protected void populateItem(Item<ExchangeRate> item) {
 				ExchangeRate exchangeRate = item.getModelObject();
 
-				item.add(new Label("id", exchangeRate.getId()));
-
 				if (exchangeRate.getCurrencyFrom().getName().name().equals(CurrencyName.BRB.name())) {
 					item.add(new Label("conversion", 1 / exchangeRate.getConversion()));
 				} else {
@@ -90,7 +88,6 @@ public class CourseListPanel extends Panel {
 		add(dataView);
 		add(new PagingNavigator("paging", dataView));
 
-		add(new OrderByBorder("sort-id", ExchangeRate_.id, exchangeRateDataProvider));
 		add(new OrderByBorder("sort-conversion", ExchangeRate_.conversion, exchangeRateDataProvider));
 		add(new OrderByBorder("sort-date", ExchangeRate_.dateCourse, exchangeRateDataProvider));
 		add(new OrderByBorder("sort-currency-from", ExchangeRate_.currencyFrom, exchangeRateDataProvider));

@@ -11,6 +11,7 @@ import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.PropertyModel;
+import org.apache.wicket.model.ResourceModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.validation.validator.RangeValidator;
 
@@ -69,6 +70,7 @@ public class BalanceUserEditPage extends AbstractHomePage {
 		
 		TextField<Integer> newSumField = new TextField<>("newsum", new PropertyModel<Integer>(this, "newSum"));
 		newSumField.add(RangeValidator.<Integer> range(0, Integer.MAX_VALUE));
+		newSumField.setLabel(new ResourceModel("balance.edit.newsum"));
 		form.add(newSumField);
 		form.add(new SubmitLink("save") {
 			@Override

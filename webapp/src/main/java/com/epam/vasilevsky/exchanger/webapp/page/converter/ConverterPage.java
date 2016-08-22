@@ -36,6 +36,10 @@ import com.googlecode.wicket.kendo.ui.panel.KendoFeedbackPanel;
 
 public class ConverterPage extends AbstractHomePage {
 
+	private final static String MESS_ERR_EN = "Sorry, at today's date there is no course. Contact	administrator.";
+	private final static String MESS_ERR_RU = "Извините, на сегодняшнюю дату отсуствует курс валюты. Обратитесь к администратору.";
+	private final static String CONV = "convertation";
+
 	private Transaction transaction;
 
 	private ExchangeRate exchangeRate;
@@ -51,7 +55,7 @@ public class ConverterPage extends AbstractHomePage {
 
 	@Inject
 	ExchangeRateService exchangeRateService;
-	
+
 	@Inject
 	BankUserAccountService bankUserAccountService;
 
@@ -102,14 +106,14 @@ public class ConverterPage extends AbstractHomePage {
 			@Override
 			public void onSubmit() {
 				super.onSubmit();
-				searchLocation();
+				errorMessageFromLocation();
 
 				if (exchangeRate.getCurrencyFrom().getName().equals(exchangeRate.getCurrencyTo().getName())) {
 					this.warn(getString("converter.error.different"));
 				} else if (searchOperation().getStatusBlock() == true) {
 					this.warn(getString("converter.error.block"));
 				} else if (searchExchangeRate() == null) {
-					this.info(searchLocation());
+					this.info(errorMessageFromLocation());
 				} else if (getBalanceCurrencyTo() < totalSum()) {
 					this.info(getString("converter.error.nomoney"));
 				} else if (getBalanceCurrencyFrom() > getUserBalance()) {
@@ -121,12 +125,11 @@ public class ConverterPage extends AbstractHomePage {
 		});
 		add(feedback);
 	}
-	
-	private Integer getUserBalance(){
-		BankAccountUserFilter filter=new BankAccountUserFilter();
+
+	private Integer getUserBalance() {
+		BankAccountUserFilter filter = new BankAccountUserFilter();
 		filter.setCurrency(exchangeRate.getCurrencyFrom().getName());
 		filter.setUserCredentials(AuthorizedSession.get().getLoggedUser());
-		System.out.println("bal "+bankUserAccountService.findBankUserAccount(filter).get(0).getBalance());
 		return bankUserAccountService.findBankUserAccount(filter).get(0).getBalance();
 	}
 
@@ -136,25 +139,32 @@ public class ConverterPage extends AbstractHomePage {
 		filter.setCurrencyName(exchangeRate.getCurrencyTo().getName());
 		return balanceService.find(filter).get(0).getSum();
 	}
-	
+
 	private Integer getBalanceCurrencyFrom() {
 		return transaction.getSumIn();
 	}
 
 	private Double totalSum() {
-		BalanceFilter filter1 = new BalanceFilter();
-		filter1.setFetchCredentials(true);
-		filter1.setCurrencyName(exchangeRate.getCurrencyFrom().getName());
-		return transaction.getSumIn() * searchExchangeRate().getConversion();
+		if (!searchOperation().getName().equals(CONV)) {
+			BalanceFilter filter1 = new BalanceFilter();
+			filter1.setFetchCredentials(true);
+			filter1.setCurrencyName(exchangeRate.getCurrencyFrom().getName());
+			return transaction.getSumIn() * searchExchangeRate().getConversion();
+		}else {
+			BalanceFilter filter = new BalanceFilter();
+			filter.setFetchCredentials(true);
+			filter.setCurrencyName(exchangeRate.getCurrencyTo().getName());
+			return (double)balanceService.find(filter).get(0).getSum();
+		}
 
 	}
 
-	private String searchLocation() {
+	private String errorMessageFromLocation() {
 		String lang = AuthenticatedWebSession.get().getLocale().getLanguage();
 		if (lang.equals("ru"))
-			return "Извините, на сегодняшнюю дату отсуствует курс валюты. Обратитесь к администратору.";
+			return MESS_ERR_RU;
 		else
-			return "Sorry, at today's date there is no course. Contact	administrator.";
+			return MESS_ERR_EN;
 	}
 
 	private Operation searchOperation() {
@@ -173,23 +183,28 @@ public class ConverterPage extends AbstractHomePage {
 		Date date = new Date();
 		date.setHours(date.getHours() + 1);
 		try {
-//			if (!exchangeRate.getCurrencyFrom().getName().equals(CurrencyName.BRB)
-//					&& !exchangeRate.getCurrencyTo().getName().equals("BRB")) {
-//				setFilterExRate(exchangeRate.getCurrencyFrom().getName(), CurrencyName.BRB);
-//				return exchangeRateService.find(exchangeRateFilter).get(0);
-//			}
-//
-//			else if (!exchangeRate.getCurrencyFrom().getName().equals(CurrencyName.BRB)
-//					&& !exchangeRate.getCurrencyTo().getName().equals("BRB")) {
-//				setFilterExRate(CurrencyName.BRB, exchangeRate.getCurrencyTo().getName());
-//				return exchangeRateService.find(exchangeRateFilter).get(0);
-//			}
-//
-//			else {
-//				setFilterExRate(exchangeRate.getCurrencyFrom().getName(), exchangeRate.getCurrencyTo().getName());
-//				return exchangeRateService.find(exchangeRateFilter).get(0);
-//			}
-//			
+			// if
+			// (!exchangeRate.getCurrencyFrom().getName().equals(CurrencyName.BRB)
+			// && !exchangeRate.getCurrencyTo().getName().equals("BRB")) {
+			// setFilterExRate(exchangeRate.getCurrencyFrom().getName(),
+			// CurrencyName.BRB);
+			// return exchangeRateService.find(exchangeRateFilter).get(0);
+			// }
+			//
+			// else if
+			// (!exchangeRate.getCurrencyFrom().getName().equals(CurrencyName.BRB)
+			// && !exchangeRate.getCurrencyTo().getName().equals("BRB")) {
+			// setFilterExRate(CurrencyName.BRB,
+			// exchangeRate.getCurrencyTo().getName());
+			// return exchangeRateService.find(exchangeRateFilter).get(0);
+			// }
+			//
+			// else {
+			// setFilterExRate(exchangeRate.getCurrencyFrom().getName(),
+			// exchangeRate.getCurrencyTo().getName());
+			// return exchangeRateService.find(exchangeRateFilter).get(0);
+			// }
+			//
 			if (!exchangeRate.getCurrencyFrom().getName().equals(CurrencyName.BRB)
 					&& exchangeRate.getCurrencyTo().getName().equals(CurrencyName.BRB)) {
 				setFilterExRate(exchangeRate.getCurrencyFrom().getName(), CurrencyName.BRB);

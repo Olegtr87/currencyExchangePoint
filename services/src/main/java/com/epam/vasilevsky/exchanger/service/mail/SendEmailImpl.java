@@ -7,6 +7,7 @@ import javax.mail.MessagingException;
 import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Transport;
+import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
@@ -26,7 +27,7 @@ public class SendEmailImpl implements EmailService{
 		this.password = password;
 	}
 	
-	public void send(String subject, String text, String toEmail) {
+	public void send(String subject, String text, String toEmail) throws AddressException, MessagingException {
 		Properties props = new Properties();// properties for gmail
 		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.starttls.enable", "true");
@@ -40,7 +41,7 @@ public class SendEmailImpl implements EmailService{
 			}
 		});
 
-		try {
+		//try {
 			Message message = new MimeMessage(session); // Create a default MimeMessage object.
 			message.setFrom(new InternetAddress(email)); // Set From: header field of the header.
 			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail)); // Set To: header field of the header.
@@ -49,8 +50,8 @@ public class SendEmailImpl implements EmailService{
 
 			Transport.send(message); // Send message
 			LOGGER.info("Sent message successfully!");
-		} catch (MessagingException e) {
-			LOGGER.error("Message not sent!!!");
-		}
+//		} catch (MessagingException e) {
+//			LOGGER.error("Message not sent!!!");
+//		}
 	}
 }

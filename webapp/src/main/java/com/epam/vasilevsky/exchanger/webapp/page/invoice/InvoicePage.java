@@ -13,6 +13,7 @@ import com.epam.vasilevsky.exchanger.dataaccess.filters.BankAccountUserFilter;
 import com.epam.vasilevsky.exchanger.dataaccess.filters.ExchangeRateFilter;
 import com.epam.vasilevsky.exchanger.datamodel.Balance;
 import com.epam.vasilevsky.exchanger.datamodel.BankAccountUser;
+import com.epam.vasilevsky.exchanger.datamodel.Currency;
 import com.epam.vasilevsky.exchanger.datamodel.CurrencyName;
 import com.epam.vasilevsky.exchanger.datamodel.ExchangeRate;
 import com.epam.vasilevsky.exchanger.datamodel.Operation;
@@ -72,6 +73,10 @@ public class InvoicePage extends AbstractHomePage {
 		setTransaction();
 		transactionService.add(transaction, AuthorizedSession.get().getLoggedUser(), operationService.get((long) 2),
 				searchExchangeRate().get(0));
+		
+		addBalanceBank();
+		lowBalanceUser();
+		
 		Integer totalSum = transaction.getTotalSum();
 		Integer sumInSum = transaction.getSumIn();
 		transaction = new Transaction();
@@ -84,6 +89,10 @@ public class InvoicePage extends AbstractHomePage {
 		transaction.setUser(AuthorizedSession.get().getLoggedUser());
 		transactionService.add(transaction, AuthorizedSession.get().getLoggedUser(), operationService.get((long) 1),
 				list.get(1));
+		
+		addBalanceUser();
+		lowBalanceBank();
+		
 
 		add(new Label("message", getString("check.label.successful")+":"));
 		add(new Label("number_check",
@@ -124,34 +133,63 @@ public class InvoicePage extends AbstractHomePage {
 				+ transaction.getExchangeRate().getCurrencyFrom().getName()));
 		add(new Label("total", getString("transacions.label.total") + ": " + totalSum()+" "+ transaction.getExchangeRate().getCurrencyTo().getName()));
 		
+		addBalanceBank();
 		lowBalanceBank();
+		addBalanceUser();
 		lowBalanceUser();
 		
 		InvoicePdf checkPdf = new InvoicePdf(transaction, userService);
 		add(new DownloadLink("download", checkPdf.createPdf(), "download.pdf"));
 	}
-
-	private void lowBalanceBank() {
+	
+	private BalanceFilter setBalanceFilter(Currency currency){
 		BalanceFilter filter = new BalanceFilter();
 		filter.setFetchCredentials(true);
-		filter.setCurrencyName(exchangeRate.getCurrencyTo().getName());
-		balance = balanceService.find(filter).get(0);
+		filter.setCurrencyName(currency.getName());
+		return filter;
+	}
+
+	private void lowBalanceBank() {
+		balance = balanceService.find(setBalanceFilter(exchangeRate.getCurrencyTo())).get(0);
 		balance.setCurrency(exchangeRate.getCurrencyTo());
-		balance.setSum(balanceService.find(filter).get(0).getSum() - totalSum());
+		balance.setSum(balanceService.find(setBalanceFilter(exchangeRate.getCurrencyTo())).get(0).getSum() - totalSum());
+		
 		currencyService.updateBalance(balance);
+	}
+	
+	private void addBalanceBank() {
+		balance = balanceService.find(setBalanceFilter(exchangeRate.getCurrencyFrom())).get(0);
+		balance.setCurrency(exchangeRate.getCurrencyFrom());
+		balance.setSum(balanceService.find(setBalanceFilter(exchangeRate.getCurrencyFrom())).get(0).getSum() + transaction.getSumIn());
+		
+		currencyService.updateBalance(balance);
+	}
+	
+	private BankAccountUserFilter setUserFilter(Currency currency){
+		BankAccountUserFilter filter=new BankAccountUserFilter();
+		filter.setCurrency(currency.getName());
+		filter.setUserCredentials(AuthorizedSession.get().getLoggedUser());
+		return filter;
 	}
 	
 	private void lowBalanceUser() {
 		BankAccountUser userBalance=new BankAccountUser();
-		BankAccountUserFilter filter=new BankAccountUserFilter();
-		filter.setCurrency(exchangeRate.getCurrencyFrom().getName());
-		filter.setUserCredentials(AuthorizedSession.get().getLoggedUser());
-		userBalance=bankUserAccountService.findBankUserAccount(filter).get(0);
+		userBalance=bankUserAccountService.findBankUserAccount(setUserFilter(exchangeRate.getCurrencyFrom())).get(0);
 		userBalance.setBalance(userBalance.getBalance()-transaction.getSumIn());
 		userBalance.setCurrency(exchangeRate.getCurrencyFrom().getName());
 		userBalance.setUser(AuthorizedSession.get().getLoggedUser());
-		bankUserAccountService.update(userBalance);
 		
+		bankUserAccountService.update(userBalance);
+	}
+	
+	private void addBalanceUser() {
+		BankAccountUser userBalance=new BankAccountUser();
+		userBalance=bankUserAccountService.findBankUserAccount(setUserFilter(exchangeRate.getCurrencyTo())).get(0);
+		userBalance.setBalance(userBalance.getBalance()+totalSum());
+		userBalance.setCurrency(exchangeRate.getCurrencyTo().getName());
+		userBalance.setUser(AuthorizedSession.get().getLoggedUser());
+		
+		bankUserAccountService.update(userBalance);
 	}
 
 	private Integer totalSum() {
