@@ -15,7 +15,7 @@ public class MailTest {
 	
 	@Test
 	public void test(){
-		SendEmailImpl sendEmail=new SendEmailImpl("olegtr87@gmail.com","Bulochkin2003");
+		SendEmailImpl sendEmail=new SendEmailImpl("***@gmail.com","****");
 		try {
 			sendEmail.send("Tema", "text", "olegtr87@gmail.com");
 		} catch (AddressException e) {
